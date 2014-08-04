@@ -356,7 +356,14 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    bower: {
+       target: {
+         rjsConfig: 'app/config.js'
+       }
     }
+
   });
 
 
@@ -410,4 +417,11 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+
+  grunt.loadNpmTasks('grunt-bower-requirejs');
+
+  grunt.registerTask('default', ['bower']);
+
+
 };
