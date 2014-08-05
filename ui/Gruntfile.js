@@ -1,4 +1,4 @@
-// Generated on 2014-08-04 using generator-angular 0.9.5
+// Generated on 2014-08-05 using generator-angular-require 0.2.7
 'use strict';
 
 // # Globbing
@@ -77,6 +77,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
+              connect.static('test'),
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
@@ -171,11 +172,12 @@ module.exports = function (grunt) {
       }
     },
 
+
+
     // Renames files for browser caching purposes
     filerev: {
       dist: {
         src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= yeoman.dist %>/styles/fonts/*'
@@ -189,16 +191,7 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',
       options: {
-        dest: '<%= yeoman.dist %>',
-        flow: {
-          html: {
-            steps: {
-              js: ['concat', 'uglifyjs'],
-              css: ['cssmin']
-            },
-            post: {}
-          }
-        }
+        dest: '<%= yeoman.dist %>'
       }
     },
 
@@ -219,7 +212,8 @@ module.exports = function (grunt) {
     //   dist: {
     //     files: {
     //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
+    //         '.tmp/styles/{,*/}*.css',
+    //         '<%= yeoman.app %>/styles/{,*/}*.css'
     //       ]
     //     }
     //   }
@@ -237,6 +231,7 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    // The following *-min tasks produce minified files in the dist folder
     imagemin: {
       dist: {
         files: [{
@@ -247,7 +242,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-
     svgmin: {
       dist: {
         files: [{
@@ -258,7 +252,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-
     htmlmin: {
       dist: {
         options: {
@@ -277,16 +270,15 @@ module.exports = function (grunt) {
       }
     },
 
-    // ngmin tries to make the code safe for minification automatically by
-    // using the Angular long form for dependency injection. It doesn't work on
-    // things like resolve or inject so those have to be done manually.
-    ngmin: {
+    // ng-annotate tries to make the code safe for minification automatically
+    // by using the Angular long form for dependency injection.
+    ngAnnotate: {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
+          // cwd: '<%= yeoman.app %>/scripts',
+          src: '<%= yeoman.app %>/scripts/**/*.js',
+          dest: '.tmp'
         }]
       }
     },
@@ -310,8 +302,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'components/**/*',
             'views/{,*/}*.html',
+            'components/**/*',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -353,17 +345,53 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'test/karma.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true
       }
     },
 
+    // Settings for grunt-bower-requirejs
     bower: {
-       target: {
-         rjsConfig: 'app/config.js'
-       }
-    }
+      app: {
+        rjsConfig: '<%= yeoman.app %>/scripts/main.js',
+        options: {
+          exclude: ['requirejs', 'json3', 'es5-shim']
+        }
+      }
+    },
 
+    replace: {
+      test: {
+        src: '<%= yeoman.app %>/../test/test-main.js',
+        overwrite: true,
+        replacements: [{
+          from: /paths: {[^}]+}/,
+          to: function() {
+            return require('fs').readFileSync(grunt.template.process('<%= yeoman.app %>') + '/scripts/main.js').toString().match(/paths: {[^}]+}/);
+          }
+        }]
+      }
+    },
+
+    // r.js compile config
+    requirejs: {
+      dist: {
+        options: {
+          dir: '<%= yeoman.dist %>/scripts/',
+          modules: [{
+            name: 'main'
+          }],
+          preserveLicenseComments: false, // remove all comments
+          removeCombined: true,
+          baseUrl: '<%= yeoman.app %>/scripts',
+          mainConfigFile: '.tmp/<%= yeoman.app %>/scripts/main.js',
+          optimize: 'uglify2',
+          uglify2: {
+            mangle: false
+          }
+        }
+      }
+    }
   });
 
 
@@ -389,6 +417,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'bower:app',
+    'replace:test',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
@@ -398,17 +428,21 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'bower:app',
+    'replace:test',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'concat',
-    'ngmin',
+    'ngAnnotate',
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+    // Below task commented out as r.js (via grunt-contrib-requirejs) will take care of this
+    // 'uglify',
     'filerev',
     'usemin',
+    'requirejs:dist',
     'htmlmin'
   ]);
 
@@ -417,11 +451,4 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-
-
-  grunt.loadNpmTasks('grunt-bower-requirejs');
-
-  grunt.registerTask('default', ['bower']);
-
-
 };
