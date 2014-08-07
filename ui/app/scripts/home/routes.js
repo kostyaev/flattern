@@ -7,11 +7,11 @@ define(['angular', './controllers'], function(angular, controllers) {
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('main', {
+                .state('sections', {
                     url: '/',
-                    templateUrl: 'views/main.html',
-                    controller:controllers.MainCtrl
-                })
+                    parent: 'template',
+                    template: '<h1> Some text </h1>'
+                });
         }]);
     return mod;
 });

@@ -1,10 +1,11 @@
-define(['angular', 'home', 'about']/*deps*/, function (angular)/*invoke*/ {
+define(['angular', 'home', 'about', 'templates']/*deps*/, function (angular)/*invoke*/ {
   'use strict';
 
   return angular
     .module('app',
       ['flattern.home',
-       'flattern.about'
+       'flattern.about',
+       'flattern.templates'
   ]);
 //    .config(function ($routeProvider) {
 //      $routeProvider
