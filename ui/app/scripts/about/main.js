@@ -5,7 +5,7 @@
 define(['angular', './routes', './controllers'], function(angular, routes, controllers) {
   'use strict';
 
-  var mod = angular.module('flattern.about', ['ngRoute', 'about.routes']);
+  var mod = angular.module('flattern.about', ['ui.router', 'about.routes']);
   mod.controller("AboutCtrl", controllers.AboutCtrl);
   return mod;
 });
