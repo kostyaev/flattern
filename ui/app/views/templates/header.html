@@ -1,1 +1,186 @@
-<h1>this is a header</h1>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@routes.MainPage.searchPage()"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="btn-toolbar pull-right">
+                <div class="btn-group">
+                    <a href="@routes.House.create()" target="_self" class="btn btn-success navbar-btn btn-sm"><span class="glyphicon glyphicon-home"></span>
+                        Сдать жилье</a>
+                </div>
+            </div>
+
+            <div class="navbar-buttons navbar-header pull-right flattern-menu" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="light-blue left">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                            <span class="badge badge-info">8</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-exclamation-triangle"></i>
+                                8 Notifications
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                New Comments
+                                            </span>
+                                        <span class="pull-right badge badge-info">+12</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    Bob just signed up as an editor ...
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                New Orders
+                                            </span>
+                                        <span class="pull-right badge badge-success">+8</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                Followers
+                                            </span>
+                                        <span class="pull-right badge badge-info">+11</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="#">
+                                    Уведомления
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                            <span class="badge badge-info">5</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-envelope-o"></i>
+                                5 Messages
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                New Comments
+                                            </span>
+                                        <span class="pull-right badge badge-info">+12</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    Bob just signed up as an editor ...
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                New Orders
+                                            </span>
+                                        <span class="pull-right badge badge-success">+8</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <div class="clearfix">
+                                            <span class="pull-left">
+                                                Followers
+                                            </span>
+                                        <span class="pull-right badge badge-info">+11</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="#">
+                                    Уведомления
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="light-blue right">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="../images/users/thumbnails/" alt="Jason's Photo">
+                                <span class="user-info">
+                                    <small>Добро пожаловать,</small>
+                                    @user.firstName
+                                </span>
+
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="@routes.User.edit">
+                                    <i class="ace-icon fa fa-cog"></i>
+                                    Настройки
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="@routes.User.showAccount">
+                                    <i class="ace-icon fa fa-user"></i>
+                                   Профиль
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="@securesocial.core.providers.utils.RoutesHelper.logout()">
+                                    <i class="ace-icon fa fa-power-off"></i>
+                                    Выйти
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

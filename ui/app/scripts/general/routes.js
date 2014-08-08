@@ -3,15 +3,15 @@
  */
 define(['angular', './controllers'], function(angular, controllers) {
     'use strict';
-    var mod = angular.module('templates.routes', []);
+    var mod = angular.module('general.routes', []);
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('template', {
+                .state('registered', {
                     abstract: true,
                     views: {
                         '': {
-                            templateUrl: 'views/main.html'
+                            template: '<div ui-view></div>'
                         },
                         'header': {
                             templateUrl: 'views/templates/header.html'
