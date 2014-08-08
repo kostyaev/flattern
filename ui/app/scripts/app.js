@@ -1,10 +1,11 @@
-define(['angular', 'home', 'about', 'general']/*deps*/, function (angular)/*invoke*/ {
+define(['angular', 'home', 'about', 'general', 'translations']/*deps*/, function (angular)/*invoke*/ {
   'use strict';
 
   return angular
     .module('app',
       ['flattern.home',
        'flattern.about',
-       'flattern.general'
+       'flattern.general',
+       'flattern.translations'
   ]);
 });

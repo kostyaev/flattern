@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-  packages: ['about', 'home', 'general'],
+  packages: ['about', 'home', 'general', 'translations'],
   paths: {
     'angular': '../components/angular/angular',
     'angular-route': '../components/angular-route/angular-route',
@@ -10,6 +10,7 @@ require.config({
     'angular-animate': '../components/angular-animate/angular-animate',
     'angular-touch': '../components/angular-touch/angular-touch',
     'angular-mocks': '../components/angular-mocks/angular-mocks',
+    'angular-translate': '../components/angular-translate/angular-translate',
     'jquery': '../components/jquery/dist/jquery',
     'bootstrap': '../components/bootstrap/dist/js/bootstrap',
     //template dependencies
@@ -41,6 +42,7 @@ require.config({
       deps:['angular'],
       'exports':'angular.mock'
     },
+    'angular-translate' : ['angular'],
     'uiRouter': ['angular'],
     'bootstrap': ['jquery'],
     'bootstrap-datepicker': ['jquery', 'bootstrap'],
@@ -67,6 +69,7 @@ require([
   'angular-resource',
   'angular-animate',
   'angular-touch',
+  'angular-translate',
   'uiRouter',
   'jquery',
   'bootstrap'],
