@@ -14,10 +14,10 @@ define(['angular', './controllers'], function(angular, controllers) {
                             template: '<div ui-view></div>'
                         },
                         'header': {
-                            templateUrl: 'views/templates/header.html'
+                            templateUrl: 'views/general/header.html'
                         },
                         'footer': {
-                            templateUrl: 'views/templates/footer.html'
+                            templateUrl: 'views/general/footer.html'
                         }
                     }
 

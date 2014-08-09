@@ -16,74 +16,11 @@
         </div>
 
         <div class="row">
-            @flats.take(3).map { flat =>
-            <div class="col-md-4 col-sm-6">
-                <div class="premium thumbnail">
-                    <a href="@routes.House.get(flat.id)">
-                        <img alt="300x200" src="@routes.Assets.at("images/houses/")/@flat.img">
-                    </a>
-                    <span class="label label-success">@flat.cost</span>
-                    <div class="caption">
-                        @if(flat.isHouse) {
-                        <span class="glyphicon glyphicon-home index-icon-blue"></span>
-                        }
-                        <ul class="list-unstyled">
-                            <li>
-                                <span class="li-bold">Станция метро:</span> @flat.station
-                            </li>
-                            <li>
-                                <span class="li-bold">Адрес:</span> @flat.address
-                            </li>
-                        </ul>
 
-                        <ul class="list-inline index-props">
-                            <li><span class="glyphicon glyphicon-stats"></span> @flat.views</li>
-                            <li>·</li>
-                            <li> <span class="glyphicon glyphicon-map-marker"></span> @flat.city</li>
-                            <li>·</li>
-                            <li><span class="glyphicon glyphicon-time"></span> @flat.time</li>
-                            <li>·</li>
-                            <li><span class="glyphicon glyphicon-user"></span> @flat.currentCount / @flat.maxCount</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            }
-
-            @flats.drop(3).map { flat =>
-            <div class="col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <a href="@routes.House.get(flat.id)">
-                        <img alt="300x200" src="@routes.Assets.at("images/houses/")/@flat.img">
-                    </a>
-                    <span class="label label-primary">@flat.labelPrimary</span>
-                    <div class="caption">
-                        <ul class="list-unstyled">
-                            <li>
-                                <span class="li-bold">Станция метро:</span> @flat.station
-                            </li>
-                            <li>
-                                <span class="li-bold">Адрес:</span> @flat.address
-                            </li>
-                        </ul>
-
-                        <ul class="list-inline index-props">
-                            <li><span class="glyphicon glyphicon-stats"></span> @flat.views</li>
-                            <li>·</li>
-                            <li> <span class="glyphicon glyphicon-map-marker"></span> @flat.city</li>
-                            <li>·</li>
-                            <li><span class="glyphicon glyphicon-time"></span> @flat.time</li>
-                            <li>·</li>
-                            <li><span class="glyphicon glyphicon-user"></span> @flat.currentCount / @flat.maxCount</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            }
-            <hr>
-            <div class="text-center">
-                <button class="btn btn-info">Load more</button>
-            </div>
+        </div>
+        <hr>
+        <div class="text-center">
+            <button class="btn btn-info">Load more</button>
         </div>
     </div>
 </div>
