@@ -1,10 +1,10 @@
 /**
  * Configure routes of user module.
  */
-define(['angular', './controllers'], function(angular, controllers) {
+define(['angular', './controllers', 'common'], function(angular, controllers) {
     'use strict';
 
-    var mod = angular.module('about.routes', []);
+    var mod = angular.module('about.routes', ['about.services','flattern.common']);
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
