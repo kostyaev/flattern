@@ -4,7 +4,7 @@
 define(['angular', './controllers', 'common'], function(angular, controllers) {
     'use strict';
 
-    var mod = angular.module('about.routes', ['about.services','flattern.common']);
+    var mod = angular.module('about.routes', ['flattern.common']);
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider

@@ -22,7 +22,7 @@ define(['angular'], function(angular) {
         });
 
         //$translateProvider.preferredLanguage('en');
-        $translateProvider.determinePreferredLanguage();
+        //$translateProvider.determinePreferredLanguage();
     }]);
     return mod;
 });

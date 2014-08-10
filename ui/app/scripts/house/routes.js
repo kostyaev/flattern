@@ -7,15 +7,14 @@ define(['angular', './controllers'], function(angular, controllers) {
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('registered.home', {
-                    abstract: 'true',
-                    url: '',
+                .state('registered.house', {
+                    url: '/house',
                     views: {
-                        '': {
-                            templateUrl: 'views/home/home.html'
+                        'left@registered.house': {
+                            templateUrl: 'views/house/left.html'
                         },
-                        'navigation@registered.home': {
-                            templateUrl: 'views/home/navigation.html'
+                        'content@registered.house': {
+                            templateUrl: 'views/house/content.html'
                         }
                     }
                 })
