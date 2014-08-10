@@ -1,0 +1,65 @@
+    <div id="landing">
+        <div class="header-image">
+            <div class="container">
+                <div class="auth-unit">
+                    <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
+                        <div ng-show="form.errors.message" class="alert alert-danger">
+                            {{ form.errors.message }}
+                        </div>
+                        <div ng-show="form.errors.message" class="alert alert-info">
+                            {{ form.errors.message }}
+                        </div>
+                    <div class="auth-unit-top">
+                        <h3>Логин</h3>
+                    </div>
+                    <div class="auth-unit-inner">
+                        <form ng-controller="LoginController" ng-submit="login()" class="form-container" ng-class='{"has-error": form.errors.message != null}'>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" name="email"
+                                       model="form.email"
+                                       type="text"
+                                       errors="form.errors['email']"
+                                       placeholder="Email Address"
+                                       required="true"
+                                       class="form-control"
+                                       id="email"
+                                       placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password <a class="pull-right" href="#/reset">faggot?</a>
+                                </label>
+                                <input type="password" class="form-control"
+                                       id="password" placeholder="●●●●●●●●●●"
+                                       name="password"
+                                       model="form.password"
+                                       type="password"
+                                       errors="form.errors['password']"
+                                       placeholder="Password"
+                                       required="true">
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">Remember Me
+                                </label>
+                            </div>
+                            <button id="message_trigger_err" class="btn btn-primary btn-block" type="submit"><strong>Login</strong> to your account</button>
+                            <!--<hr>
+                            <div class="btn-group btn-group-justified">
+                                <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Twitter" role="button"><i class="fa fa-twitter"></i></a>
+                                <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Facebook" role="button"><i class="fa fa-facebook"></i></a>
+                                <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Google+" role="button"><i class="fa fa-google-plus"></i></a>
+                                <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Linkedin" role="button"><i class="fa fa-linkedin"></i></a>
+                            </div>-->
+                        </form>
+                    </div>
+                    <br>
+                    <a href="#/signup" class="btn btn-success btn-block btn-lg">Sign up for a new account</a>
+                </div>
+            </div>
+        </div>
+            <!-- /header-image -->
+    </div>
+
+}

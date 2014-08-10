@@ -2,6 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+GET         /test                          controllers.Test.test
+
+# JavaScript routes object
+GET         /jsRoutes.js                   controllers.Application.jsRoutes()
+
+
 GET         /                              com.tuplejump.playYeoman.Yeoman.index
 
 ->          /                              yeoman.Routes
