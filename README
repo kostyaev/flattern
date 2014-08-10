@@ -1,4 +1,8 @@
-This is your new Play application
+Flattern
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+### Manual
+1. RequireJS: http://requirejs.org/docs/api.html
+2. UI-Router: https://github.com/angular-ui/ui-router/wiki
+
+Template: http://themestrap.co.nf/
