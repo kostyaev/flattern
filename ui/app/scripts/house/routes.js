@@ -3,47 +3,44 @@
  */
 define(['angular', './controllers'], function(angular, controllers) {
     'use strict';
-    var mod = angular.module('home.routes', []);
+    var mod = angular.module('house.routes', []);
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('registered.house', {
+                .state('house', {
+                    abstract: true,
+                    parent: 'settings',
                     url: '/house',
                     views: {
-                        'left@registered.house': {
+                        'left': {
                             templateUrl: 'views/house/left.html'
                         },
-                        'content@registered.house': {
-                            templateUrl: 'views/house/content.html'
-                        }
-                    }
-                })
-
-                .state('registered.home.houses', {
-                    url: '/houses',
-                    views: {
-                        'left': {
-                            templateUrl: 'views/home/houses/left.html',
+                        'content': {
+                            templateUrl: 'views/house/content.html',
                             controller: controllers.LeftCtrl
 
-                        },
-                        'content': {
-                            templateUrl: 'views/home/houses/content.html'
                         }
                     }
                 })
-                .state('registered.home.users', {
+                .state('house.general', {
                     url: '',
-                    views: {
-                        'left': {
-                            templateUrl: 'views/home/users/left.html',
-                            controller: controllers.LeftCtrl
-                        },
-                        'content': {
-                            templateUrl: 'views/home/users/content.html'
-                        }
-                    }
+                    templateUrl: 'views/house/sections/general.html'
+                })
+                .state('house.address', {
+                    templateUrl: 'views/house/sections/address.html'
+                })
+                .state('house.desc', {
+                    templateUrl: 'views/house/sections/description.html'
+                })
+                .state('house.amenities', {
+                    templateUrl: 'views/house/sections/amenities.html'
+                })
+                .state('house.photos', {
+                    templateUrl: 'views/house/sections/photos.html',
+                    controller: controllers.PhotosCtrl
                 });
+
+
 
         }]);
     return mod;
