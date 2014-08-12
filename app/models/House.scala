@@ -8,9 +8,9 @@ import utils.DgDriver.simple._
 
 case class House( id          : Option[Long]      = None,
                   userId      : Long,
-                  houseType   : String,
-                  rentType    : String,
-                  addressId   : Long,
+                  houseType   : Option[String]    = None,
+                  rentType    : Option[String]    = None,
+                  addressId   : Option[Long]      = None,
                   allSlots    : Option[Int]       = None,
                   freeSlots   : Option[Int]       = None,
                   busySlots   : Option[Int]       = None,
@@ -19,7 +19,7 @@ case class House( id          : Option[Long]      = None,
                   price       : Option[Long]      = None,
                   title       : Option[String]    = None,
                   description : Option[String]    = None,
-                  conditions  : Map[String, String],
+                  conditions  : Option[Map[String, String]],
                   photo       : Option[Long]      = None,
                   views       : Int               = 0,
                   date        : Option[LocalDateTime]  = Option(LocalDateTime.now()),
@@ -29,9 +29,9 @@ case class House( id          : Option[Long]      = None,
 class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable[Long] with WithDefaultSession {
   def id          = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def userId      = column[Long]("account_id")
-  def houseType   = column[String]("house_type")
-  def rentType    = column[String]("rent_type")
-  def addressId   = column[Long]("address_id")
+  def houseType   = column[Option[String]]("house_type")
+  def rentType    = column[Option[String]]("rent_type")
+  def addressId   = column[Option[Long]]("address_id")
   def allSlots    = column[Option[Int]]("all_slots")
   def freeSlots   = column[Option[Int]]("free_slots")
   def busySlots   = column[Option[Int]]("busy_slots")
@@ -40,7 +40,7 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
   def title       = column[Option[String]]("title")
   def description = column[Option[String]]("description")
   def price       = column[Option[Long]]("price")
-  def conditions  = column[Map[String, String]]("conditions")
+  def conditions  = column[Option[Map[String, String]]]("conditions")
   def photo       = column[Option[Long]]("photo")
   def views       = column[Int]("views")
   def date        = column[Option[LocalDateTime]]("date")

@@ -5,9 +5,9 @@ import models.{HouseInfo, House}
 
 case class HouseProvider(
                           id          : Option[Long],
-                          houseType   : String,
-                          rentType    : String,
-                          address     : AddressProvider,
+                          houseType   : Option[String] = None,
+                          rentType    : Option[String] = None,
+                          address     : Option[AddressProvider] = None,
                           allSlots    : Option[Int]    = None,
                           freeSlots   : Option[Int]    = None,
                           busySlots   : Option[Int]    = None,
@@ -20,7 +20,7 @@ case class HouseProvider(
                          ) {
 
 
-  def getModel(userId: Long, addressId: Long): House = {
+  def getModel(userId: Long, addressId: Option[Long]): House = {
     val conditionsMap = HouseInfo.conditions.map(e =>
       if (conditions contains e._1)
         e._1 -> "true"
@@ -40,7 +40,7 @@ case class HouseProvider(
       price = price,
       title = title,
       description = description,
-      conditions = conditionsMap
+      conditions = Option(conditionsMap)
     )
 
   }
@@ -48,12 +48,16 @@ case class HouseProvider(
 object HouseProvider {
 
   def apply(house: House): HouseProvider = {
-    val conditions = for((key,value) <- house.conditions if value.equals("true")) yield key
+    val conditions = for((key,value) <- house.conditions.get if value.equals("true")) yield key
+    val addressProvider = HouseBean.getAddress(house.addressId) match {
+      case Some(address) => Option(address.getProvider)
+      case None => None
+    }
     HouseProvider(
       house.id,
       house.houseType,
       house.rentType,
-      HouseBean.getAddress(house.addressId).get.getProvider,
+      addressProvider,
       house.allSlots,
       house.freeSlots,
       house.busySlots,
