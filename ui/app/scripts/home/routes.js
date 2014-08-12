@@ -19,11 +19,14 @@ define(['angular', './controllers'], function(angular, controllers) {
                         }
                     }
                 })
+
                 .state('registered.home.houses', {
-                    url: '',
+                    url: '/houses',
                     views: {
                         'left': {
-                            templateUrl: 'views/home/houses/left.html'
+                            templateUrl: 'views/home/houses/left.html',
+                            controller: controllers.LeftCtrl
+
                         },
                         'content': {
                             templateUrl: 'views/home/houses/content.html'
@@ -31,10 +34,11 @@ define(['angular', './controllers'], function(angular, controllers) {
                     }
                 })
                 .state('registered.home.users', {
-                    url: '/users',
+                    url: '',
                     views: {
                         'left': {
-                            templateUrl: 'views/home/users/left.html'
+                            templateUrl: 'views/home/users/left.html',
+                            controller: controllers.LeftCtrl
                         },
                         'content': {
                             templateUrl: 'views/home/users/content.html'

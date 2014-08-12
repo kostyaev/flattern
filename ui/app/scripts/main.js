@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-    packages: ['common', 'about', 'home', 'general', 'translations', 'auth'],
+    packages: ['common', 'about', 'home', 'general', 'translations', 'auth', 'house'],
     paths: {
         'angular': '../components/angular/angular',
         'angular-route': '../components/angular-route/angular-route',
@@ -58,7 +58,13 @@ require.config({
             deps: [],
             // it's not a RequireJS module, so we have to tell it what var is returned
             exports: 'jsRoutes'
-        }
+        },
+        'sco.ajax' : ['jquery'],
+        'sco.collapse' : ['jquery'],
+        'sco.confirm' : ['jquery'],
+        'sco.countdown' : ['jquery'],
+        'sco.message' : ['jquery'],
+        'sco.modal' : ['jquery']
     },
     priority: [
         'angular'
@@ -80,7 +86,21 @@ require([
         'uiRouter',
         'jquery',
         'bootstrap',
-        'jsRoutes'
+        'jsRoutes',
+        'sco.ajax',
+        'sco.collapse',
+        'sco.confirm',
+        'sco.countdown',
+        'sco.message',
+        'sco.modal',
+        'select2',
+        'dropzone',
+        'bootbox',
+        'bootstrap-datepicker',
+        'bootstrap-touchspin',
+        'picker',
+        'selecter',
+        'scroller'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

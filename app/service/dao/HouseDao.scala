@@ -27,12 +27,12 @@ object HouseDao extends SlickDao[House, Long] {
     query.filter(row => {
       val nonOptions = Seq(
         equal(row.id, filter.id),
-        equal(row.userId, filter.userId),
-        equal(row.addressId, filter.addressId),
-        equal(row.houseType, filter.houseType),
-        equal(row.rentType, filter.rentType)
+        equal(row.userId, filter.userId)
       ).flatten
       val options = Seq(
+        equal(row.addressId, filter.addressId),
+        equal(row.houseType, filter.houseType),
+        equal(row.rentType, filter.rentType),
         equal(row.numOfRooms, filter.numOfRooms),
         equal(row.price, filter.price),
         equal(row.allSlots, filter.allSlots),

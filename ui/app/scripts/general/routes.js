@@ -21,6 +21,12 @@ define(['angular', './controllers'], function(angular, controllers) {
                         }
                     }
 
+                })
+                .state('settings', {
+                    parent: 'registered',
+                    abstract: true,
+                    templateUrl: 'views/general/settings.html'
+
                 });
 
         }]);

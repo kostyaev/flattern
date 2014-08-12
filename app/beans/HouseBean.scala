@@ -5,7 +5,7 @@ import java.io.File
 import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
 import dto.HouseThumbnail
 import global.Paths
-import models.{House, HousePhoto, Page, Account}
+import models._
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.{AnyContent, MultipartFormData}
 import provider.{AddressProvider, HouseProvider}
@@ -35,8 +35,10 @@ object HouseBean extends WithDefaultSession {
   }
 
   def saveHouse(houseProvider: HouseProvider)(implicit request: SecuredRequest[AnyContent]) = withTransaction { implicit session =>
-    val address = houseProvider.address.getModel
-    val addressId = addressDao.save(address).id.get
+    val addressId = houseProvider.address match {
+      case Some(addressProvider) => addressDao.save(addressProvider.getModel).id
+      case _ => None
+    }
     val userId = AccountDao.findByIdentityId(request.user.identityId).get.uid.get
     val house = houseProvider.getModel(userId, addressId)
     houseDAO.save(house)
@@ -53,24 +55,7 @@ object HouseBean extends WithDefaultSession {
   }
 
   def getHouseProvider(house: House): HouseProvider = withTransaction { implicit session =>
-    val addressProvider = addressDao.findOptionById(house.addressId).get.getProvider
-    val conditions = for((key,value) <- house.conditions if value.equals("true")) yield key
-
-    HouseProvider(
-      id = house.id,
-      houseType = house.houseType,
-      rentType = house.rentType,
-      address = addressProvider,
-      allSlots = house.allSlots,
-      freeSlots = house.freeSlots,
-      busySlots = house.busySlots,
-      numOfRooms = house.numOfRooms,
-      area = house.area,
-      price = house.price,
-      title = house.title,
-      description = house.description,
-      conditions = conditions.toList
-    )
+    HouseProvider(house)
   }
 
   def getHouseProviderById(houseId: Long): Option[HouseProvider] = withTransaction { implicit session =>
@@ -114,6 +99,14 @@ object HouseBean extends WithDefaultSession {
 
   def getAddress(addressId: Long) = withTransaction { implicit session =>
     addressDao.findOptionById(addressId)
+  }
+
+  def getAddress(addressId: Option[Long]) = withTransaction { implicit session =>
+    addressId match {
+      case Some(id) => addressDao.findOptionById(id)
+      case _ => None
+    }
+
   }
 
   def getPhotosAccount(account: Account) = withTransaction { implicit session =>

@@ -1,20 +1,20 @@
 /**
  * User controllers.
  */
-define(['angular'], function(angular) {
+define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
-  var MainCtrl = function ($scope) {
-      $scope.awesomeThings = [
-          'HTML5 Boilerplate',
-          'AngularJS',
-          'Karma'
-      ];
+  var LeftCtrl = function ($scope) {
+      $scope.$on('$viewContentLoaded', function(){
+          $("select").selecter();
+          $("input[type=checkbox], input[type=radio]").picker();
+      });
   };
-  MainCtrl.$inject = ['$scope'];
+
+  LeftCtrl.$inject = ['$scope'];
 
   return {
-    MainCtrl: MainCtrl
+    LeftCtrl: LeftCtrl
   };
 
 });
