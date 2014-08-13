@@ -3,28 +3,27 @@
             <div class="container">
                 <div class="auth-unit">
                     <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
-                        <div ng-show="form.errors.message" class="animate-show alert alert-danger">
+                        <div ng-show="form.errors.message" class="alert alert-danger animate-show">
                             {{ form.errors.message }}
                         </div>
-                        <div ng-show="form.errors.infomessage" class="animate-show alert alert-info">
+                        <div ng-show="form.errors.infomessage" class="alert alert-info animate-show">
                             {{ form.errors.infomessage }}
                         </div>
                     <div class="auth-unit-top">
                         <h3>Вход</h3>
                     </div>
                     <div class="auth-unit-inner">
-                        <form ng-controller="LoginCtrl" ng-submit="login()" class="form-container" autocomplete="off">
-                            <div class="form-group">
+                        <form ng-controller="LoginCtrl" ng-submit="login()" class="form-container animate-show" autocomplete="off">
+                            <div class="form-group" ng-class='{"has-error": form.errors.username != null}'>
                                 <label for="email">Email адрес</label>
                                 <input type="email" name="email"
                                        ng-model="form.username"
-                                       ng-class='{"has-error": form.errors.username != null}'
                                        required="true"
                                        class="form-control"
                                        id="email">
-                                <label ng-show="form.errors.username" class="control-label" for="email">{{ form.errors.username }}</label>
+                                <label ng-show="form.errors.username" class="control-label animate-show" for="email">{{ form.errors.username[0] }}</label>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class='{"has-error": form.errors.password != null}'>
                                 <a class="pull-right" href="#/password/reset">Забыли пароль?</a>
                                 <label for="password">Пароль</label>
                                 <input type="password" class="form-control"
@@ -33,8 +32,9 @@
                                        ng-model="form.password"
                                        required="true"
                                        >
+                                <label ng-show="form.errors.password" class="control-label animate-show" for="email">{{ form.errors.password[0] }}</label>
                             </div>
-                            <button id="message_trigger_err" class="btn btn-primary btn-block" type="submit">Вход</button>
+                            <button id="message_trigger_err" class="btn btn-block btn-success" type="submit">Вход</button>
                             <!--<hr>
                             <div class="btn-group btn-group-justified">
                                 <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Twitter" role="button"><i class="fa fa-twitter"></i></a>
@@ -45,7 +45,7 @@
                         </form>
                     </div>
                     <br>
-                    <a href="#/signup" class="btn btn-success btn-block btn-lg">Создать аккаунт</a>
+                    <a href="#/signup" class="btn btn-primary btn-block btn-lg">Создать аккаунт</a>
                 </div>
             </div>
         </div>

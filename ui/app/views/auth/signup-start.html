@@ -2,7 +2,7 @@
     <div class="header-image">
         <div class="container">
             <div class="auth-unit">
-                <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
+                <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up" ng-class='{"has-error": form.errors.message != null}'></span> flattern<span class="sec-brand">.org</span></h3>
                 <div ng-show="form.errors.message" class="alert alert-danger">
                     {{ form.errors.message }}
                 </div>
@@ -11,14 +11,14 @@
                 </div>
                 <div class="auth-unit-inner">
                     <form ng-controller="SignUpCtrl" ng-submit="sendEmail()" class="form-container">
-                        <div class="form-group" id="email_field">
+                        <div class="form-group" id="email_field" ng-class='{"has-error": form.errors.email != null}'>
                             <label for="email">Email адрес</label>
                             <input id="email"
                                    name="email"
                                    ng-model="form.email"
                                    type="email" size="40"
-                                   errors='form.errors["email"]'
                                    required="true" class="form-control">
+                            <label ng-show="form.errors.email" class="control-label animate-show" for="email">{{ form.errors.email[0] }}</label>
                         </div>
                         <button id="message_trigger_ok" class="btn btn-block btn-success" type="submit">Создать аккаунт</button>
                     </form>
