@@ -1,6 +1,6 @@
 package utils
 
-import org.joda.time.{Days, LocalDateTime}
+import org.joda.time.{Days, LocalDate}
 
 import scala.language.implicitConversions
 
@@ -13,9 +13,9 @@ object Conversions {
     })
     )
 
-  implicit def dateToDays(date: LocalDateTime): Int =
+  implicit def dateToDays(date: LocalDate): Int =
   Days
-    .daysBetween(date, LocalDateTime.now())
+    .daysBetween(date, LocalDate.now())
     .getDays
 
 

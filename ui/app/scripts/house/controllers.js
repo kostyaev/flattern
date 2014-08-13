@@ -13,6 +13,14 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
 
     };
 
+    var GeneralCtrl = function ($scope, houseService) {
+        $scope.save = function(generalInfo) {
+            houseService.saveGeneral(generalInfo);
+        }
+
+
+    };
+
     var AmenCtrl = function ($scope) {
 
 
@@ -20,7 +28,6 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
 
     var PhotosCtrl = function ($scope) {
         $scope.$on('$viewContentLoaded', function(){
-            console.log("init dropzone");
             var myAwesomeDropzone = new Dropzone("#my-awesome-dropzone", {
                 url: "/file/post",
                 init: function() {
@@ -37,11 +44,13 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
     };
 
     LeftCtrl.$inject = ['$scope'];
+    GeneralCtrl.$inject = ['$scope', 'houseService'];
     AmenCtrl.$inject = ['$scope'];
     PhotosCtrl.$inject = ['$scope'];
 
     return {
         LeftCtrl: LeftCtrl,
+        GeneralCtrl: GeneralCtrl,
         AmenCtrl: AmenCtrl,
         PhotosCtrl: PhotosCtrl
     };

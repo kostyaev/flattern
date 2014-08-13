@@ -3,7 +3,7 @@ package beans
 import java.io.File
 
 import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
-import dto.HouseThumbnail
+import dto.{HouseInfo, HouseThumbnail}
 import global.Paths
 import models._
 import play.api.libs.Files.TemporaryFile
