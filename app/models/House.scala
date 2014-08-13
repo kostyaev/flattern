@@ -1,6 +1,6 @@
 package models
 
-import org.joda.time.LocalDateTime
+import org.joda.time.LocalDate
 import play.api.i18n.Messages
 import service.WithDefaultSession
 import service.dao.IdentifiableTable
@@ -22,7 +22,7 @@ case class House( id          : Option[Long]      = None,
                   conditions  : Option[Map[String, String]],
                   photo       : Option[Long]      = None,
                   views       : Int               = 0,
-                  date        : Option[LocalDateTime]  = Option(LocalDateTime.now()),
+                  date        : Option[LocalDate] = Option(LocalDate.now()),
                   isPublished : Option[Boolean]   = None
                   )
 
@@ -43,7 +43,7 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
   def conditions  = column[Option[Map[String, String]]]("conditions")
   def photo       = column[Option[Long]]("photo")
   def views       = column[Int]("views")
-  def date        = column[Option[LocalDateTime]]("date")
+  def date        = column[Option[LocalDate]]("date")
   def isPublished = column[Option[Boolean]]("published")
 
   val accounts = new TableQuery[Accounts](new Accounts(_))

@@ -13,7 +13,8 @@ object Application extends Controller {
   def jsRoutes(varName: String = "jsRoutes") = Action { implicit request =>
     Ok(
       Routes.javascriptRouter(varName)(
-        routes.javascript.Test.test
+        routes.javascript.Test.test,
+        routes.javascript.HouseCtrl.saveGeneral
         // TODO Add your routes here
       )
     ).as(JAVASCRIPT)
