@@ -9,7 +9,7 @@ define(['angular', 'common'], function (angular) {
 
     return {
       saveGeneral: function (house) {
-          return playRoutes.controllers.HouseCtrl.save().post(house).then(function(response) {
+          return playRoutes.controllers.HouseCtrl.saveGeneral().post(house).then(function(response) {
               console.log(response);
           });
       }

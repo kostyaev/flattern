@@ -2,7 +2,7 @@
     <div class="form-group">
         <label class="col-md-2 selecter-label">Тип жилья *</label>
         <div class="col-md-4">
-            <select name="house_type" ng-model="house.house_type">
+            <select name="house_type" ng-model="house.houseType">
                 <option class="blank" value="">Выберите вариант из списка</option>
                 <option value="1">Квартира</option>
                 <option value="2">Дом</option>
@@ -13,7 +13,7 @@
     <div class="form-group">
         <label class="col-md-2 selecter-label">Тип аренды *</label>
         <div class="col-md-4">
-            <select name="rent_type" ng-model="house.rent_type">
+            <select name="rent_type" ng-model="house.rentType">
                 <option class="blank" value="">Выберите вариант из списка</option>
                 <option value="1">Жилье целиком</option>
                 <option value="2">Отдельная комната</option>
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Цена за месяц</label>
         <div class="col-md-4">
-            <input type="text" ng-model="house.price" class="form-control" placeholder="Стоимость проживания за месяц">
+            <input type="number" ng-model="house.price" class="form-control" placeholder="Стоимость проживания за месяц">
         </div>
     </div>
 

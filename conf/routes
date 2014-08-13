@@ -4,7 +4,7 @@
 
 GET         /test                          controllers.Test.test
 
-POST        /save                          controllers.HouseCtrl.save
+POST        /general                       controllers.HouseCtrl.saveGeneral
 
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()

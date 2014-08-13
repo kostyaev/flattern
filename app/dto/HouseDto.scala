@@ -5,7 +5,7 @@ import provider.AddressProvider
 
 trait HouseInfo
 
-case class HouseGeneral(houseType: String, rentType: String, price: Long) extends HouseInfo
+case class HouseGeneral(houseType: String, rentType: String, price: Int) extends HouseInfo
 
 case class HouseAddress(country: String, city: String, street: Option[String],
                         building: Option[String], housing: Option[String], apt: Option[Int]) extends HouseInfo
