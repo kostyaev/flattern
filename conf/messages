@@ -1,0 +1,113 @@
+# -- default messages
+# constraints
+constraint.required = Required
+constraint.min = Minimum value: {0}
+constraint.max = Maximum value: {0}
+constraint.minLength = Minimum length: {0}
+constraint.maxLength = Maximum length: {0}
+constraint.email = Email
+
+# formats
+format.date = Date (''{0}'')
+format.numeric = Numeric
+format.real = Real
+
+# errors
+error.invalid = Invalid value
+error.invalid.java.util.Date = Invalid date value
+error.required = This field is required
+error.number = Numeric value expected
+error.real = Real number value expected
+error.real.precision = Real number value with no more than {0} digit(s) including {1} decimal(s) expected
+error.min = Must be greater or equal to {0}
+error.min.strict = Must be strictly greater than {0}
+error.max = Must be less or equal to {0}
+error.max.strict = Must be strictly less than {0}
+error.minLength = Minimum length is {0}
+error.maxLength = Maximum length is {0}
+error.email = Valid email required
+error.pattern = Must satisfy {0}
+
+error.expected.date = Date value expected
+error.expected.date.isoformat = Iso date value expected
+error.expected.jodadate.format = Joda date value expected
+error.expected.jsarray = Array value expected
+error.expected.jsboolean = Boolean value expected
+error.expected.jsnumber = Number value expected
+error.expected.jsobject = Object value expected
+error.expected.jsstring = String value expected
+error.expected.jsnumberorjsstring = String or number expected
+error.expected.keypathnode = Node value expected
+
+error.path.empty = Empty path
+error.path.missing = Missing path
+error.path.result.multiple = Multiple results for the given path
+
+# -- securesocial
+# App name
+securesocial.appName = flattern.org
+
+# Login page
+securesocial.login.title = Login
+securesocial.login.instructions = Use your existing account on one of the following networks to log in.
+securesocial.login.accessDenied = You denied access to your account. Please grant it to log in.
+securesocial.login.errorLoggingIn = An error occurred while logging you in. Please try again.
+securesocial.login.useEmailAndPassword = Or login using a username and password.
+securesocial.login.useEmailAndPasswordOnly = Login using a username and password.
+securesocial.login.signUp = If you don''t have an account with us yet you can sign up
+securesocial.login.here = here
+securesocial.login.invalidCredentials = The credentials you entered are not valid
+securesocial.login.forgotPassword = Did you forget your password?
+
+# Sign up page
+securesocial.signup.title = Sign Up
+securesocial.signup.username = Username
+securesocial.signup.firstName = First Name
+securesocial.signup.lastName = Last Name
+securesocial.signup.email1 = Email
+securesocial.signup.email2 = Email confirmation
+securesocial.signup.password1 = Password
+securesocial.signup.password2 = Password confirmation
+securesocial.signup.createAccount = Create Account
+securesocial.signup.cancel = Cancel
+securesocial.signup.userNameAlreadyTaken = Username already taken
+securesocial.signup.passwordsDoNotMatch = Passwords do not match
+securesocial.signup.thankYouCheckEmail = Thank you. Please check your email for further instructions
+securesocial.signup.invalidLink = The link you followed is invalid
+securesocial.signup.signUpDone = Thank you for signing up.  You can log in now
+securesocial.signup.invalidPassword = Enter at least {0} characters
+
+# Password reset
+securesocial.password.title = Reset Password
+securesocial.password.passwordUpdated = Your password was updated successfully
+securesocial.password.reset = Reset Password
+securesocial.password.error = There was a problem changing your password. Please try again
+
+# Password change
+securesocial.passwordChange.title = Change Password
+securesocial.passwordChange.currentPassword = Current Password
+securesocial.passwordChange.newPassword1 = New Password
+securesocial.passwordChange.newPassword2 = New Password Confirmation
+securesocial.passwordChange.changeButton = Change
+securesocial.passwordChange.invalidPassword = Invalid password
+securesocial.passwordChange.ok = Your password was changed successfully
+securesocial.passwordChange.okButton = Ok
+
+# Not authorized page
+securesocial.notAuthorized.title = Not Authorized
+securesocial.notAuthorized.message = You are not authorized to access that page
+
+#
+securesocial.loginRequired = You need to log in to access that page.
+
+# Mails
+#
+mails.sendAlreadyRegisteredEmail.subject = Sign up instructions
+mails.sendSignUpEmail.subject = Sign up instructions
+mails.welcomeEmail.subject = Welcome
+mails.passwordResetEmail.subject = Password reset instructions
+mails.unknownEmail.subject = Password reset request
+mails.passwordResetOk.subject = Password change confirmation
+
+# -- template
+template.footer.up-link = Up

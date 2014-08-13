@@ -3,48 +3,38 @@
             <div class="container">
                 <div class="auth-unit">
                     <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
-                        <div ng-show="form.errors.message" class="alert alert-danger">
+                        <div ng-show="form.errors.message" class="animate-show alert alert-danger">
                             {{ form.errors.message }}
                         </div>
-                        <div ng-show="form.errors.message" class="alert alert-info">
-                            {{ form.errors.message }}
+                        <div ng-show="form.errors.infomessage" class="animate-show alert alert-info">
+                            {{ form.errors.infomessage }}
                         </div>
                     <div class="auth-unit-top">
-                        <h3>Логин</h3>
+                        <h3>Вход</h3>
                     </div>
                     <div class="auth-unit-inner">
-                        <form ng-controller="LoginController" ng-submit="login()" class="form-container" ng-class='{"has-error": form.errors.message != null}'>
+                        <form ng-controller="LoginCtrl" ng-submit="login()" class="form-container" autocomplete="off">
                             <div class="form-group">
-                                <label for="email">Email address</label>
+                                <label for="email">Email адрес</label>
                                 <input type="email" name="email"
-                                       model="form.email"
-                                       type="text"
-                                       errors="form.errors['email']"
-                                       placeholder="Email Address"
+                                       ng-model="form.username"
+                                       ng-class='{"has-error": form.errors.username != null}'
                                        required="true"
                                        class="form-control"
-                                       id="email"
-                                       placeholder="email@example.com">
+                                       id="email">
+                                <label ng-show="form.errors.username" class="control-label" for="email">{{ form.errors.username }}</label>
                             </div>
                             <div class="form-group">
-                                <label for="password">Password <a class="pull-right" href="#/reset">faggot?</a>
-                                </label>
+                                <a class="pull-right" href="#/password/reset">Забыли пароль?</a>
+                                <label for="password">Пароль</label>
                                 <input type="password" class="form-control"
-                                       id="password" placeholder="●●●●●●●●●●"
+                                       id="password"
                                        name="password"
-                                       model="form.password"
-                                       type="password"
-                                       errors="form.errors['password']"
-                                       placeholder="Password"
-                                       required="true">
+                                       ng-model="form.password"
+                                       required="true"
+                                       >
                             </div>
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">Remember Me
-                                </label>
-                            </div>
-                            <button id="message_trigger_err" class="btn btn-primary btn-block" type="submit"><strong>Login</strong> to your account</button>
+                            <button id="message_trigger_err" class="btn btn-primary btn-block" type="submit">Вход</button>
                             <!--<hr>
                             <div class="btn-group btn-group-justified">
                                 <a class="btn btn-default btn-lg" data-toggle="tooltip" title="Sign in with Twitter" role="button"><i class="fa fa-twitter"></i></a>
@@ -55,7 +45,7 @@
                         </form>
                     </div>
                     <br>
-                    <a href="#/signup" class="btn btn-success btn-block btn-lg">Sign up for a new account</a>
+                    <a href="#/signup" class="btn btn-success btn-block btn-lg">Создать аккаунт</a>
                 </div>
             </div>
         </div>
