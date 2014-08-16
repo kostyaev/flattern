@@ -46,12 +46,13 @@ define(['angular'], function(angular) {
     var LoginCtrl = function ($scope, authService, $state) {
         $scope.form = $scope.form || {}
         $scope.login = function () {
-            console.log($scope.form)
+            console.log($scope.form);
             authService.login($scope.form)
                 .success(function () {
                     $state.go('registered.home.houses');
                 })
                 .error(function (response) {
+                    console.log(response);
                     $scope.form.errors = response;
                 });
         };

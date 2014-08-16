@@ -5,7 +5,7 @@
 define(['angular', './routes', './controllers', './services'], function(angular, routes, controllers) {
   'use strict';
 
-  var mod = angular.module('flattern.auth', ['ui.router', 'auth.routes', 'auth.services']);
+  var mod = angular.module('flattern.auth', ['ui.router', 'auth.routes', 'auth.services', 'ngAnimate']);
   mod.controller("AuthCtrl", controllers.AuthCtrl);
   mod.controller("LoginCtrl", controllers.LoginCtrl);
   mod.controller("SignUpCtrl", controllers.SignUpCtrl);
