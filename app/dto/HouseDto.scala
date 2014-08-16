@@ -23,6 +23,11 @@ case class HouseThumbnail(  id          : Long,
                             daysAgo     : Int            = 0
                            )
 
+//object HouseInfo {
+//  def getHouseGeneral(house: House) = HouseGeneral
+//
+//}
+
 object HouseThumbnail {
 
   import utils.Conversions.dateToDays

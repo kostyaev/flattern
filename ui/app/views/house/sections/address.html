@@ -1,21 +1,46 @@
 <form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label class="col-md-2 selecter-label">Страна *</label>
-        <div class="col-md-4">
-            <select name="selecter_basic" class="selecter_label_1">
-                <option class="blank" value="">Выберите вариант из списка</option>
-                <option value="1">Россия</option>
-                <option value="2">США</option>
-            </select>
-        </div>
 
-    </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Город *</label>
+        <label class="col-md-2 selecter-label">
+            Страна
+        </label>
+
+        <div class="col-md-4">
+            <ui-select ng-model="country.selected" theme="bootstrap" ng-disabled="disabled">
+                <ui-select-match placeholder="Страна">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="country in countries | filter: $select.search">
+                    <span ng-bind-html="country.name | highlight: $select.search"></span>
+                    <small ng-bind-html="country.code | highlight: $select.search"></small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Город</label>
         <div class="col-md-4">
             <input type="text" class="form-control" placeholder="Город">
         </div>
     </div>
+
+    <!--<div class="form-group">-->
+        <!--<label class="col-md-2 selecter-label">-->
+            <!--Город-->
+        <!--</label>-->
+        <!--<div class="col-md-4">-->
+            <!--<ui-select ng-model="address.selected"-->
+                       <!--theme="bootstrap"-->
+                       <!--ng-disabled="disabled"-->
+                       <!--reset-search-input="false">-->
+                <!--<ui-select-match placeholder="Введите название города">{{$select.selected.formatted_address}}</ui-select-match>-->
+                <!--<ui-select-choices repeat="address in addresses track by $index"-->
+                                   <!--refresh="refreshAddresses($select.search)"-->
+                                   <!--refresh-delay="0">-->
+                    <!--<div ng-bind-html="address.formatted_address | highlight: $select.search"></div>-->
+                <!--</ui-select-choices>-->
+            <!--</ui-select>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="form-group">
         <label class="col-md-2 control-label">Улица</label>

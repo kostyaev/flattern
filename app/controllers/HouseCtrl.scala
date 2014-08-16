@@ -13,6 +13,10 @@ object HouseCtrl extends Controller {
   implicit val houseDescReads = Json.reads[HouseDesc]
 
 
+  def getGeneral = Action {
+    Ok("test")
+  }
+
   def saveGeneral = Action(parse.json) { request =>
     Logger.info(request.body.toString())
     request.body.validate[HouseGeneral].fold(
@@ -21,7 +25,7 @@ object HouseCtrl extends Controller {
         BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
       },
       houseGeneral =>  {
-        Ok(houseGeneral.toString)
+        Ok("Данные успешно сохранены")
       }
     )
   }

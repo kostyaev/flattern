@@ -1,9 +1,9 @@
 /**
  * Configure routes of user module.
  */
-define(['angular', './controllers'], function(angular, controllers) {
+define(['angular', './controllers', 'common'], function(angular, controllers) {
     'use strict';
-    var mod = angular.module('house.routes', []);
+    var mod = angular.module('house.routes', ['flattern.common']);
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
@@ -28,7 +28,8 @@ define(['angular', './controllers'], function(angular, controllers) {
                     controller: controllers.GeneralCtrl
                 })
                 .state('house.address', {
-                    templateUrl: 'views/house/sections/address.html'
+                    templateUrl: 'views/house/sections/address.html',
+                    controller: controllers.AddressCtrl
                 })
                 .state('house.desc', {
                     templateUrl: 'views/house/sections/description.html'
