@@ -1,35 +1,36 @@
 <form class="form-horizontal" role="form">
     <div class='row'>
+        <div class="col-md-1">
+        </div>
         <div class="col-md-4">
-            <div class="input-control">
+            <div class="input-control space4">
                 <h4>Основные удобства</h4>
-                <div ng-repeat="amenity in amenities">
-                    <input class="checkbox" id="{{amenity}}" name="{{amenity}}" type="checkbox" value="One" picker-plug />
-                    <label for="checkbox_1">{{amenity}}</label>
+                <div class="checkbox" ng-repeat="amenity in amenities | filter:isGeneral">
+                    <label for="{{amenity.id}}">
+                        <input class="checkbox" id="{{amenity.id}}" name="amenities" type="checkbox" value="{{amenity.id}}" pickerPlug />
+                        {{amenity.name}}
+                    </label>
 
                 </div>
 
-
             </div>
-            <div class="input-control">
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-control space4">
                 <h4>Дополнительные удобства</h4>
-
+                <div class="checkbox" ng-repeat="amenity in amenities | filter: notGeneral">
+                    <label for="{{amenity.id}}">
+                        <input id="{{amenity.id}}" name="amenities" type="checkbox" value="{{amenity.id}}" pickerPlug />
+                        {{amenity.name}}
+                    </label>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="input-control">
-                <h4>Безопасность</h4>
 
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="input-control">
-                <h4>Требования</h4>
-
-            </div>
-        </div>
+        
 
     </div>
 

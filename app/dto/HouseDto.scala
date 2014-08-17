@@ -12,7 +12,7 @@ case class HouseAddress(country: String, city: String, street: Option[String],
 
 case class HouseDesc(title: String, desc: String) extends HouseInfo
 
-case class HouseAmenities(amenities: List[String]) extends HouseInfo
+case class HouseAmenity(id: Int, name: String, value: Boolean)
 
 case class NewHouse()
 

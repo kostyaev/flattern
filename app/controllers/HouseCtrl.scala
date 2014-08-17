@@ -1,7 +1,7 @@
 package controllers
 
-import dto.{HouseAddress, HouseAmenities, HouseDesc, HouseGeneral}
-import constants.{HouseConstants}
+import dto.{HouseAmenity, HouseAddress, HouseDesc, HouseGeneral}
+import constants.HouseConstants
 import play.api.Logger
 import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{Action, Controller}
@@ -10,15 +10,15 @@ object HouseCtrl extends Controller {
 
   implicit val houseGeneralReads = Json.reads[HouseGeneral]
   implicit val houseAddressReads = Json.reads[HouseAddress]
-  implicit val houseAmenitiesReads = Json.reads[HouseAmenities]
   implicit val houseDescReads = Json.reads[HouseDesc]
   implicit val houseEnumsReads = Json.reads[HouseConstants]
+  implicit val houseAmenityReads = Json.reads[HouseAmenity]
 
   implicit val houseGeneralWrites = Json.writes[HouseGeneral]
   implicit val houseAddressWrites = Json.writes[HouseAddress]
-  implicit val houseAmenitiesWrites = Json.writes[HouseAmenities]
   implicit val houseDescWrites = Json.writes[HouseDesc]
   implicit val houseEnumsWrites = Json.writes[HouseConstants]
+  implicit val houseAmenityWrites = Json.writes[HouseAmenity]
 
 
 
@@ -45,7 +45,9 @@ object HouseCtrl extends Controller {
   }
 
   def getAmenities = Action {
-    Ok(Json.toJson(Map("Холодильник" -> true, "Балкон" -> false)))
+    val amenities = for((k,v) <- HouseConstants.Amenities)
+      yield { HouseAmenity(k, v, value = true)}
+    Ok(Json.toJson(amenities.toList.sortBy(_.id)))
   }
 
 

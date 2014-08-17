@@ -37,6 +37,15 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
 
 
     var AmenitiesCtrl = function ($scope, houseService) {
+
+        $scope.isGeneral = function(item) {
+                return item.id < 20;
+        };
+
+        $scope.notGeneral = function(item) {
+            return item.id > 20;
+        };
+
         houseService.getAmenities()
             .success(function (data) {
                 console.log(data);
