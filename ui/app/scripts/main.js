@@ -89,7 +89,7 @@ require([
         'angular-translate',
         'uiRouter',
         'jquery',
-        'bootstrap',
+        //'bootstrap',
         'jsRoutes',
         'sco.ajax',
         'sco.collapse',

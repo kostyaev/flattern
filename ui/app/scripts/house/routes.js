@@ -13,12 +13,13 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     url: '/house',
                     views: {
                         'left': {
-                            templateUrl: 'views/house/left.html'
+                            templateUrl: 'views/house/left.html',
+                            controller: controllers.LeftCtrl
+
                         },
                         'content': {
                             templateUrl: 'views/house/content.html',
-                            controller: controllers.LeftCtrl
-
+                            controller: controllers.ContentCtrl
                         }
                     }
                 })
@@ -35,7 +36,8 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     templateUrl: 'views/house/sections/description.html'
                 })
                 .state('house.amenities', {
-                    templateUrl: 'views/house/sections/amenities.html'
+                    templateUrl: 'views/house/sections/amenities.html',
+                    controller: controllers.AmenitiesCtrl
                 })
                 .state('house.photos', {
                     templateUrl: 'views/house/sections/photos.html',

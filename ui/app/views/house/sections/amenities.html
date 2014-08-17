@@ -3,40 +3,31 @@
         <div class="col-md-4">
             <div class="input-control">
                 <h4>Основные удобства</h4>
-                <input checked="checked" class="checkbox" id="checkbox_1" name="checkbox_1" type="checkbox" value="One" picker-plug />
-                <label for="checkbox_1">Ищет жилье</label>
+                <div ng-repeat="amenity in amenities">
+                    <input class="checkbox" id="{{amenity}}" name="{{amenity}}" type="checkbox" value="One" picker-plug />
+                    <label for="checkbox_1">{{amenity}}</label>
 
-                <input class="checkbox" id="checkbox_2" name="checkbox_2" type="checkbox" value="Two" picker-plug />
-                <label for="checkbox_2">Ищет сожителя</label>
+                </div>
 
-                <input class="checkbox" id="checkbox_3" name="checkbox_3" type="checkbox" value="Three" picker-plug />
-                <label for="checkbox_3">Сдает жилье</label>
+
             </div>
             <div class="input-control">
                 <h4>Дополнительные удобства</h4>
-                <input checked="checked" class="checkbox" id="checkbox_4" name="checkbox_1" type="checkbox" value="One" picker-plug />
-                <label for="checkbox_1">Ищет жилье</label>
 
-                <input class="checkbox" id="checkbox_5" name="checkbox_5" type="checkbox" value="Two" picker-plug />
-                <label for="checkbox_2">Ищет сожителя</label>
-
-                <input class="checkbox" id="checkbox_6" name="checkbox_6" type="checkbox" value="Three" picker-plug />
-                <label for="checkbox_3">Сдает жилье</label>
             </div>
-
         </div>
 
         <div class="col-md-4">
             <div class="input-control">
                 <h4>Безопасность</h4>
-                <input checked="checked" class="checkbox" id="checkbox_7" name="checkbox_1" type="checkbox" value="One" picker-plug />
-                <label for="checkbox_1">Ищет жилье</label>
 
-                <input class="checkbox" id="checkbox_7" name="checkbox_8" type="checkbox" value="Two" picker-plug />
-                <label for="checkbox_2">Ищет сожителя</label>
+            </div>
+        </div>
 
-                <input class="checkbox" id="checkbox_8" name="checkbox_9" type="checkbox" value="Three" picker-plug />
-                <label for="checkbox_3">Сдает жилье</label>
+        <div class="col-md-4">
+            <div class="input-control">
+                <h4>Требования</h4>
+
             </div>
         </div>
 

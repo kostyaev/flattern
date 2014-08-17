@@ -14,6 +14,9 @@ case class HouseDesc(title: String, desc: String) extends HouseInfo
 
 case class HouseAmenities(amenities: List[String]) extends HouseInfo
 
+case class NewHouse()
+
+
 case class HouseThumbnail(  id          : Long,
                             title       : Option[String] = None,
                             address     : AddressProvider,
@@ -22,11 +25,6 @@ case class HouseThumbnail(  id          : Long,
                             views       : Int            = 0,
                             daysAgo     : Int            = 0
                            )
-
-//object HouseInfo {
-//  def getHouseGeneral(house: House) = HouseGeneral
-//
-//}
 
 object HouseThumbnail {
 

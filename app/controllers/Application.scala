@@ -14,7 +14,10 @@ object Application extends Controller {
     Ok(
       Routes.javascriptRouter(varName)(
         routes.javascript.Test.test,
-        routes.javascript.HouseCtrl.saveGeneral
+        routes.javascript.HouseCtrl.saveGeneral,
+        routes.javascript.HouseCtrl.getGeneral,
+        routes.javascript.HouseCtrl.getConstants,
+        routes.javascript.HouseCtrl.getAmenities
         // TODO Add your routes here
       )
     ).as(JAVASCRIPT)

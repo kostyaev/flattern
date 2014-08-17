@@ -8,11 +8,20 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
 
     };
 
-    var GeneralCtrl = function ($scope, houseService) {
+    var ContentCtrl = function ($scope, houseService) {
 
-        $scope.houseTypes = ['Квартира', 'Дом', 'Общежитие'];
-        $scope.rentTypes = ['Жилье целиком', 'Комната', 'Общая комната'];
-        $scope.house = {houseType: $scope.houseTypes[1], rentType: $scope.rentTypes[1], price: 500};
+    };
+
+    var GeneralCtrl = function ($scope, houseService) {
+        houseService.getGeneral()
+            .success(function (data) {
+                $scope.house = data;
+            });
+
+        houseService.getConstants()
+            .success(function (data) {
+                $scope.constants = data;
+            });
 
         $scope.save = function(generalInfo) {
             houseService.saveGeneral(generalInfo);
@@ -20,33 +29,19 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
 
     };
 
-    var AddressCtrl = function ($scope, $http, helper) {
-        $scope.clear = function() {
-            $scope.person.selected = undefined;
-            $scope.address.selected = undefined;
-            $scope.country.selected = undefined;
-        };
-
-        $scope.address = {};
-        $scope.refreshAddresses = function(address) {
-            var params = {address: address, sensor: false};
-            return $http.get(
-                'http://maps.googleapis.com/maps/api/geocode/json',
-                {params: params}
-            ).then(function(response) {
-                    $scope.addresses = response.data.results
-                });
-        };
-
+    var AddressCtrl = function ($scope, helper) {
         $scope.country = {};
         $scope.countries = helper.getCountries();
 
     };
 
 
-    var AmenCtrl = function ($scope) {
-
-
+    var AmenitiesCtrl = function ($scope, houseService) {
+        houseService.getAmenities()
+            .success(function (data) {
+                console.log(data);
+                $scope.amenities = data;
+            });
     };
 
     var PhotosCtrl = function ($scope) {
@@ -67,16 +62,18 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
     };
 
     LeftCtrl.$inject = ['$scope'];
+    ContentCtrl.$inject = ['$scope', 'houseService'];
     GeneralCtrl.$inject = ['$scope', 'houseService'];
-    AddressCtrl.$inject = ['$scope', '$http', 'helper'];
-    AmenCtrl.$inject = ['$scope'];
+    AddressCtrl.$inject = ['$scope', 'helper'];
+    AmenitiesCtrl.$inject = ['$scope', 'houseService'];
     PhotosCtrl.$inject = ['$scope'];
 
     return {
         LeftCtrl: LeftCtrl,
+        ContentCtrl: ContentCtrl,
         GeneralCtrl: GeneralCtrl,
         AddressCtrl: AddressCtrl,
-        AmenCtrl: AmenCtrl,
+        AmenitiesCtrl: AmenitiesCtrl,
         PhotosCtrl: PhotosCtrl
     };
 
