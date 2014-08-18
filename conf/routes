@@ -11,6 +11,9 @@ GET         /house/constants               controllers.HouseCtrl.getConstants
 
 GET         /house/amenities               controllers.HouseCtrl.getAmenities
 
+POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
+
+
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()
 

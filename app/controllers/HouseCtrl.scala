@@ -1,5 +1,6 @@
 package controllers
 
+import beans.HouseBean
 import dto.{HouseAmenity, HouseAddress, HouseDesc, HouseGeneral}
 import constants.HouseConstants
 import play.api.Logger
@@ -46,8 +47,19 @@ object HouseCtrl extends Controller {
 
   def getAmenities = Action {
     val amenities = for((k,v) <- HouseConstants.Amenities)
-      yield { HouseAmenity(k, v, value = true)}
+      yield { HouseAmenity(k, v, selected = false)}
     Ok(Json.toJson(amenities.toList.sortBy(_.id)))
+  }
+
+  def uploadPhoto(houseId: Long = 1L) = Action(parse.multipartFormData) { implicit request =>
+    Logger.info("picture")
+    request.body.file("photo").map { picture =>
+      val photo = HouseBean.savePhoto(houseId, picture)
+      val json = Json.obj("id" -> photo.id,  "title" -> photo.title, "description" -> photo.description)
+      //FIXME replace sleep, possibly with java.nio
+      Thread.sleep(1500)
+      Ok(json)
+    }.getOrElse(Ok("Failed"))
   }
 
 

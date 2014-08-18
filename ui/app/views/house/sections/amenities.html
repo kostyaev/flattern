@@ -1,37 +1,27 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" ng-submit="save()">
     <div class='row'>
         <div class="col-md-1">
         </div>
         <div class="col-md-4">
             <div class="input-control space4">
-                <h4>Основные удобства</h4>
-                <div class="checkbox" ng-repeat="amenity in amenities | filter:isGeneral">
-                    <label for="{{amenity.id}}">
-                        <input class="checkbox" id="{{amenity.id}}" name="amenities" type="checkbox" value="{{amenity.id}}" pickerPlug />
-                        {{amenity.name}}
-                    </label>
-
-                </div>
+                <h4 class="space2">Основные удобства</h4>
+                <label for="{{amenity.id}}" ng-repeat="amenity in amenities | filter: isGeneral">
+                    <input class="checkbox" id="{{amenity.id}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" value="{{amenity.id}}" picker-plug />
+                    {{amenity.name}}
+                </label>
 
             </div>
-
         </div>
 
         <div class="col-md-4">
             <div class="input-control space4">
-                <h4>Дополнительные удобства</h4>
-                <div class="checkbox" ng-repeat="amenity in amenities | filter: notGeneral">
-                    <label for="{{amenity.id}}">
-                        <input id="{{amenity.id}}" name="amenities" type="checkbox" value="{{amenity.id}}" pickerPlug />
-                        {{amenity.name}}
-                    </label>
-                </div>
+                <h4 class="space2">Дополнительные удобства</h4>
+                <label for="{{amenity.id}}" ng-repeat="amenity in amenities | filter: notGeneral">
+                    <input id="{{amenity.id}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" value="{{amenity.id}}" picker-plug />
+                    {{amenity.name}}
+                </label>
             </div>
         </div>
-
-
-        
-
     </div>
 
     <div class='row'>

@@ -32,7 +32,6 @@ require.config({
         'jsRoutes': '../jsRoutes',
         'ui-select': '../components/angular-ui-select/dist/select',
         'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap'
-
     },
     shim: {
         'angular' : {'exports' : 'angular'},

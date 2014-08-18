@@ -1,7 +1,7 @@
 /**
  * User controllers.
  */
-define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
+define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
     var LeftCtrl = function ($scope) {
@@ -36,7 +36,7 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
     };
 
 
-    var AmenitiesCtrl = function ($scope, houseService) {
+    var AmenitiesCtrl = function ($scope, houseService, filterFilter) {
 
         $scope.isGeneral = function(item) {
                 return item.id < 20;
@@ -51,30 +51,51 @@ define(['angular', 'jquery', 'dropzone'], function(angular, $, Dropzone) {
                 console.log(data);
                 $scope.amenities = data;
             });
+
+        $scope.selection = [];
+
+        // helper method to get selected amenities
+        $scope.selectedAmenities = function selectedAmenities() {
+            return filterFilter($scope.amenities, { selected: true });
+        };
+
+        // watch amenities for changes
+        $scope.$watch('amenities | filter:{selected:true}', function (data) {
+            $scope.selection = data;
+        }, true);
+
+        $scope.save = function() {
+            console.log($scope.selection);
+        }
     };
 
     var PhotosCtrl = function ($scope) {
-        $scope.$on('$viewContentLoaded', function(){
-            var myAwesomeDropzone = new Dropzone("#my-awesome-dropzone", {
-                url: "/file/post",
-                init: function() {
-                    this.on("addedfile", function(file) {
-                        console.log("added file!!");
-                    });
-                    this.on("success", function(file) {
-                        console.log("successfully uploaded file");
-                    });
-                }
-            });
+//        $scope.$on('$viewContentLoaded', function(){
+//            var myAwesomeDropzone = new Dropzone("#my-awesome-dropzone", {
+//                url: "/file/post",
+//                init: function() {
+//                    this.on("addedfile", function(file) {
+//                        console.log("added file!!");
+//                    });
+//                    this.on("success", function(file) {
+//                        console.log("successfully uploaded file");
+//                    });
+//                }
+//            });
+//
+//        });
 
-        });
+        $scope.image = null;
+        $scope.imageFileName = ''
+
+
     };
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'houseService'];
     GeneralCtrl.$inject = ['$scope', 'houseService'];
     AddressCtrl.$inject = ['$scope', 'helper'];
-    AmenitiesCtrl.$inject = ['$scope', 'houseService'];
+    AmenitiesCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
     PhotosCtrl.$inject = ['$scope'];
 
     return {

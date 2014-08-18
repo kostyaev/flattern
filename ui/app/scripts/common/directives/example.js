@@ -15,25 +15,39 @@ define(["angular"], function(angular) {
     }])
 
     mod.directive('selecterPlug', function() {
-            return {
-                // Restrict it to be an attribute in this case
-                restrict: 'A',
-                // responsible for registering DOM listeners as well as updating the DOM
-                link: function(scope, element, attrs) {
-                    $(element).selecter(scope.$eval(attrs.selecterPlug));
-                }
-            };
-        });
-
-    mod.directive('pickerPlug', function() {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'A',
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, element, attrs) {
-                $(element).picker(scope.$eval(attrs.selecterPlug));
+                $(element).selecter(scope.$eval(attrs.selecterPlug));
             }
         };
+    });
+
+    mod.directive('pickerPlug', function($timeout) {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, element, attrs) {
+                $timeout(function () {
+                    $(element).picker(scope.$eval(attrs.pickerPlug))
+                });
+            }
+        };
+    });
+
+    mod.directive('dropzone', function() {
+        return function(scope, element, attrs) {
+            element.dropzone({
+                url: "/house/1/upload",
+                maxFilesize: 5000,
+                paramName: "uploadfile",
+                maxThumbnailFilesize: 5,
+                dictDefaultMessage: "Загрузите фотографии вашего жилья"
+            });
+        }
     });
 
     return mod;
