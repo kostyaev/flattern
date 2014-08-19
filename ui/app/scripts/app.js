@@ -1,4 +1,4 @@
-define(['angular', 'home', 'about', 'general', 'translations', 'auth', 'house']/*deps*/, function (angular)/*invoke*/ {
+define(['angular', 'home', 'about', 'general', 'i18n', 'auth', 'house']/*deps*/, function (angular)/*invoke*/ {
   'use strict';
 
   return angular
@@ -6,7 +6,7 @@ define(['angular', 'home', 'about', 'general', 'translations', 'auth', 'house']/
       ['flattern.home',
        'flattern.about',
        'flattern.general',
-       'flattern.translations',
+       'flattern.i18n',
        'flattern.auth',
        'flattern.house'
   ]);

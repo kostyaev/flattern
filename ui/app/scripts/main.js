@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-    packages: ['common', 'about', 'home', 'general', 'translations', 'auth', 'house'],
+    packages: ['common', 'about', 'home', 'general', 'i18n', 'auth', 'house'],
     paths: {
         'angular': '../components/angular/angular',
         'angular-route': '../components/angular-route/angular-route',
@@ -11,6 +11,7 @@ require.config({
         'angular-touch': '../components/angular-touch/angular-touch',
         'angular-mocks': '../components/angular-mocks/angular-mocks',
         'angular-translate': '../components/angular-translate/angular-translate',
+        'angular-translate-loader' : '../components/angular-translate-loader-static-files/angular-translate-loader-static-files',
         'jquery': '../components/jquery/dist/jquery',
         'bootstrap': '../components/bootstrap/dist/js/bootstrap',
         //template dependencies
@@ -46,6 +47,7 @@ require.config({
             'exports':'angular.mock'
         },
         'angular-translate' : ['angular'],
+        'angular-translate-loader' : ['angular-translate'],
         'uiRouter': ['angular'],
         'bootstrap': ['jquery'],
         'bootstrap-datepicker': ['jquery', 'bootstrap'],
@@ -86,6 +88,7 @@ require([
         'angular-animate',
         'angular-touch',
         'angular-translate',
+        'angular-translate-loader',
         'uiRouter',
         'jquery',
         //'bootstrap',

@@ -29,9 +29,12 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var AddressCtrl = function ($scope, helper) {
+    var AddressCtrl = function ($scope, helper, $translate) {
         $scope.country = {};
-        $scope.countries = helper.getCountries();
+        var lang = $translate.use();
+        helper.getCountries(lang).success(function (data) {
+            $scope.countries = data.countries;
+        });
 
     };
 
@@ -48,7 +51,6 @@ define(['angular', 'jquery'], function(angular, $) {
 
         houseService.getAmenities()
             .success(function (data) {
-                console.log(data);
                 $scope.amenities = data;
             });
 
@@ -65,26 +67,11 @@ define(['angular', 'jquery'], function(angular, $) {
         }, true);
 
         $scope.save = function() {
-            console.log($scope.selection);
+            houseService.saveAmenities($scope.selection);
         }
     };
 
     var PhotosCtrl = function ($scope) {
-//        $scope.$on('$viewContentLoaded', function(){
-//            var myAwesomeDropzone = new Dropzone("#my-awesome-dropzone", {
-//                url: "/file/post",
-//                init: function() {
-//                    this.on("addedfile", function(file) {
-//                        console.log("added file!!");
-//                    });
-//                    this.on("success", function(file) {
-//                        console.log("successfully uploaded file");
-//                    });
-//                }
-//            });
-//
-//        });
-
         $scope.image = null;
         $scope.imageFileName = ''
 
@@ -94,7 +81,7 @@ define(['angular', 'jquery'], function(angular, $) {
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'houseService'];
     GeneralCtrl.$inject = ['$scope', 'houseService'];
-    AddressCtrl.$inject = ['$scope', 'helper'];
+    AddressCtrl.$inject = ['$scope', 'helper', '$translate'];
     AmenitiesCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
     PhotosCtrl.$inject = ['$scope'];
 

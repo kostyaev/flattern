@@ -1,8 +1,8 @@
 package controllers
 
 import beans.HouseBean
-import dto.{HouseAmenity, HouseAddress, HouseDesc, HouseGeneral}
 import constants.HouseConstants
+import dto.{HouseAddress, HouseAmenity, HouseDesc, HouseGeneral}
 import play.api.Logger
 import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{Action, Controller}
@@ -22,6 +22,11 @@ object HouseCtrl extends Controller {
   implicit val houseAmenityWrites = Json.writes[HouseAmenity]
 
 
+  def getConstants = Action {
+    Ok(Json.toJson(HouseConstants()))
+
+  }
+
 
   def getGeneral = Action {
     Ok(Json.toJson(HouseGeneral("Квартира", "Отдельная комната", 31000)))
@@ -40,14 +45,28 @@ object HouseCtrl extends Controller {
     )
   }
 
-  def getConstants = Action {
-    Ok(Json.toJson(HouseConstants()))
-
-  }
-
   def getAmenities = Action {
     val amenities = for((k,v) <- HouseConstants.Amenities)
-      yield { HouseAmenity(k, v, selected = false)}
+    yield { HouseAmenity(k, v, selected = false)}
+    Ok(Json.toJson(amenities.toList.sortBy(_.id)))
+  }
+
+  def saveAmenities = Action(parse.json) { request =>
+    request.body.validate[List[HouseAmenity]].fold(
+      errors => {
+        Logger.info(JsError.toFlatJson(errors).toString())
+        BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+      },
+      list => {
+        Logger.info(list.toString())
+        Ok("Данные успешно сохранены")
+      }
+    )
+  }
+
+  def getAddress = Action {
+    val amenities = for((k,v) <- HouseConstants.Amenities)
+    yield { HouseAmenity(k, v, selected = false)}
     Ok(Json.toJson(amenities.toList.sortBy(_.id)))
   }
 

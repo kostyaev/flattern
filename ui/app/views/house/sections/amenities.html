@@ -4,7 +4,7 @@
         </div>
         <div class="col-md-4">
             <div class="input-control space4">
-                <h4 class="space2">Основные удобства</h4>
+                <h4 class="space2" translate>GENERAL_AMENITIES</h4>
                 <label for="{{amenity.id}}" ng-repeat="amenity in amenities | filter: isGeneral">
                     <input class="checkbox" id="{{amenity.id}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" value="{{amenity.id}}" picker-plug />
                     {{amenity.name}}
@@ -15,7 +15,7 @@
 
         <div class="col-md-4">
             <div class="input-control space4">
-                <h4 class="space2">Дополнительные удобства</h4>
+                <h4 class="space2" translate>ADDITIONAL_AMENITIES</h4>
                 <label for="{{amenity.id}}" ng-repeat="amenity in amenities | filter: notGeneral">
                     <input id="{{amenity.id}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" value="{{amenity.id}}" picker-plug />
                     {{amenity.name}}
@@ -24,14 +24,12 @@
         </div>
     </div>
 
-    <div class='row'>
-        <div class="form-group">
-            <label class="col-md-2 control-label"></label>
-            <div class="col-md-4">
-                <input type="submit" class="btn btn-primary" value="Сохранить">
-                <span></span>
-                <input type="reset" class="btn btn-default" value="Отмена">
-            </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-primary" value="{{'SAVE' | translate}}">
+            <span></span>
+            <input type="reset" class="btn btn-default" value="{{'CANCEL' | translate}}">
         </div>
     </div>
 

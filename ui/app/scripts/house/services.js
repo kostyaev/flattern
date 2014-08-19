@@ -8,8 +8,13 @@ define(['angular', 'common'], function (angular) {
     mod.factory('houseService', ['$http', 'playRoutes', function ($http, playRoutes) {
 
         return {
-            saveGeneral: function (house) {
-                return playRoutes.controllers.HouseCtrl.saveGeneral().post(house).then(function(response) {
+            saveGeneral: function (general) {
+                return playRoutes.controllers.HouseCtrl.saveGeneral().post(general).then(function(response) {
+                    console.log(response);
+                });
+            },
+            saveAmenities: function (amenities) {
+                return playRoutes.controllers.HouseCtrl.saveAmenities().post(amenities).then(function(response) {
                     console.log(response);
                 });
             },
@@ -22,6 +27,7 @@ define(['angular', 'common'], function (angular) {
             getAmenities: function () {
                 return playRoutes.controllers.HouseCtrl.getAmenities().get()
             }
+
         };
     }]);
 

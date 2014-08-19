@@ -17,7 +17,8 @@ object Application extends Controller {
         routes.javascript.HouseCtrl.saveGeneral,
         routes.javascript.HouseCtrl.getGeneral,
         routes.javascript.HouseCtrl.getConstants,
-        routes.javascript.HouseCtrl.getAmenities
+        routes.javascript.HouseCtrl.getAmenities,
+        routes.javascript.HouseCtrl.saveAmenities
         // TODO Add your routes here
       )
     ).as(JAVASCRIPT)

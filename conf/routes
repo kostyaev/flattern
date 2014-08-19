@@ -10,6 +10,8 @@ POST        /house/general                 controllers.HouseCtrl.saveGeneral
 GET         /house/constants               controllers.HouseCtrl.getConstants
 
 GET         /house/amenities               controllers.HouseCtrl.getAmenities
+POST        /house/amenities               controllers.HouseCtrl.saveAmenities
+
 
 POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
 
