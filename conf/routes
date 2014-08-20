@@ -9,13 +9,7 @@ POST        /general                       controllers.HouseCtrl.saveGeneral
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()
 
-
-GET         /                              com.tuplejump.playYeoman.Yeoman.index
-
-->          /                              yeoman.Routes
-
-# Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                  controllers.Assets.at(path="/public", file)
+GET         /login/check                   controllers.Application.checkAuth
 
 # Secure social
 GET         /login                         securesocial.controllers.LoginPage.login
@@ -40,3 +34,10 @@ POST        /password/change               securesocial.controllers.PasswordChan
 GET         /authenticate/:provider        securesocial.controllers.ProviderController.authenticate(provider)
 POST        /authenticate/:provider        securesocial.controllers.ProviderController.authenticateByPost(provider)
 GET         /not-authorized                securesocial.controllers.ProviderController.notAuthorized
+
+GET         /                              com.tuplejump.playYeoman.Yeoman.index
+
+->          /                              yeoman.Routes
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                  controllers.Assets.at(path="/public", file)

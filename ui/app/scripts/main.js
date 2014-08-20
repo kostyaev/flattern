@@ -29,7 +29,8 @@ require.config({
         'scroller': '../components/Scroller/jquery.fs.scroller',
         'selecter': '../components/Selecter/jquery.fs.selecter',
         'uiRouter': '../components/angular-ui-router/release/angular-ui-router',
-        'jsRoutes': '../jsRoutes'
+        'jsRoutes': '../jsRoutes',
+        'http-auth-interceptor': '../components/angular-http-auth/src/http-auth-interceptor'
 
     },
     shim: {
@@ -64,7 +65,8 @@ require.config({
         'sco.confirm' : ['jquery'],
         'sco.countdown' : ['jquery'],
         'sco.message' : ['jquery'],
-        'sco.modal' : ['jquery']
+        'sco.modal' : ['jquery'],
+        'http-auth-interceptor': ['angular']
     },
     priority: [
         'angular'
@@ -100,7 +102,8 @@ require([
         'bootstrap-touchspin',
         'picker',
         'selecter',
-        'scroller'
+        'scroller',
+        'http-auth-interceptor'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

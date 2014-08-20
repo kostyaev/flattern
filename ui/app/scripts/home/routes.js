@@ -4,8 +4,8 @@
 define(['angular', './controllers'], function(angular, controllers) {
     'use strict';
     var mod = angular.module('home.routes', []);
-    mod.config(['$stateProvider',
-        function($stateProvider)  {
+    mod.config(['$stateProvider', 'USER_ROLES',
+        function($stateProvider, USER_ROLES)  {
             $stateProvider
                 .state('registered.home', {
                     abstract: 'true',
@@ -17,6 +17,9 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'navigation@registered.home': {
                             templateUrl: 'views/home/navigation.html'
                         }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.editor]
                     }
                 })
 
@@ -26,7 +29,6 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'left': {
                             templateUrl: 'views/home/houses/left.html',
                             controller: controllers.LeftCtrl
-
                         },
                         'content': {
                             templateUrl: 'views/home/houses/content.html'
@@ -45,7 +47,14 @@ define(['angular', './controllers'], function(angular, controllers) {
                         }
                     }
                 });
-
         }]);
+
+    mod.constant('USER_ROLES', {
+        all   : '*',
+        admin : 'admin',
+        editor: 'editor',
+        guest : 'guest'
+    });
+
     return mod;
 });
