@@ -4,14 +4,21 @@
 define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
-  var LeftCtrl = function ($scope) {
+    var LeftCtrl = function ($scope) {
 
-  };
+    };
 
-  LeftCtrl.$inject = ['$scope'];
+    var ContentCtrl = function ($scope, $translate, $translatePartialLoader) {
+        $translatePartialLoader.addPart('home');
+        $translate.refresh();
+    };
 
-  return {
-    LeftCtrl: LeftCtrl
-  };
+    LeftCtrl.$inject = ['$scope'];
+    ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
+
+    return {
+        LeftCtrl: LeftCtrl,
+        ContentCtrl: ContentCtrl
+    };
 
 });

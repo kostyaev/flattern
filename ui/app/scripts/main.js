@@ -11,7 +11,7 @@ require.config({
         'angular-touch': '../components/angular-touch/angular-touch',
         'angular-mocks': '../components/angular-mocks/angular-mocks',
         'angular-translate': '../components/angular-translate/angular-translate',
-        'angular-translate-loader' : '../components/angular-translate-loader-static-files/angular-translate-loader-static-files',
+        'angular-translate-partial' : '../components/angular-translate-loader-partial/angular-translate-loader-partial',
         'jquery': '../components/jquery/dist/jquery',
         'bootstrap': '../components/bootstrap/dist/js/bootstrap',
         //template dependencies
@@ -47,7 +47,7 @@ require.config({
             'exports':'angular.mock'
         },
         'angular-translate' : ['angular'],
-        'angular-translate-loader' : ['angular-translate'],
+        'angular-translate-partial' : ['angular-translate'],
         'uiRouter': ['angular'],
         'bootstrap': ['jquery'],
         'bootstrap-datepicker': ['jquery', 'bootstrap'],
@@ -88,7 +88,7 @@ require([
         'angular-animate',
         'angular-touch',
         'angular-translate',
-        'angular-translate-loader',
+        'angular-translate-partial',
         'uiRouter',
         'jquery',
         //'bootstrap',

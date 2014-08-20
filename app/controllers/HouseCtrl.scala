@@ -65,9 +65,7 @@ object HouseCtrl extends Controller {
   }
 
   def getAddress = Action {
-    val amenities = for((k,v) <- HouseConstants.Amenities)
-    yield { HouseAmenity(k, v, selected = false)}
-    Ok(Json.toJson(amenities.toList.sortBy(_.id)))
+    Ok(Json.toJson(HouseAddress("RU", "Москва", Option("Грина"))))
   }
 
   def uploadPhoto(houseId: Long = 1L) = Action(parse.multipartFormData) { implicit request =>

@@ -7,8 +7,9 @@ trait HouseInfo
 
 case class HouseGeneral(houseType: String, rentType: String, price: Int) extends HouseInfo
 
-case class HouseAddress(country: String, city: String, street: Option[String],
-                        building: Option[String], housing: Option[String], apt: Option[Int]) extends HouseInfo
+case class HouseAddress(country: String, city: String, street: Option[String] = None,
+                        building: Option[String] = None, housing: Option[String] = None,
+                        apt: Option[Int] = None) extends HouseInfo
 
 case class HouseDesc(title: String, desc: String) extends HouseInfo
 

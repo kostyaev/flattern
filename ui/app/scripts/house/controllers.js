@@ -8,8 +8,9 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var ContentCtrl = function ($scope, houseService) {
-
+    var ContentCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
+        $translatePartialLoader.addPart('house');
+        $translate.refresh();
     };
 
     var GeneralCtrl = function ($scope, houseService) {
@@ -29,11 +30,17 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var AddressCtrl = function ($scope, helper, $translate) {
+    var AddressCtrl = function ($scope, helper, $translate, houseService, filterFilter) {
         $scope.country = {};
-        var lang = $translate.use();
-        helper.getCountries(lang).success(function (data) {
-            $scope.countries = data.countries;
+        houseService.getAddress().success(function (address) {
+            $scope.addresss = address;
+            var lang = $translate.use();
+            helper.getCountries(lang).success(function (data) {
+                $scope.countries = data.countries;
+                $scope.country.selected = filterFilter($scope.countries, { code: address.country })[0];
+                console.log($scope.country.selected);
+
+            });
         });
 
     };
@@ -79,9 +86,9 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
     LeftCtrl.$inject = ['$scope'];
-    ContentCtrl.$inject = ['$scope', 'houseService'];
+    ContentCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
     GeneralCtrl.$inject = ['$scope', 'houseService'];
-    AddressCtrl.$inject = ['$scope', 'helper', '$translate'];
+    AddressCtrl.$inject = ['$scope', 'helper', '$translate', 'houseService', 'filterFilter'];
     AmenitiesCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
     PhotosCtrl.$inject = ['$scope'];
 

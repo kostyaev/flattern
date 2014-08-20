@@ -5,11 +5,12 @@
 define(['angular'], function(angular) {
     'use strict';
     var mod = angular.module('flattern.i18n', ['pascalprecht.translate']);
-    mod.config(['$translateProvider', function ($translateProvider) {
-        $translateProvider.useStaticFilesLoader({
-            prefix: 'i18n/',
-            suffix: '.json'
+    mod.config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
+
+        $translateProvider.useLoader('$translatePartialLoader', {
+            urlTemplate: '/i18n/{part}/{lang}.json'
         });
+        $translatePartialLoaderProvider.addPart('global');
 
         //$translateProvider.preferredLanguage('ru');
         $translateProvider.determinePreferredLanguage();

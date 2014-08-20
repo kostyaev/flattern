@@ -12,7 +12,8 @@ define(['angular', './controllers'], function(angular, controllers) {
                     url: '',
                     views: {
                         '': {
-                            templateUrl: 'views/home/home.html'
+                            templateUrl: 'views/home/home.html',
+                            controller: controllers.ContentCtrl
                         },
                         'navigation@registered.home': {
                             templateUrl: 'views/home/navigation.html'
