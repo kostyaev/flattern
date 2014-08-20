@@ -31,6 +31,7 @@ require.config({
         'selecter': '../components/Selecter/jquery.fs.selecter',
         'uiRouter': '../components/angular-ui-router/release/angular-ui-router',
         'jsRoutes': '../jsRoutes',
+        'http-auth-interceptor': '../components/angular-http-auth/src/http-auth-interceptor',
         'ui-select': '../components/angular-ui-select/dist/select',
         'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap'
     },
@@ -68,6 +69,7 @@ require.config({
         'sco.countdown' : ['jquery'],
         'sco.message' : ['jquery'],
         'sco.modal' : ['jquery'],
+        'http-auth-interceptor': ['angular'],
         'ui-select': ['angular'],
         'ui-bootstrap' : ['angular']
     },
@@ -107,6 +109,7 @@ require([
         'picker',
         'selecter',
         'scroller',
+        'http-auth-interceptor',
         'ui-select',
         'ui-bootstrap'
     ],

@@ -13,10 +13,10 @@ define(['angular'], function(angular) {
     };
     AuthCtrl.$inject = ['$scope'];
 
-    var SignUpCtrl = function ($scope, authService, $state, $stateParams) {
+    var SignUpCtrl = function ($scope, authServices, $state, $stateParams) {
         $scope.form = $scope.form || {}
         $scope.sendEmail = function () {
-            authService.sendEmail($scope.form)
+            authServices.sendEmail($scope.form)
                 .success(function () {
                     $scope.form.errors.infomessage =
                         'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту';
@@ -29,8 +29,7 @@ define(['angular'], function(angular) {
         };
 
         $scope.signUp = function () {
-            console.log($scope.form)
-            authService.signUp($scope.form, $stateParams.token)
+            authServices.signUp($scope.form, $stateParams.token)
                 .success(function () {
                     $state.go('login');
                 })
@@ -41,40 +40,63 @@ define(['angular'], function(angular) {
                 });
         };
     };
-    SignUpCtrl.$inject = ['$scope', 'authService', '$state', '$stateParams'];
+    SignUpCtrl.$inject = ['$scope', 'authServices', '$state', '$stateParams'];
 
-    var LoginCtrl = function ($scope, authService, $state) {
+    var LoginCtrl = function ($scope, $rootScope, authServices, $state, authService, AUTH_EVENTS, USER_ROLES, Session) {
         $scope.form = $scope.form || {}
         $scope.login = function () {
-            console.log($scope.form);
-            authService.login($scope.form)
-                .success(function () {
+            authServices.login($scope.form)
+                .success(function (response) {
+                    authService.loginConfirmed();
                     $state.go('registered.home.houses');
                 })
                 .error(function (response) {
-                    console.log(response);
+                    authService.loginCancelled();
                     $scope.form.errors = response;
                 });
         };
 
         $scope.logout = function () {
-            authService.logout()
+            authServices.logout()
                 .success(function () {
+                    authService.loginCancelled();
                     $state.go('login');
                 })
                 .error(function (response) {
+                    authService.loginCancelled();
                     $state.go('login');
                 })
-        }
+        };
     };
-    LoginCtrl.$inject = ['$scope', 'authService', '$state'];
+    LoginCtrl.$inject = ['$scope', '$rootScope', 'authServices', '$state', 'authService', 'AUTH_EVENTS', 'USER_ROLES', 'Session'];
 
-    var PasswordCtrl = function ($scope, authService, $state, $stateParams) {
+    var LogoutCtrl = function ($scope, $rootScope, authServices, $state, authService, AUTH_EVENTS, USER_ROLES, Session) {
+        authServices.logout()
+            .success(function () {
+                $scope.form = {
+                    errors: { infomessage: 'Вы усепшно вышли из системы'}
+                };
+                authService.loginCancelled();
+                $state.go('login');
+            })
+            .error(function (response) {
+                $scope.form = {
+                    errors: { message: 'Произошла ошибка при выполнении операции, обратитесь в техническую поддержку'}
+                };
+                authService.loginCancelled();
+                $state.go('login');
+            });
+    };
+    LogoutCtrl.$inject = ['$scope', '$rootScope', 'authServices', '$state', 'authService', 'AUTH_EVENTS', 'USER_ROLES', 'Session'];
+
+    var PasswordCtrl = function ($scope, $rootScope, authServices, $state, $stateParams, AUTH_EVENTS) {
         $scope.form = $scope.form || {}
         $scope.sendEmail = function () {
-            console.log($scope.form)
-            authService.sendEmailReset($scope.form)
+            authServices.sendEmailReset($scope.form)
                 .success(function () {
+                    $rootScope.$broadcast(AUTH_EVENTS.loginMessage, {
+                        infomessage: 'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту'
+                    });
                     $state.go('login');
                 })
                 .error(function (response) {
@@ -83,11 +105,18 @@ define(['angular'], function(angular) {
         };
 
         $scope.reset = function () {
-            authService.reset($scope.form, $stateParams.token)
-                .success(function () {
-                    $state.go('login');
+            authServices.reset($scope.form, $stateParams.token)
+                .success(function (response) {
+                    if(response.email == null) {
+                        console.log(1)
+                        $rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
+                    }
+                    console.log(response);
+
+                    //$state.go('login');
                 })
                 .error(function (response) {
+                    $rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
                     $scope.form.errors = response;
                     if (response['password'])
                         $scope.form.errors['password.password2'] = response['password'];
@@ -95,8 +124,7 @@ define(['angular'], function(angular) {
         };
 
         $scope.change = function () {
-            console.log($scope.form)
-            authService.change($scope.form)
+            authServices.change($scope.form)
                 .success(function () {
                     $state.go('registered.home.houses');
                 })
@@ -107,7 +135,7 @@ define(['angular'], function(angular) {
                 })
         };
     };
-    PasswordCtrl.$inject = ['$scope', 'authService', '$state', '$stateParams'];
+    PasswordCtrl.$inject = ['$scope', '$rootScope', 'authServices', '$state', '$stateParams', 'AUTH_EVENTS'];
 
     return {
         AuthCtrl: AuthCtrl,

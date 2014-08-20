@@ -13,7 +13,7 @@
                         <h3>Вход</h3>
                     </div>
                     <div class="auth-unit-inner">
-                        <form ng-controller="LoginCtrl" ng-submit="login()" class="form-container animate-show" autocomplete="off">
+                        <form ng-controller="LoginCtrl" ng-submit="login()" class="form-container animate-show" form-autofill-fix>
                             <div class="form-group" ng-class='{"has-error": form.errors.username != null}'>
                                 <label for="email">Email адрес</label>
                                 <input type="email" name="email"
