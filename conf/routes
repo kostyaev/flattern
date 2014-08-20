@@ -4,7 +4,17 @@
 
 GET         /test                          controllers.Test.test
 
-POST        /general                       controllers.HouseCtrl.saveGeneral
+GET         /house/general                 controllers.HouseCtrl.getGeneral
+POST        /house/general                 controllers.HouseCtrl.saveGeneral
+
+GET         /house/constants               controllers.HouseCtrl.getConstants
+
+GET         /house/amenities               controllers.HouseCtrl.getAmenities
+POST        /house/amenities               controllers.HouseCtrl.saveAmenities
+
+
+POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
+
 
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()

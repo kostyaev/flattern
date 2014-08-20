@@ -1,29 +1,24 @@
 <form ng-controller="GeneralCtrl" class="form-horizontal" ng-submit="save(house)" role="form">
+
     <div class="form-group">
-        <label class="col-md-2 selecter-label">Тип жилья *</label>
+        <label class="col-md-2 selecter-label" translate>HOUSE_TYPE</label>
         <div class="col-md-4">
-            <select name="house_type" ng-model="house.houseType">
-                <option class="blank" value="">Выберите вариант из списка</option>
-                <option value="1">Квартира</option>
-                <option value="2">Дом</option>
+            <select class="form-control" ng-model="house.houseType" ng-options="type for type in constants.houseTypes">
             </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 selecter-label">Тип аренды *</label>
+        <label class="col-md-2 selecter-label" translate>RENT_TYPE</label>
         <div class="col-md-4">
-            <select name="rent_type" ng-model="house.rentType">
-                <option class="blank" value="">Выберите вариант из списка</option>
-                <option value="1">Жилье целиком</option>
-                <option value="2">Отдельная комната</option>
-                <option value="3">Общая комната</option>
+            <select class="form-control" ng-model="house.rentType" ng-options="rent for rent in constants.rentTypes">
+
             </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 control-label">Цена за месяц</label>
+        <label class="col-md-2 control-label" translate>PRICE</label>
         <div class="col-md-4">
             <input type="number" ng-model="house.price" class="form-control" placeholder="Стоимость проживания за месяц">
         </div>
@@ -33,9 +28,9 @@
     <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-4">
-            <input type="submit" class="btn btn-primary" value="Сохранить">
+            <input type="submit" class="btn btn-primary" value="{{'SAVE' | translate}}">
             <span></span>
-            <input type="reset" class="btn btn-default" value="Отмена">
+            <input type="reset" class="btn btn-default" value="{{'CANCEL' | translate}}">
         </div>
     </div>
 
