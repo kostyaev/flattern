@@ -6,13 +6,13 @@ GET         /test                          controllers.Test.test
 
 GET         /house/constants               controllers.HouseCtrl.getConstants
 
-GET         /house/general                 controllers.HouseCtrl.getGeneral
-POST        /house/general                 controllers.HouseCtrl.saveGeneral
+GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)
+POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id: Long)
 
-GET         /house/address                 controllers.HouseCtrl.getAddress
+GET         /house/:id/address             controllers.HouseCtrl.getAddress(id: Long)
 
-GET         /house/amenities               controllers.HouseCtrl.getAmenities
-POST        /house/amenities               controllers.HouseCtrl.saveAmenities
+GET         /house/:id/amenities           controllers.HouseCtrl.getAmenities(id: Long)
+POST        /house/:id/amenities           controllers.HouseCtrl.saveAmenities(id: Long)
 
 
 POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)

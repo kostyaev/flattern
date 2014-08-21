@@ -6,17 +6,17 @@
             <form class="filter-sec">
                 <input type="text" class="form-control" placeholder="Имя">
                 <!-- страна -->
-                <select name="selecter_basic" class="selecter_label_1">
+                <select name="selecter_basic" class="selecter_label_1" selecter-plug>
                     <option value="1">Россия</option>
                     <option value="2">Белоруссия</option>
                 </select>
                 <!-- город -->
-                <select name="selecter_basic" class="selecter_label_2">
+                <select name="selecter_basic" class="selecter_label_2" selecter-plug>
                     <option value="1">Москва</option>
                     <option value="2">Белорусскийгород</option>
                 </select>
                 <!-- регион -->
-                <select name="selecter_basic" class="selecter_label_3">
+                <select name="selecter_basic" class="selecter_label_3" selecter-plug>
                     <option value="1">Москва</option>
                     <option value="2">Белорусскийрайон</option>
                 </select>
@@ -41,11 +41,11 @@
                 </div>
                 <!-- статус -->
                 <div class="input-control">
-                    <input checked="checked" class="checkbox" id="checkbox_1" name="checkbox_1" type="checkbox" value="One" />
+                    <input checked="checked" class="checkbox" id="checkbox_1" name="checkbox_1" type="checkbox" value="One" picker-plug />
                     <label for="checkbox_1">Ищет жилье</label>
-                    <input class="checkbox" id="checkbox_2" name="checkbox_2" type="checkbox" value="Two" />
+                    <input class="checkbox" id="checkbox_2" name="checkbox_2" type="checkbox" value="Two" picker-plug />
                     <label for="checkbox_2">Ищет сожителя</label>
-                    <input class="checkbox" id="checkbox_3" name="checkbox_3" type="checkbox" value="Three" />
+                    <input class="checkbox" id="checkbox_3" name="checkbox_3" type="checkbox" value="Three" picker-plug />
                     <label for="checkbox_3">Сдает жилье</label>
                 </div>
                 <button type="button" class="btn btn-primary btn-sm">Искать</button>

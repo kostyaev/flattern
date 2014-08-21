@@ -1,5 +1,6 @@
 package models
 
+import dto.HouseType.HouseType
 import org.joda.time.LocalDate
 import play.api.i18n.Messages
 import service.WithDefaultSession
@@ -8,7 +9,7 @@ import utils.DgDriver.simple._
 
 case class House( id          : Option[Long]      = None,
                   userId      : Long,
-                  houseType   : Option[String]    = None,
+                  houseType   : Option[HouseType]    = None,
                   rentType    : Option[String]    = None,
                   addressId   : Option[Long]      = None,
                   allSlots    : Option[Int]       = None,
@@ -19,7 +20,7 @@ case class House( id          : Option[Long]      = None,
                   price       : Option[Long]      = None,
                   title       : Option[String]    = None,
                   description : Option[String]    = None,
-                  conditions  : Option[Map[String, String]],
+                  conditions  : Option[Map[String, String]] = None,
                   photo       : Option[Long]      = None,
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
@@ -29,7 +30,7 @@ case class House( id          : Option[Long]      = None,
 class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable[Long] with WithDefaultSession {
   def id          = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def userId      = column[Long]("account_id")
-  def houseType   = column[Option[String]]("house_type")
+  def houseType   = column[Option[HouseType]]("house_type")
   def rentType    = column[Option[String]]("rent_type")
   def addressId   = column[Option[Long]]("address_id")
   def allSlots    = column[Option[Int]]("all_slots")

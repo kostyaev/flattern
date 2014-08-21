@@ -3,12 +3,11 @@ package beans
 import java.io.File
 
 import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
-import dto.{HouseInfo, HouseThumbnail}
+import dto._
 import global.Paths
 import models._
 import play.api.libs.Files.TemporaryFile
-import play.api.mvc.{AnyContent, MultipartFormData}
-import provider.{AddressProvider, HouseProvider}
+import play.api.mvc.MultipartFormData
 import securesocial.core.SecuredRequest
 import service.WithDefaultSession
 import service.dao._
@@ -19,6 +18,8 @@ import scala.language.reflectiveCalls
 
 object HouseBean extends WithDefaultSession {
 
+  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
+
   val houseDAO = HouseDao
   val housePhotoDAO = HousePhotoDao
   val countryDAO = CountryDao
@@ -26,43 +27,55 @@ object HouseBean extends WithDefaultSession {
   val addressDao = AddressDao
 
 
-  def getHousePage(page: Int, pageSize: Int): Page[HouseThumbnail] = withTransaction { implicit session =>
+  def updateHouse(houseInfo: HouseInfo, house: House)
+                 (implicit session: FlatternSession): House = {
+    val updatedModel = houseInfo match {
+      case dto: HouseGeneral => house.copy(
+        houseType = Option(dto.houseType),
+        rentType = Option(dto.rentType),
+        price = Option(dto.price)
+      )
+
+      case dto: HouseAddress => house.copy(
+        addressId = HouseBean.saveAddress(dto.getModel).id
+      )
+
+      case dto: HouseDesc => house.copy(
+        title = Option(dto.title),
+        description = Option(dto.desc)
+      )
+
+      case dto: HouseAmenities => house.copy(
+        conditions = Option(dto.amenities.map(a => a.name -> a.name).toMap)
+      )
+    }
+    houseDAO.save(updatedModel)
+  }
+
+
+  def saveHouse(houseInfo: HouseInfo, userId: Long)
+               (implicit session: FlatternSession): House = {
+    updateHouse(houseInfo, House(userId = userId))
+  }
+
+  def getHousePage(page: Int, pageSize: Int)
+                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
     houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
   }
 
-  def saveAddress(addressProvider: AddressProvider) = withTransaction { implicit session =>
-    addressDao.save(addressProvider.getModel)
+  def saveAddress(address: Address)
+                 (implicit session: FlatternSession) =  {
+    addressDao.save(address)
   }
 
-  def saveHouse(houseProvider: HouseProvider)(implicit request: SecuredRequest[AnyContent]) = withTransaction { implicit session =>
-    val addressId = houseProvider.address match {
-      case Some(addressProvider) => addressDao.save(addressProvider.getModel).id
-      case _ => None
-    }
-    val userId = AccountDao.findByIdentityId(request.user.identityId).get.uid.get
-    val house = houseProvider.getModel(userId, addressId)
-    houseDAO.save(house)
-
-  }
 
   def getHousesByFilter(filter: HouseFilter, limit: Int, offset: Int) = withTransaction { implicit session =>
     houseDAO.findByFilterWithLimit(filter, limit, offset).list
   }
 
-  def getHouse(id: Long)(implicit request: SecuredRequest[AnyContent]): Option[House] = withTransaction { implicit session =>
+  def getHouse[T](id: Long)(implicit request: SecuredRequest[T]): Option[House] = withTransaction { implicit session =>
     val userId = AccountDao.findByIdentityId(request.user.identityId).get.uid.get
     houseDAO.findByFilter(HouseFilter(id = Option(id), userId = Option(userId))).firstOption
-  }
-
-  def getHouseProvider(house: House): HouseProvider = withTransaction { implicit session =>
-    HouseProvider(house)
-  }
-
-  def getHouseProviderById(houseId: Long): Option[HouseProvider] = withTransaction { implicit session =>
-    houseDAO.findByFilter(HouseFilter(id = Option(houseId))).firstOption match {
-      case Some(house) => Some(getHouseProvider(house))
-      case _ => None
-    }
   }
 
   def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile]): HousePhoto =
@@ -99,6 +112,14 @@ object HouseBean extends WithDefaultSession {
 
   def getAddress(addressId: Long) = withTransaction { implicit session =>
     addressDao.findOptionById(addressId)
+  }
+
+  def getAddressByHouseId(houseId: Long)
+                       (implicit  session: FlatternSession): Option[Address] = {
+    houseDAO.findOptionById(houseId) match {
+      case Some(house) => house.addressId.flatMap(id => addressDao.findOptionById(id))
+      case None => None
+    }
   }
 
   def getAddress(addressId: Option[Long]) = withTransaction { implicit session =>

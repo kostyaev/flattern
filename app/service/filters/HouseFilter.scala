@@ -1,8 +1,10 @@
 package service.filters
 
+import dto.HouseType.HouseType
+
 case class HouseFilter(id          : Option[Long]   = None,
                        userId      : Option[Long]   = None,
-                       houseType   : Option[String] = None,
+                       houseType   : Option[HouseType] = None,
                        rentType    : Option[String] = None,
                        addressId   : Option[Long]   = None,
                        allSlots    : Option[Int]    = None,

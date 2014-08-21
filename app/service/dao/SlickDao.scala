@@ -9,8 +9,7 @@ import utils.DgDriver.simple._
 import scala.slick.driver.PostgresDriver
 
 trait SlickDao[M, I] extends WithDefaultSession {
-
-  type FlatternSession = PostgresDriver.simple.Session
+  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
 
   val TRUE_OPTION = Option(true).bind
   val TRUE = true.bind

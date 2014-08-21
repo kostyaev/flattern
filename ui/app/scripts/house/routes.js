@@ -4,13 +4,16 @@
 define(['angular', './controllers', 'common'], function(angular, controllers) {
     'use strict';
     var mod = angular.module('house.routes', ['flattern.common']);
-    mod.config(['$stateProvider',
-        function($stateProvider)  {
+    mod.config(['$stateProvider','USER_ROLES',
+        function($stateProvider, USER_ROLES)  {
             $stateProvider
                 .state('house', {
                     abstract: true,
                     parent: 'settings',
-                    url: '/house',
+                    url: '/house/:id',
+                    data: {
+                        authorizedRoles: [USER_ROLES.editor]
+                    },
                     views: {
                         'left': {
                             templateUrl: 'views/house/left.html',
@@ -22,6 +25,7 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                             controller: controllers.ContentCtrl
                         }
                     }
+
                 })
                 .state('house.general', {
                     url: '',
@@ -41,11 +45,18 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                 })
                 .state('house.photos', {
                     templateUrl: 'views/house/sections/photos.html',
-                    controller: controllers.PhotosCtrl
+                    controller: controllers.PhotosCtrl,
+
                 });
 
 
 
         }]);
+    mod.constant('USER_ROLES', {
+        all   : '*',
+        admin : 'admin',
+        editor: 'editor',
+        guest : 'guest'
+    });
     return mod;
 });

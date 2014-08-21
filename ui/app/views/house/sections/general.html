@@ -3,7 +3,7 @@
     <div class="form-group">
         <label class="col-md-2 selecter-label" translate>HOUSE_TYPE</label>
         <div class="col-md-4">
-            <select class="form-control" ng-model="house.houseType" ng-options="type for type in constants.houseTypes">
+            <select class="form-control" ng-model="house.houseType" ng-options="type | translate for type in constants.houseTypes">
             </select>
         </div>
     </div>
@@ -11,7 +11,7 @@
     <div class="form-group">
         <label class="col-md-2 selecter-label" translate>RENT_TYPE</label>
         <div class="col-md-4">
-            <select class="form-control" ng-model="house.rentType" ng-options="rent for rent in constants.rentTypes">
+            <select class="form-control" ng-model="house.rentType" ng-options="rent | translate for rent in constants.rentTypes">
 
             </select>
         </div>

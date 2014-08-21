@@ -9,30 +9,28 @@ define(['angular', 'common'], function (angular) {
 
         return {
             getConstants: function () {
+                console.log('send constants');
                 return playRoutes.controllers.HouseCtrl.getConstants().get()
             },
-            getGeneral: function () {
-                return playRoutes.controllers.HouseCtrl.getGeneral().get()
+            getGeneral: function (id) {
+                console.log('send general id: ' + id);
+                return playRoutes.controllers.HouseCtrl.getGeneral(id).get()
             },
-            saveGeneral: function (general) {
-                return playRoutes.controllers.HouseCtrl.saveGeneral().post(general).then(function(response) {
-                    console.log(response);
+            saveGeneral: function (id, general) {
+                return playRoutes.controllers.HouseCtrl.saveGeneral(id).post(general).then(function(response) {
                 });
             },
-            getAddress: function() {
-                return playRoutes.controllers.HouseCtrl.getAddress().get()
+            getAddress: function(id) {
+                console.log('send address');
+                return playRoutes.controllers.HouseCtrl.getAddress(id).get()
             },
-            getAmenities: function () {
-                return playRoutes.controllers.HouseCtrl.getAmenities().get()
+            getAmenities: function (id) {
+                return playRoutes.controllers.HouseCtrl.getAmenities(id).get()
             },
-            saveAmenities: function (amenities) {
-                return playRoutes.controllers.HouseCtrl.saveAmenities().post(amenities).then(function(response) {
-                    console.log(response);
+            saveAmenities: function (id, amenities) {
+                return playRoutes.controllers.HouseCtrl.saveAmenities(id).post(amenities).then(function(response) {
                 });
             }
-
-
-
 
         };
     }]);

@@ -1,21 +1,29 @@
 package beans
 
-import models.{Page, User, Account}
-import service.WithDefaultSession
+import java.io.File
+
+import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
+import dto.UserThumbnail
+import global.Paths
+import models.{Account, Page, User}
+import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
 import provider.{UserProvider, UserWishesProvider}
-import securesocial.core.Registry
-import java.io.File
-import play.api.libs.Files.TemporaryFile
-import dto.UserThumbnail
-import scala.language.reflectiveCalls
-import utils.DgDriver.simple._
-import global.Paths
-import com.sksamuel.scrimage.{Format, ScaleMethod, Image}
-import service.filters.UserFilter
+import securesocial.core.{Identity, Registry}
+import service.WithDefaultSession
 import service.dao._
+import service.filters.UserFilter
+import utils.DgDriver.simple._
+
+import scala.language.reflectiveCalls
 
 object UserBean extends WithDefaultSession {
+
+  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
+
+  def getAccount(user: Identity)(implicit session: FlatternSession): Option[Account] = {
+    AccountDao.findByIdentityId(user.identityId)
+  }
 
   def getUserPage(page: Int, pageSize: Int): Page[UserThumbnail] = withTransaction { implicit session =>
     UserDao.getUserThumbnails(UserFilter(), page, pageSize)

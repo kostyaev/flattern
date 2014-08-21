@@ -13,8 +13,10 @@ define(['angular', 'jquery'], function(angular, $) {
         $translate.refresh();
     };
 
-    var GeneralCtrl = function ($scope, houseService) {
-        houseService.getGeneral()
+    var GeneralCtrl = function ($scope, $stateParams, houseService) {
+        $scope.house = {};
+
+        houseService.getGeneral($stateParams.id)
             .success(function (data) {
                 $scope.house = data;
             });
@@ -25,14 +27,14 @@ define(['angular', 'jquery'], function(angular, $) {
             });
 
         $scope.save = function(generalInfo) {
-            houseService.saveGeneral(generalInfo);
+            houseService.saveGeneral($stateParams.id, generalInfo);
         }
 
     };
 
-    var AddressCtrl = function ($scope, helper, $translate, houseService, filterFilter) {
+    var AddressCtrl = function ($scope, $stateParams, helper, $translate, houseService, filterFilter) {
         $scope.country = {};
-        houseService.getAddress().success(function (address) {
+        houseService.getAddress($stateParams.id).success(function (address) {
             $scope.addresss = address;
             var lang = $translate.use();
             helper.getCountries(lang).success(function (data) {
@@ -46,7 +48,7 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
 
-    var AmenitiesCtrl = function ($scope, houseService, filterFilter) {
+    var AmenitiesCtrl = function ($scope, $stateParams, houseService, filterFilter) {
 
         $scope.isGeneral = function(item) {
                 return item.id < 20;
@@ -78,7 +80,7 @@ define(['angular', 'jquery'], function(angular, $) {
         }
     };
 
-    var PhotosCtrl = function ($scope) {
+    var PhotosCtrl = function ($scope, $stateParams) {
         $scope.image = null;
         $scope.imageFileName = ''
 
@@ -87,10 +89,10 @@ define(['angular', 'jquery'], function(angular, $) {
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
-    GeneralCtrl.$inject = ['$scope', 'houseService'];
-    AddressCtrl.$inject = ['$scope', 'helper', '$translate', 'houseService', 'filterFilter'];
-    AmenitiesCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
-    PhotosCtrl.$inject = ['$scope'];
+    GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService'];
+    AddressCtrl.$inject = ['$scope', '$stateParams', 'helper', '$translate', 'houseService', 'filterFilter'];
+    AmenitiesCtrl.$inject = ['$scope', '$stateParams', 'houseService', 'filterFilter'];
+    PhotosCtrl.$inject = ['$scope', '$stateParams'];
 
     return {
         LeftCtrl: LeftCtrl,
