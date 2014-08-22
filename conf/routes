@@ -4,12 +4,15 @@
 
 GET         /test                          controllers.Test.test
 
+POST        /house/create                  controllers.HouseCtrl.createHouse
+
 GET         /house/constants               controllers.HouseCtrl.getConstants
 
 GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)
 POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id: Long)
 
 GET         /house/:id/address             controllers.HouseCtrl.getAddress(id: Long)
+POST        /house/:id/address             controllers.HouseCtrl.saveAddress(id: Long)
 
 GET         /house/:id/amenities           controllers.HouseCtrl.getAmenities(id: Long)
 POST        /house/:id/amenities           controllers.HouseCtrl.saveAmenities(id: Long)

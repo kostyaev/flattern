@@ -7,6 +7,14 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
     mod.config(['$stateProvider','USER_ROLES',
         function($stateProvider, USER_ROLES)  {
             $stateProvider
+                .state('create-house', {
+                    url: '/house/create',
+                    controller: controllers.CreateCtrl,
+                    data: {
+                        authorizedRoles: [USER_ROLES.editor]
+                    }
+
+                })
                 .state('house', {
                     abstract: true,
                     parent: 'settings',
@@ -27,25 +35,30 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     }
 
                 })
+
                 .state('house.general', {
                     url: '',
                     templateUrl: 'views/house/sections/general.html',
                     controller: controllers.GeneralCtrl
                 })
                 .state('house.address', {
+                    url: '/address',
                     templateUrl: 'views/house/sections/address.html',
                     controller: controllers.AddressCtrl
                 })
                 .state('house.desc', {
+                    url: '/desc',
                     templateUrl: 'views/house/sections/description.html'
                 })
                 .state('house.amenities', {
+                    url: '/amenities',
                     templateUrl: 'views/house/sections/amenities.html',
                     controller: controllers.AmenitiesCtrl
                 })
                 .state('house.photos', {
+                    url: '/photos',
                     templateUrl: 'views/house/sections/photos.html',
-                    controller: controllers.PhotosCtrl,
+                    controller: controllers.PhotosCtrl
 
                 });
 

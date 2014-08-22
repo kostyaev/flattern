@@ -1,36 +1,25 @@
 package models
 
-import provider.AddressProvider
-import utils.DgDriver.simple._
-import service.dao.IdentifiableTable
 import service.WithDefaultSession
+import service.dao.IdentifiableTable
+import utils.DgDriver.simple._
 
 case class Address( id          : Option[Long]   = None,
-                    city        : String,
-                    country     : String,
+                    city        : Option[String],
+                    country     : Option[String],
                     street      : Option[String] = None,
                     building    : Option[String] = None,
                     housing     : Option[String] = None,
                     floor       : Option[Int]    = None,
                     apt         : Option[Int]    = None) {
 
-  def getProvider = AddressProvider(
-    id = id,
-    city = city,
-    country = country,
-    street = street,
-    building = building,
-    housing = housing,
-    floor = floor,
-    apt = apt
-  )
 }
 
 
 class Addresses(tag: Tag) extends Table[Address](tag, "address") with IdentifiableTable[Long] with WithDefaultSession {
   def id          = column[Long]("id", O.PrimaryKey, O.AutoInc)
-  def city        = column[String]("city")
-  def country     = column[String]("country")
+  def city        = column[Option[String]]("city")
+  def country     = column[Option[String]]("country")
   def street      = column[Option[String]]("street")
   def building    = column[Option[String]]("building")
   def housing     = column[Option[String]]("housing")

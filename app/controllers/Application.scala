@@ -17,12 +17,14 @@ object Application extends Controller with SecureSocial {
     Ok(
       Routes.javascriptRouter(varName)(
         routes.javascript.Test.test,
+        routes.javascript.HouseCtrl.getConstants,
+        routes.javascript.HouseCtrl.createHouse,
         routes.javascript.HouseCtrl.saveGeneral,
         routes.javascript.HouseCtrl.getGeneral,
-        routes.javascript.HouseCtrl.getConstants,
+        routes.javascript.HouseCtrl.getAddress,
+        routes.javascript.HouseCtrl.saveAddress,
         routes.javascript.HouseCtrl.getAmenities,
-        routes.javascript.HouseCtrl.saveAmenities,
-        routes.javascript.HouseCtrl.getAddress
+        routes.javascript.HouseCtrl.saveAmenities
         // TODO Add your routes here
       )
     ).as(JAVASCRIPT)

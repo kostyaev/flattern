@@ -1,6 +1,6 @@
 package utils
 
-import dto.HouseType.HouseType
+import dto.house.HouseEnums.HouseType.HouseType
 import org.joda.time.LocalDate
 import shapeless.Poly2
 import utils.DgDriver.simple._

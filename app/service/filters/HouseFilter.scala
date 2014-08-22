@@ -1,6 +1,7 @@
 package service.filters
 
-import dto.HouseType.HouseType
+import dto.house.HouseEnums.HouseType.HouseType
+
 
 case class HouseFilter(id          : Option[Long]   = None,
                        userId      : Option[Long]   = None,

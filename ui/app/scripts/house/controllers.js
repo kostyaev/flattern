@@ -13,16 +13,27 @@ define(['angular', 'jquery'], function(angular, $) {
         $translate.refresh();
     };
 
-    var GeneralCtrl = function ($scope, $stateParams, houseService) {
-        $scope.house = {};
+    var CreateCtrl = function (houseService) {
+        console.log("create house");
+        houseService.createHouse();
+    };
+
+    var GeneralCtrl = function ($scope, $stateParams, houseService, $state) {
 
         houseService.getGeneral($stateParams.id)
             .success(function (data) {
+                console.log(data);
+                console.log("data");
                 $scope.house = data;
+            })
+            .error(function (data) {
+                $state.go('registered.home.houses');
+                //$location.path('/houses').replace();
             });
 
         houseService.getConstants()
             .success(function (data) {
+                console.log(data);
                 $scope.constants = data;
             });
 
@@ -58,7 +69,7 @@ define(['angular', 'jquery'], function(angular, $) {
             return item.id > 20;
         };
 
-        houseService.getAmenities()
+        houseService.getAmenities($stateParams.id)
             .success(function (data) {
                 $scope.amenities = data;
             });
@@ -89,7 +100,8 @@ define(['angular', 'jquery'], function(angular, $) {
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
-    GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService'];
+    CreateCtrl.$inject = ['houseService'];
+    GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService', '$state'];
     AddressCtrl.$inject = ['$scope', '$stateParams', 'helper', '$translate', 'houseService', 'filterFilter'];
     AmenitiesCtrl.$inject = ['$scope', '$stateParams', 'houseService', 'filterFilter'];
     PhotosCtrl.$inject = ['$scope', '$stateParams'];
@@ -97,6 +109,7 @@ define(['angular', 'jquery'], function(angular, $) {
     return {
         LeftCtrl: LeftCtrl,
         ContentCtrl: ContentCtrl,
+        CreateCtrl: CreateCtrl,
         GeneralCtrl: GeneralCtrl,
         AddressCtrl: AddressCtrl,
         AmenitiesCtrl: AmenitiesCtrl,

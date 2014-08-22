@@ -3,12 +3,11 @@ package beans
 import java.io.File
 
 import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
-import dto._
+import dto.house._
 import global.Paths
 import models._
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
-import securesocial.core.SecuredRequest
 import service.WithDefaultSession
 import service.dao._
 import service.filters.HouseFilter
@@ -27,13 +26,13 @@ object HouseBean extends WithDefaultSession {
   val addressDao = AddressDao
 
 
-  def updateHouse(houseInfo: HouseInfo, house: House)
+  def updateHouseInfo(houseInfo: HouseInfo, house: House)
                  (implicit session: FlatternSession): House = {
     val updatedModel = houseInfo match {
       case dto: HouseGeneral => house.copy(
-        houseType = Option(dto.houseType),
-        rentType = Option(dto.rentType),
-        price = Option(dto.price)
+        houseType = dto.houseType,
+        rentType = dto.rentType,
+        price = dto.price
       )
 
       case dto: HouseAddress => house.copy(
@@ -41,8 +40,8 @@ object HouseBean extends WithDefaultSession {
       )
 
       case dto: HouseDesc => house.copy(
-        title = Option(dto.title),
-        description = Option(dto.desc)
+        title = dto.title,
+        description = dto.desc
       )
 
       case dto: HouseAmenities => house.copy(
@@ -53,15 +52,19 @@ object HouseBean extends WithDefaultSession {
   }
 
 
-  def saveHouse(houseInfo: HouseInfo, userId: Long)
+  def saveHouseInfo(houseInfo: HouseInfo, userId: Long)
                (implicit session: FlatternSession): House = {
-    updateHouse(houseInfo, House(userId = userId))
+    updateHouseInfo(houseInfo, House(userId = userId))
   }
 
-  def getHousePage(page: Int, pageSize: Int)
-                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
-    houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+  def saveHouse(house: House)(implicit  session: FlatternSession): House = {
+    houseDAO.save(house)
   }
+
+//  def getHousePage(page: Int, pageSize: Int)
+//                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
+//    houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+//  }
 
   def saveAddress(address: Address)
                  (implicit session: FlatternSession) =  {
@@ -73,8 +76,7 @@ object HouseBean extends WithDefaultSession {
     houseDAO.findByFilterWithLimit(filter, limit, offset).list
   }
 
-  def getHouse[T](id: Long)(implicit request: SecuredRequest[T]): Option[House] = withTransaction { implicit session =>
-    val userId = AccountDao.findByIdentityId(request.user.identityId).get.uid.get
+  def getHouse(id: Long, userId: Long): Option[House] = withTransaction { implicit session =>
     houseDAO.findByFilter(HouseFilter(id = Option(id), userId = Option(userId))).firstOption
   }
 

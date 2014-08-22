@@ -1,6 +1,6 @@
 package models
 
-import dto.HouseType.HouseType
+import dto.house.HouseEnums.HouseType.HouseType
 import org.joda.time.LocalDate
 import play.api.i18n.Messages
 import service.WithDefaultSession

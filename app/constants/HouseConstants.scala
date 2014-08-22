@@ -1,10 +1,11 @@
 package constants
 
-case class HouseConstants(houseTypes: List[String] = HouseConstants.HouseTypes, rentTypes: List[String] = HouseConstants.RentTypes)
+import dto.house.HouseEnums.HouseType
+import dto.house.HouseEnums.HouseType.HouseType
+
+case class HouseConstants(houseTypes: List[HouseType] = HouseType.values.toList, rentTypes: List[String] = HouseConstants.RentTypes)
 
 object HouseConstants {
-
-  val HouseTypes = List("APT", "HOUSE", "DORM", "VILLA")
 
   val RentTypes = List("ENTIRE_HOUSE", "ENTIRE_ROOM", "ROOM_PLACE")
 
