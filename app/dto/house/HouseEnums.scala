@@ -8,6 +8,8 @@ object HouseEnums {
 
   val rentTypes = RentType.values.toList
 
+  val amenities = Amenity.values.toList
+
   object HouseType extends DBEnum {
     type HouseType = Value
     val APT, HOUSE, DORM, VILLA = Value

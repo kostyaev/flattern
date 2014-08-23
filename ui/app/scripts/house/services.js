@@ -27,8 +27,10 @@ define(['angular', 'common'], function (angular) {
                 });
             },
             getAddress: function(id) {
-                console.log('send address');
                 return playRoutes.controllers.HouseCtrl.getAddress(id).get()
+            },
+            saveAddress: function(id, address) {
+                return playRoutes.controllers.HouseCtrl.saveAddress(id).post(address)
             },
             getAmenities: function (id) {
                 return playRoutes.controllers.HouseCtrl.getAmenities(id).get()

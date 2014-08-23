@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" ng-submit="save(address)">
 
     <div class="form-group">
         <label class="col-md-2 selecter-label" translate>
@@ -19,7 +19,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label" translate>CITY</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'CITY' | translate}}">
+            <input ng-model="address.city" type="text" class="form-control" placeholder="{{'CITY' | translate}}">
         </div>
     </div>
 
@@ -45,28 +45,28 @@
     <div class="form-group">
         <label class="col-md-2 control-label" translate>STREET</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'STREET' | translate}}">
+            <input ng-model="address.street" type="text" class="form-control" placeholder="{{'STREET' | translate}}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label" translate>BUILDING</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'BUILDING' | translate}}">
+            <input ng-model="address.building" type="text" class="form-control" placeholder="{{'BUILDING' | translate}}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label" translate>HOUSING</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'HOUSING' | translate}}">
+            <input ng-model="address.housing" type="text" class="form-control" placeholder="{{'HOUSING' | translate}}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label" translate>APT</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'APT' | translate}}">
+            <input ng-model="address.apt" type="number" class="form-control" placeholder="{{'APT' | translate}}">
         </div>
     </div>
 

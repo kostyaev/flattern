@@ -11,10 +11,16 @@ define(['angular', 'jquery'], function(angular, $) {
     var ContentCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('house');
         $translate.refresh();
+
+        houseService.getConstants()
+            .success(function (data) {
+                $scope.constants = data;
+                $scope.generalAmenities = data.amenities.slice(0,11);
+                $scope.otherAmenities = data.amenities.slice(11,20);
+            });
     };
 
     var CreateCtrl = function (houseService) {
-        console.log("create house");
         houseService.createHouse();
     };
 
@@ -22,19 +28,11 @@ define(['angular', 'jquery'], function(angular, $) {
 
         houseService.getGeneral($stateParams.id)
             .success(function (data) {
-                console.log(data);
-                console.log("data");
                 $scope.house = data;
             })
             .error(function (data) {
                 $state.go('registered.home.houses');
                 //$location.path('/houses').replace();
-            });
-
-        houseService.getConstants()
-            .success(function (data) {
-                console.log(data);
-                $scope.constants = data;
             });
 
         $scope.save = function(generalInfo) {
@@ -45,45 +43,48 @@ define(['angular', 'jquery'], function(angular, $) {
 
     var AddressCtrl = function ($scope, $stateParams, helper, $translate, houseService, filterFilter) {
         $scope.country = {};
+
         houseService.getAddress($stateParams.id).success(function (address) {
-            $scope.addresss = address;
+            $scope.address = address;
             var lang = $translate.use();
             helper.getCountries(lang).success(function (data) {
                 $scope.countries = data.countries;
-                $scope.country.selected = filterFilter($scope.countries, { code: address.country })[0];
-                console.log($scope.country.selected);
-
+                $scope.country.selected = filterFilter($scope.countries, { code: address.countryCode })[0];
             });
         });
 
-    };
+        $scope.save = function(address) {
+            address.countryCode = $scope.country.selected.code;
+            houseService.saveAddress($stateParams.id, address).success(function(response) {
 
+            });
+        }
+
+    };
 
     var AmenitiesCtrl = function ($scope, $stateParams, houseService, filterFilter) {
         houseService.getAmenities($stateParams.id)
             .success(function (data) {
-                $scope.generalAmenities = data.allAmenities.slice(0,10);
-                $scope.otherAmenities = data.allAmenities.slice(10,30);
                 $scope.selection = data.selectedAmenities;
+                console.log($scope.selection);
+
+                $scope.toggleSelection = function toggleSelection(amenity) {
+                    var idx = $scope.selection.indexOf(amenity);
+
+                    // is currently selected
+                    if (idx > -1) {
+                        $scope.selection.splice(idx, 1);
+                    }
+                    // is newly selected
+                    else {
+                        $scope.selection.push(amenity);
+                    }
+                };
+
             });
 
-        // toggle selection for a given amenity by name
-        $scope.toggleSelection = function toggleSelection(amenity) {
-            var idx = $scope.selection.indexOf(amenity);
-
-            // is currently selected
-            if (idx > -1) {
-                $scope.selection.splice(idx, 1);
-            }
-
-            // is newly selected
-            else {
-                $scope.selection.push(amenity);
-            }
-        };
-
         $scope.save = function() {
-            houseService.saveAmenities($scope.selection);
+            houseService.saveAmenities($stateParams.id, $scope.selection);
         }
     };
 

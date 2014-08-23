@@ -5,12 +5,12 @@
         <div class="col-md-4">
             <div class="input-control space4">
                 <h4 class="space2" translate>GENERAL_AMENITIES</h4>
-                <label for="{{amenity}}" ng-repeat="amenity in generalAmenities">
+                <label for="{{amenity}}" ng-repeat="amenity in generalAmenities ">
                     <input class="checkbox" id="{{amenity}}" name="selectedAmenities[]"
                            type="checkbox" value="{{amenity}}"
                            ng-checked="selection.indexOf(amenity) > -1"
                            ng-click="toggleSelection(amenity)" picker-plug />
-                    {{amenity}}
+                    {{amenity | translate}}
                 </label>
 
             </div>
@@ -19,9 +19,12 @@
         <div class="col-md-4">
             <div class="input-control space4">
                 <h4 class="space2" translate>ADDITIONAL_AMENITIES</h4>
-                <label for="{{amenity.id}}" ng-repeat="amenity in otherAmenities">
-                    <input id="{{amenity.id}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" value="{{amenity.id}}" picker-plug />
-                    {{amenity.name}}
+                <label for="{{amenity}}" ng-repeat="amenity in otherAmenities">
+                    <input class="checkbox" id="{{amenity}}" name="selectedAmenities[]"
+                           type="checkbox" value="{{amenity}}"
+                           ng-checked="selection.indexOf(amenity) > -1"
+                           ng-click="toggleSelection(amenity)" picker-plug />
+                    {{amenity | translate}}
                 </label>
             </div>
         </div>
