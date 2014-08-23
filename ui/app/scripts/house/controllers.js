@@ -60,31 +60,27 @@ define(['angular', 'jquery'], function(angular, $) {
 
 
     var AmenitiesCtrl = function ($scope, $stateParams, houseService, filterFilter) {
-
-        $scope.isGeneral = function(item) {
-                return item.id < 20;
-        };
-
-        $scope.notGeneral = function(item) {
-            return item.id > 20;
-        };
-
         houseService.getAmenities($stateParams.id)
             .success(function (data) {
-                $scope.amenities = data;
+                $scope.generalAmenities = data.allAmenities.slice(0,10);
+                $scope.otherAmenities = data.allAmenities.slice(10,30);
+                $scope.selection = data.selectedAmenities;
             });
 
-        $scope.selection = [];
+        // toggle selection for a given amenity by name
+        $scope.toggleSelection = function toggleSelection(amenity) {
+            var idx = $scope.selection.indexOf(amenity);
 
-        // helper method to get selected amenities
-        $scope.selectedAmenities = function selectedAmenities() {
-            return filterFilter($scope.amenities, { selected: true });
+            // is currently selected
+            if (idx > -1) {
+                $scope.selection.splice(idx, 1);
+            }
+
+            // is newly selected
+            else {
+                $scope.selection.push(amenity);
+            }
         };
-
-        // watch amenities for changes
-        $scope.$watch('amenities | filter:{selected:true}', function (data) {
-            $scope.selection = data;
-        }, true);
 
         $scope.save = function() {
             houseService.saveAmenities($scope.selection);

@@ -45,7 +45,7 @@ object HouseBean extends WithDefaultSession {
       )
 
       case dto: HouseAmenities => house.copy(
-        conditions = Option(dto.amenities.map(a => a.name -> a.name).toMap)
+        amenities = dto.selectedAmenities
       )
     }
     houseDAO.save(updatedModel)

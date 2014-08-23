@@ -1,9 +1,8 @@
 package controllers
 
 import beans.{HouseBean, UserBean}
-import constants.HouseConstants
 import dto.Empty
-import dto.house.HouseEnums.HouseType
+import dto.house.HouseEnums.{RentType, Amenity, HouseType}
 import dto.house._
 import models.House
 import play.api.Logger
@@ -15,6 +14,8 @@ import utils.EnumUtils
 
 object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
   implicit val houseTypeReads = EnumUtils.enumFormat(HouseType)
+  implicit val rentTypeReads = EnumUtils.enumFormat(RentType)
+  implicit val amenityReads = EnumUtils.enumFormat(Amenity)
 
   implicit val houseGeneralReads = Json.format[HouseGeneral]
   implicit val houseGeneralEmptyReads = Json.format[Empty]
@@ -109,7 +110,9 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     withTransaction { implicit session =>
       val userId = UserBean.getAccount(request.user).get.uid.get
       HouseBean.getHouse(id, userId) match {
-        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseAmenities(house)))
+        case Some(house) => Ok(Json.toJson(HouseAmenities(
+          selectedAmenities = house.amenities, allAmenities = Amenity.values.toList)
+        ))
         case None => BadRequest(Json.toJson(Empty()))
       }
     }

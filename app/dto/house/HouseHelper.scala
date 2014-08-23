@@ -1,6 +1,5 @@
 package dto.house
 
-import constants.HouseConstants
 import models.{Address, House}
 
 object HouseHelper {
@@ -27,15 +26,15 @@ object HouseHelper {
       house.title,
       house.description)
 
-  def getHouseAmenities(house: House): List[HouseAmenity] = {
-    val conditions = house.conditions.get
-    val amenities = for ((k, v) <- HouseConstants.Amenities)
-    yield {
-      val selected = if (conditions.contains(k.toString)) true else false
-      HouseAmenity(k, v, selected = selected)
-    }
-    amenities.toList.sortBy(_.id)
-  }
+//  def getHouseAmenities(house: House): List[HouseAmenity] = {
+//    val conditions = house.conditions.get
+//    val amenities = for ((k, v) <- HouseConstants.Amenities)
+//    yield {
+//      val selected = if (conditions.contains(k.toString)) true else false
+//      HouseAmenity(k, v, selected = selected)
+//    }
+//    amenities.toList.sortBy(_.id)
+//  }
 
 }
 
