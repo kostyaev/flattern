@@ -129,6 +129,7 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
         },
         amenities => {
           val userId = UserBean.getAccount(request.user).get.uid.get
+          Logger.info(amenities.toString)
           HouseBean.getHouse(id, userId) match {
             case Some(house) =>
               HouseBean.updateHouseInfo(amenities, house)

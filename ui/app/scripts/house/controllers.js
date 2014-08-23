@@ -15,8 +15,7 @@ define(['angular', 'jquery'], function(angular, $) {
         houseService.getConstants()
             .success(function (data) {
                 $scope.constants = data;
-                $scope.generalAmenities = data.amenities.slice(0,11);
-                $scope.otherAmenities = data.amenities.slice(11,20);
+
             });
     };
 
@@ -65,34 +64,38 @@ define(['angular', 'jquery'], function(angular, $) {
     var AmenitiesCtrl = function ($scope, $stateParams, houseService, filterFilter) {
         houseService.getAmenities($stateParams.id)
             .success(function (data) {
-                $scope.selection = data.selectedAmenities;
-                console.log($scope.selection);
-
-                $scope.toggleSelection = function toggleSelection(amenity) {
-                    var idx = $scope.selection.indexOf(amenity);
-
-                    // is currently selected
-                    if (idx > -1) {
-                        $scope.selection.splice(idx, 1);
-                    }
-                    // is newly selected
-                    else {
-                        $scope.selection.push(amenity);
-                    }
-                };
-
+                $scope.amenities = $scope.constants.amenities.map(function(amenity) {
+                    var selected = data.selectedAmenities.indexOf(amenity) > -1;
+                    return {name: amenity, selected: selected}
+                });
+                $scope.generalAmenities = $scope.amenities.slice(0,11);
+                $scope.otherAmenities = $scope.amenities.slice(11,20);
             });
 
+        $scope.selection = [];
+
+        // helper method to get selected amenities
+        $scope.selectedAmenities = function selectedAmenities() {
+            return filterFilter($scope.amenities, { selected: true });
+        };
+
+        // watch amenities for changes
+        $scope.$watch('amenities | filter:{selected:true}', function (data) {
+            $scope.selection = data;
+        }, true);
+
         $scope.save = function() {
-            houseService.saveAmenities($stateParams.id, $scope.selection);
+            var amenities = {};
+            amenities.selectedAmenities = $scope.selection.map(function(amenity) {
+                return amenity.name;
+            });
+            houseService.saveAmenities($stateParams.id, amenities);
         }
     };
 
     var PhotosCtrl = function ($scope, $stateParams) {
         $scope.image = null;
         $scope.imageFileName = ''
-
-
     };
 
     LeftCtrl.$inject = ['$scope'];
