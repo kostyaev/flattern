@@ -30,7 +30,9 @@ define(['angular', './routes', './controllers', './services'], function(angular,
     });
 
     mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
+        var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
+            history.push(next);
             var authorizedRoles = next.data.authorizedRoles;
             if (!authServices.isAuthorized(authorizedRoles)) {
                 if (authServices.isAuthenticated()) {
@@ -47,7 +49,8 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                         authServices.checkAuth()
                             .success(function(response) {
                                 Session.create(response.id, response.name, USER_ROLES.editor);
-                                $state.go('registered.home.houses');
+                                var nextState = history.pop().name || 'registered.home.houses';
+                                $state.go(nextState);
                             }).error(function(response) {
                                 Session.create('', '', USER_ROLES.guest);
                                 response.currentScope.form = {
