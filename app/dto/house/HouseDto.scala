@@ -30,4 +30,4 @@ case class HouseAddress(id: Option[Long], countryCode: Option[String], city: Opt
 
 case class HouseDesc(title: Option[String], desc: Option[String]) extends HouseInfo
 
-case class HouseAmenities(selectedAmenities: Option[List[Amenity]]) extends HouseInfo
+case class HouseAmenities(selectedAmenities: List[Amenity]) extends HouseInfo

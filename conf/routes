@@ -14,6 +14,10 @@ POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id:
 GET         /house/:id/address             controllers.HouseCtrl.getAddress(id: Long)
 POST        /house/:id/address             controllers.HouseCtrl.saveAddress(id: Long)
 
+GET         /house/:id/desc                controllers.HouseCtrl.getDesc(id: Long)
+POST        /house/:id/desc                controllers.HouseCtrl.saveDesc(id: Long)
+
+
 GET         /house/:id/amenities           controllers.HouseCtrl.getAmenities(id: Long)
 POST        /house/:id/amenities           controllers.HouseCtrl.saveAmenities(id: Long)
 

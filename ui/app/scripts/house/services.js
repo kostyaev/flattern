@@ -32,6 +32,12 @@ define(['angular', 'common'], function (angular) {
             saveAddress: function(id, address) {
                 return playRoutes.controllers.HouseCtrl.saveAddress(id).post(address)
             },
+            getDesc: function(id) {
+                return playRoutes.controllers.HouseCtrl.getDesc(id).get()
+            },
+            saveDesc: function(id, desc) {
+                return playRoutes.controllers.HouseCtrl.saveDesc(id).post(desc)
+            },
             getAmenities: function (id) {
                 return playRoutes.controllers.HouseCtrl.getAmenities(id).get()
             },

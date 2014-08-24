@@ -108,11 +108,46 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     }
   }
 
+  def getDesc(id: Long) =  SecuredAction(ajaxCall = true) { implicit request =>
+    withTransaction { implicit session =>
+      Logger.info("get desc")
+      val userId = UserBean.getAccount(request.user).get.uid.get
+      HouseBean.getHouse(id, userId) match {
+        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseDesc(house)))
+        case None => BadRequest(Json.toJson(Empty()))
+      }
+    }
+  }
+
+
+  def saveDesc(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+    withTransaction { implicit session =>
+      Logger.info("save desc")
+      request.body.validate[HouseDesc].fold(
+        errors => {
+          Logger.info(JsError.toFlatJson(errors).toString())
+          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+        },
+        desc => {
+          Logger.info("saving desc " + desc.toString)
+          val userId = UserBean.getAccount(request.user).get.uid.get
+          HouseBean.getHouse(id, userId) match {
+            case Some(house) =>
+              HouseBean.updateHouseInfo(desc, house)
+              Ok(Json.toJson("Данные успешно сохранены"))
+            case None =>
+              BadRequest(Json.toJson(Empty()))
+          }
+        }
+      )
+    }
+  }
+
   def getAmenities(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
     withTransaction { implicit session =>
       val userId = UserBean.getAccount(request.user).get.uid.get
       HouseBean.getHouse(id, userId) match {
-        case Some(house) => Ok(Json.toJson(HouseAmenities(Option(house.amenities.getOrElse(List())))))
+        case Some(house) => Ok(Json.toJson(HouseAmenities(house.amenities)))
         case None => BadRequest(Json.toJson(Empty()))
       }
     }
@@ -141,7 +176,6 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
       )
     }
   }
-
 
 
   def uploadPhoto(id: Long) = SecuredAction(ajaxCall = true)(parse.multipartFormData) { implicit request =>

@@ -21,7 +21,7 @@ case class House( id          : Option[Long]      = None,
                   price       : Option[Long]      = None,
                   title       : Option[String]    = None,
                   description : Option[String]    = None,
-                  amenities   : Option[List[Amenity]] = None,
+                  amenities   : List[Amenity]     = List(),
                   photo       : Option[Long]      = None,
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
@@ -42,7 +42,7 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
   def title       = column[Option[String]]("title")
   def description = column[Option[String]]("description")
   def price       = column[Option[Long]]("price")
-  def amenities   = column[Option[List[Amenity]]]("amenities")
+  def amenities   = column[List[Amenity]]("amenities")
   def photo       = column[Option[Long]]("photo")
   def views       = column[Int]("views")
   def date        = column[Option[LocalDate]]("date")

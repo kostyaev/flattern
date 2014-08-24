@@ -61,6 +61,19 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
+    var DescCtrl = function ($scope, $stateParams, houseService) {
+        houseService.getDesc($stateParams.id).success(function (desc) {
+            $scope.desc = desc;
+        });
+
+        $scope.save = function(desc) {
+            houseService.saveDesc($stateParams.id, desc).success(function(response) {
+
+            });
+        }
+
+    };
+
     var AmenitiesCtrl = function ($scope, $stateParams, houseService, filterFilter) {
         houseService.getAmenities($stateParams.id)
             .success(function (data) {
@@ -103,6 +116,7 @@ define(['angular', 'jquery'], function(angular, $) {
     CreateCtrl.$inject = ['houseService'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService', '$state'];
     AddressCtrl.$inject = ['$scope', '$stateParams', 'helper', '$translate', 'houseService', 'filterFilter'];
+    DescCtrl.$inject = ['$scope', '$stateParams', 'houseService'];
     AmenitiesCtrl.$inject = ['$scope', '$stateParams', 'houseService', 'filterFilter'];
     PhotosCtrl.$inject = ['$scope', '$stateParams'];
 
@@ -112,6 +126,7 @@ define(['angular', 'jquery'], function(angular, $) {
         CreateCtrl: CreateCtrl,
         GeneralCtrl: GeneralCtrl,
         AddressCtrl: AddressCtrl,
+        DescCtrl: DescCtrl,
         AmenitiesCtrl: AmenitiesCtrl,
         PhotosCtrl: PhotosCtrl
     };
