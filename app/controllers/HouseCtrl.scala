@@ -1,9 +1,8 @@
 package controllers
 
 import beans.{HouseBean, UserBean}
-import constants.HouseConstants
 import dto.Empty
-import dto.house.HouseEnums.HouseType
+import dto.house.HouseEnums.{RentType, Amenity, HouseType}
 import dto.house._
 import models.House
 import play.api.Logger
@@ -14,15 +13,19 @@ import service.WithDefaultSession
 import utils.EnumUtils
 
 object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
-  implicit val houseTypeReads = EnumUtils.enumFormat(HouseType)
 
-  implicit val houseGeneralReads = Json.format[HouseGeneral]
-  implicit val houseGeneralEmptyReads = Json.format[Empty]
-  implicit val houseAddressReads = Json.format[HouseAddress]
-  implicit val houseDescReads = Json.format[HouseDesc]
-  implicit val houseConstantsReads = Json.format[HouseConstants]
-  implicit val houseAmenityReads = Json.format[HouseAmenity]
-  implicit val houseAmenitiesReads = Json.format[HouseAmenities]
+  //Enums
+  implicit val houseTypeFormat = EnumUtils.enumFormat(HouseType)
+  implicit val rentTypeFormat = EnumUtils.enumFormat(RentType)
+  implicit val amenityFormat = EnumUtils.enumFormat(Amenity)
+
+  //Case classes
+  implicit val houseGeneralFormat = Json.format[HouseGeneral]
+  implicit val houseGeneralEmptyFormat = Json.format[Empty]
+  implicit val houseAddressFormat = Json.format[HouseAddress]
+  implicit val houseDescFormat = Json.format[HouseDesc]
+  implicit val houseConstantsFormat = Json.format[HouseConstants]
+  implicit val houseAmenitiesFormat = Json.format[HouseAmenities]
 
   //def getUser()(implicit request: SecuredRequest[AnyContent]): Account = UserBean.getAccount(request.user).get
 
@@ -77,21 +80,21 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     withTransaction { implicit session =>
       HouseBean.getAddressByHouseId(id) match {
         case Some(address) =>
-          HouseHelper.getHouseAddress(address)
-        case None => "empty"
+          Ok(Json.toJson(HouseHelper.getHouseAddress(address)))
+        case None => Ok(Json.toJson(Empty()))
       }
-      Ok(Json.toJson(HouseAddress(Option("RU"), Option("Москва"), Option("Грина"))))
     }
   }
 
   def saveAddress(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
     withTransaction { implicit session =>
-      request.body.validate[HouseGeneral].fold(
+      request.body.validate[HouseAddress].fold(
         errors => {
           Logger.info(JsError.toFlatJson(errors).toString())
           BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
         },
         address => {
+          Logger.info("saving address " + address.toString)
           val userId = UserBean.getAccount(request.user).get.uid.get
           HouseBean.getHouse(id, userId) match {
             case Some(house) =>
@@ -105,11 +108,46 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     }
   }
 
+  def getDesc(id: Long) =  SecuredAction(ajaxCall = true) { implicit request =>
+    withTransaction { implicit session =>
+      Logger.info("get desc")
+      val userId = UserBean.getAccount(request.user).get.uid.get
+      HouseBean.getHouse(id, userId) match {
+        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseDesc(house)))
+        case None => BadRequest(Json.toJson(Empty()))
+      }
+    }
+  }
+
+
+  def saveDesc(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+    withTransaction { implicit session =>
+      Logger.info("save desc")
+      request.body.validate[HouseDesc].fold(
+        errors => {
+          Logger.info(JsError.toFlatJson(errors).toString())
+          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+        },
+        desc => {
+          Logger.info("saving desc " + desc.toString)
+          val userId = UserBean.getAccount(request.user).get.uid.get
+          HouseBean.getHouse(id, userId) match {
+            case Some(house) =>
+              HouseBean.updateHouseInfo(desc, house)
+              Ok(Json.toJson("Данные успешно сохранены"))
+            case None =>
+              BadRequest(Json.toJson(Empty()))
+          }
+        }
+      )
+    }
+  }
+
   def getAmenities(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
     withTransaction { implicit session =>
       val userId = UserBean.getAccount(request.user).get.uid.get
       HouseBean.getHouse(id, userId) match {
-        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseAmenities(house)))
+        case Some(house) => Ok(Json.toJson(HouseAmenities(house.amenities)))
         case None => BadRequest(Json.toJson(Empty()))
       }
     }
@@ -118,6 +156,7 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
 
   def saveAmenities(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
     withTransaction { implicit session =>
+      Logger.info(request.body.toString())
       request.body.validate[HouseAmenities].fold(
         errors => {
           Logger.info(JsError.toFlatJson(errors).toString())
@@ -125,6 +164,7 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
         },
         amenities => {
           val userId = UserBean.getAccount(request.user).get.uid.get
+          Logger.info(amenities.toString)
           HouseBean.getHouse(id, userId) match {
             case Some(house) =>
               HouseBean.updateHouseInfo(amenities, house)
@@ -136,7 +176,6 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
       )
     }
   }
-
 
 
   def uploadPhoto(id: Long) = SecuredAction(ajaxCall = true)(parse.multipartFormData) { implicit request =>

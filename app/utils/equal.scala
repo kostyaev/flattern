@@ -1,6 +1,7 @@
 package utils
 
 import dto.house.HouseEnums.HouseType.HouseType
+import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.LocalDate
 import shapeless.Poly2
 import utils.DgDriver.simple._
@@ -18,6 +19,8 @@ object equal extends Poly2 {
   implicit def optionDouble    = at[Column[Option[Double]], Option[Double]] ((col, field) => field.map(x => col === x))
   implicit def optionLocalDate = at[Column[Option[LocalDate]], Option[LocalDate]] ((col, field) => field.map(x => col === x))
   implicit def optionHstore    = at[Column[Option[Map[String, String]]], Option[Map[String, String]]] ((col, field) => field.map(x => col === x))
-  implicit def optionValue     = at[Column[Option[HouseType]], Option[HouseType]] ((col, field) => field.map(x => col === x))
+
+  implicit def optionHouseType = at[Column[Option[HouseType]], Option[HouseType]] ((col, field) => field.map(x => col === x))
+  implicit def optionRentType  = at[Column[Option[RentType]], Option[RentType]] ((col, field) => field.map(x => col === x))
 
 }

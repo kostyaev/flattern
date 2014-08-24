@@ -48,7 +48,8 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                 })
                 .state('house.desc', {
                     url: '/desc',
-                    templateUrl: 'views/house/sections/description.html'
+                    templateUrl: 'views/house/sections/description.html',
+                    controller: controllers.DescCtrl
                 })
                 .state('house.amenities', {
                     url: '/amenities',

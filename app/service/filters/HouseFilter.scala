@@ -1,12 +1,13 @@
 package service.filters
 
 import dto.house.HouseEnums.HouseType.HouseType
+import dto.house.HouseEnums.RentType.RentType
 
 
 case class HouseFilter(id          : Option[Long]   = None,
                        userId      : Option[Long]   = None,
                        houseType   : Option[HouseType] = None,
-                       rentType    : Option[String] = None,
+                       rentType    : Option[RentType] = None,
                        addressId   : Option[Long]   = None,
                        allSlots    : Option[Int]    = None,
                        freeSlots   : Option[Int]    = None,

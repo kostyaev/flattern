@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" ng-submit="save(address)">
 
     <div class="form-group">
         <label class="col-md-2 selecter-label" translate>
@@ -19,55 +19,50 @@
     <div class="form-group">
         <label class="col-md-2 control-label" translate>CITY</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'CITY' | translate}}">
+            <input ng-model="address.city" type="text" class="form-control" placeholder="{{'CITY' | translate}}">
         </div>
     </div>
 
     <!--<div class="form-group">-->
-        <!--<label class="col-md-2 selecter-label">-->
-            <!--Город-->
-        <!--</label>-->
-        <!--<div class="col-md-4">-->
-            <!--<ui-select ng-model="address.selected"-->
-                       <!--theme="bootstrap"-->
-                       <!--ng-disabled="disabled"-->
-                       <!--reset-search-input="false">-->
-                <!--<ui-select-match placeholder="Введите название города">{{$select.selected.formatted_address}}</ui-select-match>-->
-                <!--<ui-select-choices repeat="address in addresses track by $index"-->
-                                   <!--refresh="refreshAddresses($select.search)"-->
-                                   <!--refresh-delay="0">-->
-                    <!--<div ng-bind-html="address.formatted_address | highlight: $select.search"></div>-->
-                <!--</ui-select-choices>-->
-            <!--</ui-select>-->
-        <!--</div>-->
+    <!--<label class="col-md-2 selecter-label">-->
+    <!--Город-->
+    <!--</label>-->
+    <!--<div class="col-md-4">-->
+    <!--<ui-select ng-model="address.selected"-->
+    <!--theme="bootstrap"-->
+    <!--ng-disabled="disabled"-->
+    <!--reset-search-input="false">-->
+    <!--<ui-select-match placeholder="Введите название города">{{$select.selected.formatted_address}}</ui-select-match>-->
+    <!--<ui-select-choices repeat="address in addresses track by $index"-->
+    <!--refresh="refreshAddresses($select.search)"-->
+    <!--refresh-delay="0">-->
+    <!--<div ng-bind-html="address.formatted_address | highlight: $select.search"></div>-->
+    <!--</ui-select-choices>-->
+    <!--</ui-select>-->
+    <!--</div>-->
     <!--</div>-->
 
     <div class="form-group">
         <label class="col-md-2 control-label" translate>STREET</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'STREET' | translate}}">
+            <input ng-model="address.street" type="text" class="form-control" placeholder="{{'STREET' | translate}}">
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label" translate>BUILDING</label>
+    <div class="row space2">
+        <label class="col-md-2 control-label">{{'BUILDING'| translate}} / {{'HOUSING' | translate}} / {{'APT'| translate}}</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'BUILDING' | translate}}">
+            <div class="col-md-4" style="padding-left:0;">
+                <input type="text" ng-model="address.building" placeholder="{{'BUILDING'| translate}}" class="form-control">
+            </div>
+            <div class="col-md-4" style="padding-left:0;">
+                <input type="text" ng-model="address.housing"  placeholder="{{'HOUSING' | translate}}" class="form-control">
+            </div>
+            <div class="col-md-4" style="padding-left:0;">
+                <input type="text" ng-model="address.apt" placeholder="{{'APT'| translate}}" class="form-control">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label" translate>HOUSING</label>
-        <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'HOUSING' | translate}}">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label" translate>APT</label>
-        <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="{{'APT' | translate}}">
-        </div>
     </div>
 
     <div class="form-group">
