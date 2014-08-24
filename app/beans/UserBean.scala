@@ -8,7 +8,7 @@ import global.Paths
 import models.{Account, Page, User}
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
-import provider.{UserProvider, UserWishesProvider}
+import dto.user.{UserGeneral, UserAbout}
 import securesocial.core.{Identity, Registry}
 import service.WithDefaultSession
 import service.dao._
@@ -62,21 +62,21 @@ object UserBean extends WithDefaultSession {
     a
   }
 
-  def userUpdate(account: Account, userProvider: UserProvider) = withTransaction { implicit session =>
-    val pwd = userProvider.password1.getOrElse("")
+  def userUpdate(account: Account, userGeneral: UserGeneral) = withTransaction { implicit session =>
+    val pwd = userGeneral.password1.getOrElse("")
     val passwordInfo = if(pwd.length > 0) Some(Registry.hashers.currentHasher.hash(pwd)) else account.passwordInfo
     val a = account.copy(
-      firstName    = userProvider.firstName,
-      lastName     = userProvider.lastName,
-      fullName     = userProvider.getFullName,
-      email        = userProvider.getEmail,
+      firstName    = userGeneral.firstName,
+      lastName     = userGeneral.lastName,
+      fullName     = userGeneral.getFullName,
+      email        = userGeneral.getEmail,
       passwordInfo = passwordInfo
     )
     val u = findUserByAccount(account).copy(
       accountId = a.uid,
-      sex       = userProvider.sex,
-      birthday  = userProvider.birthDate,
-      timezone  = userProvider.getTimeZone
+      sex       = userGeneral.sex,
+      birthday  = userGeneral.birthDate,
+      timezone  = userGeneral.getTimeZone
     )
     AccountDao.save(a)
     UserDao.save(u)
@@ -84,16 +84,16 @@ object UserBean extends WithDefaultSession {
     (a, u)
   }
 
-  def userUpdate(account: Account, userProvider: UserWishesProvider) = withTransaction { implicit session =>
+  def userUpdate(account: Account, userAbout: UserAbout) = withTransaction { implicit session =>
     val u = findUserByAccount(account).copy(
       accountId = account.uid,
-      wishes    = userProvider.wishes,
-      wsex      = userProvider.wsex,
-      wage      = userProvider.wage,
-      wprice    = userProvider.wprice,
-      wcountry  = userProvider.wcountry,
-      wdistrict = userProvider.wdistrict,
-      privacy   = userProvider.getPrivacy
+      wishes    = userAbout.wishes,
+      wsex      = userAbout.wsex,
+      wage      = userAbout.wage,
+      wprice    = userAbout.wprice,
+      wcountry  = userAbout.wcountry,
+      wdistrict = userAbout.wdistrict,
+      privacy   = userAbout.getPrivacy
     )
     UserDao.save(u)
 

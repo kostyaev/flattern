@@ -90,10 +90,12 @@ define(['angular'], function(angular) {
     LogoutCtrl.$inject = ['$scope', '$rootScope', 'authServices', '$state', 'authService', 'AUTH_EVENTS', 'USER_ROLES', 'Session'];
 
     var PasswordCtrl = function ($scope, $rootScope, authServices, $state, $stateParams, AUTH_EVENTS) {
-        $scope.form = $scope.form || {}
+        // clear form
+        //$scope.form = {};
         $scope.sendEmail = function () {
             authServices.sendEmailReset($scope.form)
                 .success(function () {
+                    // broadcast message to target scope
                     $rootScope.$broadcast(AUTH_EVENTS.loginMessage, {
                         infomessage: 'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту'
                     });
@@ -108,18 +110,21 @@ define(['angular'], function(angular) {
             authServices.reset($scope.form, $stateParams.token)
                 .success(function (response) {
                     if(response.email == null) {
-                        console.log(1)
-                        $rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
+                        console.log($scope.form);
+                        $scope.form.errors = { message: "23123123" };
+                        //$rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
+                    } else {
+                        $state.go('login');
                     }
-                    console.log(response);
-
-                    //$state.go('login');
                 })
                 .error(function (response) {
-                    $rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
+                    //console.log(response)
                     $scope.form.errors = response;
                     if (response['password'])
-                        $scope.form.errors['password.password2'] = response['password'];
+                        $scope.form.errors['message'] = response['password.password1'];
+
+
+
                 })
         };
 

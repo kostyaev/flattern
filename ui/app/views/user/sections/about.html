@@ -1,0 +1,62 @@
+<form ng-controller="AboutCtrl" class="form-horizontal" ng-submit="save(user)" role="form">
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>PRIVACY</label>
+        <div class="col-md-4">
+            <input type="text" ng-model="user.privacy" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>WISHES</label>
+        <div class="col-md-4">
+            <input type="text" ng-model="user.wishes" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>SEX</label>
+        <div class="col-md-4">
+            <input type="number" ng-model="user.wsex" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>AGE</label>
+        <div class="col-md-4">
+            <input type="number" ng-model="user.wage" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>WPRICE</label>
+        <div class="col-md-4">
+            <input type="number" ng-model="user.wprice" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>COUNTRY</label>
+        <div class="col-md-4">
+            <input type="text" ng-model="user.wcountry" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" translate>DISTRICT</label>
+        <div class="col-md-4">
+            <input type="text" ng-model="user.wdistrict" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-primary" value="{{'SAVE' | translate}}">
+            <span></span>
+            <input type="reset" class="btn btn-default" value="{{'CANCEL' | translate}}">
+        </div>
+    </div>
+
+</form>
+</div>

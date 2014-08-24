@@ -63,7 +63,7 @@ object UserDao extends SlickDao[User, Long] {
       .drop(Page.getOffset(page, pageSize))
       .take(pageSize)
       .list
-      .map(p => UserThumbnail(p))
+      .map(p => UserThumbnail.fill(p))
 
     Page(
       items = result,

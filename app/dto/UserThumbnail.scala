@@ -12,7 +12,7 @@ case class UserThumbnail( id          : Long,
                           )
 
 object UserThumbnail {
-  def apply(account: Account, user: User): UserThumbnail =
+  def fill(account: Account, user: User): UserThumbnail =
     UserThumbnail(
       id = user.accountId.getOrElse(0),
       fullName = account.fullName,
@@ -29,7 +29,7 @@ object UserThumbnail {
       }
     )
 
-  def apply(p: (Account, User)): UserThumbnail = apply(p._1, p._2)
+  def fill(p: (Account, User)): UserThumbnail = fill(p._1, p._2)
 }
 
 

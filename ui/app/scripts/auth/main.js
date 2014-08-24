@@ -17,7 +17,9 @@ define(['angular', './routes', './controllers', './services'], function(angular,
         loginRequired : 'event:auth-loginRequired',
         sendEmailReset: 'event:auth-sendEmailReset',
         checkAuth     : 'event:auth-checkAuth',
-        loginMessage  : 'event:auth-loginMessage'
+        loginMessage  : 'event:auth-loginMessage',
+        targetMessage : 'event:auth-targetMessage',
+        currentMessage: 'event:auth-currentMessage'
     });
 
     mod.constant('USER_ROLES', {
@@ -79,6 +81,17 @@ define(['angular', './routes', './controllers', './services'], function(angular,
         });
 
         $rootScope.$on(AUTH_EVENTS.loginMessage, function(event, msg) {
+            console.log(event)
+            event.targetScope.form = {
+                errors: {
+                    infomessage: msg.infomessage || '',
+                    message: msg.message || ''
+                }
+            };
+        });
+
+        $rootScope.$on(AUTH_EVENTS.currentMessage, function(event, msg) {
+            console.log(event)
             event.currentScope.form = {
                 errors: {
                     infomessage: msg.infomessage || '',
