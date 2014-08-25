@@ -1,5 +1,7 @@
 package dto.user
 
+import UserEnums.Privacy.Privacy
+import UserEnums.SexType.SexType
 import models.{Account, User}
 import org.joda.time.LocalDate
 
@@ -7,7 +9,7 @@ trait UserInfo
 
 case class UserGeneral(firstName: String,
                        lastName: String,
-                       sex: Option[Int],
+                       sex: Option[SexType],
                        birthDate: Option[LocalDate],
                        email: String,
                        timezone: Int,
@@ -34,30 +36,13 @@ object UserGeneral {
   def fill(a: Account, u: User): UserGeneral = fill((a, u))
 }
 
-case class UserAbout(wishes    : Option[String] = None,
-                     wsex      : Option[Int]    = None,
-                     wage      : Option[Int]    = None,
-                     wprice    : Option[Double] = None,
-                     wcountry  : Option[String] = None,
-                     wdistrict : Option[String] = None,
-                     privacy   : Option[List[String]]) {
-  def getPrivacy = {
-    val p = privacy match {
-      case Some(list) if list.length > 0 => {
-        val m = list.zip(List("true", "true")).toMap
-        if(!m.contains("h")) m + ("h" -> "false")
-        else if(!m.contains("u")) m + ("u" -> "false")
-        else m
-      }
-      case _ => Map("h" -> "false", "u" -> "false")
-    }
-
-    Some(p)
-  }
-
-  def privacyList =
-    (List("h" -> "Ищу жилье", "u" -> "Ищу сожителя") zip privacy.getOrElse(List("false", "false"))).toMap
-}
+case class UserAbout(wishes    : Option[String]  = None,
+                     wsex      : Option[SexType] = None,
+                     wage      : Option[Int]     = None,
+                     wprice    : Option[Double]  = None,
+                     wcountry  : Option[String]  = None,
+                     wdistrict : Option[String]  = None,
+                     privacy   : Option[List[Privacy]] = None)
 
 object UserAbout {
   def fill(user: (Account, User)): UserAbout =
@@ -68,10 +53,12 @@ object UserAbout {
       wprice    = user._2.wprice,
       wcountry  = user._2.wcountry,
       wdistrict = user._2.wdistrict,
-      privacy   = Some(user._2.privacy.getOrElse(Map("h" -> "false", "u" -> "false")).map { case (k, v) => v }.toList)
+      privacy   = user._2.privacy
     )
 
   def fill(a: Account, u: User): UserAbout = fill((a, u))
-
-  def default = Map(("h" -> "Ищу жилье") -> "false", ("u" -> "Ищу сожителя") -> "false")
 }
+
+
+case class UserConstants(sexTypes: List[SexType] = UserEnums.sexTypes,
+                         privacy: List[Privacy] = UserEnums.privacy)

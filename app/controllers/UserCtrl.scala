@@ -6,15 +6,21 @@ import securesocial.core._
 import models._
 import play.api._
 import mvc._
-import dto.user.{UserGeneral, UserAbout}
-import constants.UserConstants
+import dto.user._
+import dto.user.UserEnums._
 import beans.{HouseBean, UserBean}
 import scala.language.reflectiveCalls
 import play.api.libs.json._
 import service.WithDefaultSession
+import utils.EnumUtils
 
 object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
 
+  // enums
+  implicit val sexTypeFormat = EnumUtils.enumFormat(SexType)
+  implicit val privacyFormat = EnumUtils.enumFormat(Privacy)
+
+  // case classes
   implicit val userConstantsFormat = Json.format[UserConstants]
   implicit val userGeneralFormat = Json.format[UserGeneral]
   implicit val userAboutFormat = Json.format[UserAbout]

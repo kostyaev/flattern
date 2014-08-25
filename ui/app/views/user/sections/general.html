@@ -15,9 +15,10 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 control-label" translate>SEX</label>
+        <label class="col-md-2 selecter-label" translate>SEX</label>
         <div class="col-md-4">
-            <input type="text" ng-model="user.sex" class="form-control" placeholder="Пол">
+            <select class="form-control" ng-model="user.sex" ng-options="sex | translate for sex in constants.sexTypes">
+            </select>
         </div>
     </div>
 

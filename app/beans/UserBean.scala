@@ -93,7 +93,7 @@ object UserBean extends WithDefaultSession {
       wprice    = userAbout.wprice,
       wcountry  = userAbout.wcountry,
       wdistrict = userAbout.wdistrict,
-      privacy   = userAbout.getPrivacy
+      privacy   = userAbout.privacy
     )
     UserDao.save(u)
 

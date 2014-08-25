@@ -14,6 +14,14 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
     var GeneralCtrl = function ($scope, $stateParams, userService, $state) {
+
+        userService.getConstants()
+            .success(function (data) {
+                console.log('user constants')
+                console.log(data);
+                $scope.constants = data;
+            });
+
         userService.getGeneral()
             .success(function (data) {
                 console.log("user data");
@@ -24,6 +32,14 @@ define(['angular', 'jquery'], function(angular, $) {
                 //$location.path('/houses').replace();
             });
 
+        $scope.save = function(generalInfo) {
+            userService.saveGeneral(generalInfo);
+        };
+
+    };
+
+    var AboutCtrl = function ($scope, $stateParams, userService, $state, filterFilter) {
+
         userService.getConstants()
             .success(function (data) {
                 console.log('user constants')
@@ -31,32 +47,53 @@ define(['angular', 'jquery'], function(angular, $) {
                 $scope.constants = data;
             });
 
-        $scope.save = function(generalInfo) {
-            userService.saveGeneral(generalInfo);
-        }
 
-    };
-
-    var AboutCtrl = function ($scope, $stateParams, userService, $state) {
         userService.getAbout()
             .success(function (data) {
                 console.log(data);
                 console.log("user data");
                 $scope.user = data;
+
+                $scope.user.privacy = $scope.constants.privacy.map(function(p) {
+                    if(typeof data.privacy !== 'undefined') {
+                        var selected = data.privacy.indexOf(p) > -1;
+                        return {name: p, selected: selected}
+                    } else {
+                        return {name: p}
+                    }
+                });
+
+                console.log($scope.user.privacy)
             })
             .error(function (data) {
                 $state.go('registered.home.houses');
                 //$location.path('/houses').replace();
             });
 
-        userService.getConstants()
-            .success(function (data) {
-                console.log('user constants')
-                console.log(data);
-                $scope.constants = data;
-            });
+        //
+
+        $scope.selection = [];
+
+        // helper method to get selected amenities
+        $scope.selectedPrivacy = function selectedPrivacy() {
+            console.log(selection)
+            return filterFilter($scope.user.privacy, { selected: true });
+        };
+
+        // watch amenities for changes
+        $scope.$watch('privacy | filter:{selected:true}', function (data) {
+            console.log(data)
+            $scope.selection = data;
+        }, true);
 
         $scope.save = function(generalInfo) {
+            /*var privacy = {};
+            privacy.selectedPrivacy = $scope.selection.map(function(p) {
+                return p.name;
+            });*/
+
+            console.log(generalInfo)
+
             userService.saveAbout(generalInfo);
         }
 
@@ -65,7 +102,7 @@ define(['angular', 'jquery'], function(angular, $) {
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'userService', '$translate', '$translatePartialLoader'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
-    AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
+    AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state', 'filterFilter'];
 
     return {
         LeftCtrl: LeftCtrl,
