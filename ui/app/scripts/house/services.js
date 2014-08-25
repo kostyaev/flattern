@@ -9,17 +9,14 @@ define(['angular', 'common'], function (angular) {
 
         return {
             getConstants: function () {
-                console.log('send constants');
                 return playRoutes.controllers.HouseCtrl.getConstants().get()
             },
             createHouse: function () {
                 return playRoutes.controllers.HouseCtrl.createHouse().post().then(function(response) {
-                    console.log(response);
                     $state.go('house.general', {id: response.data});
                 });
             },
             getGeneral: function (id) {
-                console.log('send general id: ' + id);
                 return playRoutes.controllers.HouseCtrl.getGeneral(id).get()
             },
             saveGeneral: function (id, general) {

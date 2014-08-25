@@ -12,11 +12,10 @@ define(['angular', 'jquery'], function(angular, $) {
         $translatePartialLoader.addPart('house');
         $translate.refresh();
 
-        houseService.getConstants()
-            .success(function (data) {
-                $scope.constants = data;
+        houseService.getConstants().success(function (data) {
+            $scope.constants = data;
+        });
 
-            });
     };
 
     var CreateCtrl = function (houseService) {
@@ -24,15 +23,17 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
     var GeneralCtrl = function ($scope, $stateParams, houseService, $state) {
-
         houseService.getGeneral($stateParams.id)
             .success(function (data) {
                 $scope.house = data;
             })
             .error(function (data) {
-                $state.go('registered.home.houses');
+                //$state.go('registered.home.houses');
+                $state.transitionTo('registered.home.houses');
                 //$location.path('/houses').replace();
             });
+
+
 
         $scope.save = function(generalInfo) {
             houseService.saveGeneral($stateParams.id, generalInfo);

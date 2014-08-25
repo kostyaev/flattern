@@ -6,40 +6,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
     'use strict';
 
     var mod = angular.module('flattern.user', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'user.routes', 'user.services']);
-    mod.controller("GeneralCtrl", controllers.GeneralCtrl);
     mod.controller("EditCtrl", controllers.EditCtrl);
-
-
-    mod.filter('propsFilter', function() {
-        return function(items, props) {
-            var out = [];
-
-            if (angular.isArray(items)) {
-                items.forEach(function(item) {
-                    var itemMatches = false;
-
-                    var keys = Object.keys(props);
-                    for (var i = 0; i < keys.length; i++) {
-                        var prop = keys[i];
-                        var text = props[prop].toLowerCase();
-                        if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-                            itemMatches = true;
-                            break;
-                        }
-                    }
-
-                    if (itemMatches) {
-                        out.push(item);
-                    }
-                });
-            } else {
-                // Let the output be the input untouched
-                out = items;
-            }
-
-            return out;
-        }
-    });
 
     return mod;
 

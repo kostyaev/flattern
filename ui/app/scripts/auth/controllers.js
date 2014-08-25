@@ -14,7 +14,7 @@ define(['angular'], function(angular) {
     AuthCtrl.$inject = ['$scope'];
 
     var SignUpCtrl = function ($scope, authServices, $state, $stateParams) {
-        $scope.form = $scope.form || {}
+        $scope.form = $scope.form || {};
         $scope.sendEmail = function () {
             authServices.sendEmail($scope.form)
                 .success(function () {
@@ -43,7 +43,7 @@ define(['angular'], function(angular) {
     SignUpCtrl.$inject = ['$scope', 'authServices', '$state', '$stateParams'];
 
     var LoginCtrl = function ($scope, $rootScope, authServices, $state, authService, AUTH_EVENTS, USER_ROLES, Session) {
-        $scope.form = $scope.form || {}
+        $scope.form = $scope.form || {};
         $scope.login = function () {
             authServices.login($scope.form)
                 .success(function (response) {

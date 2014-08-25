@@ -6,9 +6,8 @@ define(['angular', './routes', './controllers', './services'], function(angular,
     'use strict';
 
     var mod = angular.module('flattern.house', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'house.routes', 'house.services']);
-    mod.controller("GeneralCtrl", controllers.GeneralCtrl);
-    mod.controller("CreateCtrl", controllers.CreateCtrl);
 
+    mod.controller("CreateCtrl", controllers.CreateCtrl);
 
     mod.filter('propsFilter', function() {
         return function(items, props) {

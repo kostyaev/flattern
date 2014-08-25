@@ -16,8 +16,7 @@ define(['angular', 'jquery'], function(angular, $) {
     var GeneralCtrl = function ($scope, $stateParams, userService, $state) {
         userService.getGeneral()
             .success(function (data) {
-                console.log(data);
-                console.log("data");
+                console.log("user data");
                 $scope.user = data;
             })
             .error(function (data) {
@@ -27,7 +26,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
         userService.getConstants()
             .success(function (data) {
-                console.log('constants')
+                console.log('user constants')
                 console.log(data);
                 $scope.constants = data;
             });
@@ -42,7 +41,7 @@ define(['angular', 'jquery'], function(angular, $) {
         userService.getAbout()
             .success(function (data) {
                 console.log(data);
-                console.log("data");
+                console.log("user data");
                 $scope.user = data;
             })
             .error(function (data) {
@@ -52,7 +51,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
         userService.getConstants()
             .success(function (data) {
-                console.log('constants')
+                console.log('user constants')
                 console.log(data);
                 $scope.constants = data;
             });
