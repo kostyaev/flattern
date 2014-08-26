@@ -57,9 +57,9 @@ define(['angular', 'jquery'], function(angular, $) {
                 $scope.user.privacy = $scope.constants.privacy.map(function(p) {
                     if(typeof data.privacy !== 'undefined') {
                         var selected = data.privacy.indexOf(p) > -1;
-                        return {name: p, selected: selected}
+                        return { name: p, selected: selected };
                     } else {
-                        return {name: p}
+                        return { name: p, selected: false };
                     }
                 });
 
@@ -70,29 +70,25 @@ define(['angular', 'jquery'], function(angular, $) {
                 //$location.path('/houses').replace();
             });
 
-        //
+        $scope.toggleSelection = function toggleSelection(p) {
+            var idx = $scope.user.privacy.map(function(e) { return e.name; }).indexOf(p);
 
-        $scope.selection = [];
-
-        // helper method to get selected amenities
-        $scope.selectedPrivacy = function selectedPrivacy() {
-            console.log(selection)
-            return filterFilter($scope.user.privacy, { selected: true });
+            // is currently selected
+            if (idx > -1) {
+                if(typeof $scope.user.privacy[idx].name !== 'undefined'){
+                    if(!$scope.user.privacy[idx].selected)
+                        $scope.user.privacy[idx].selected = true;
+                    else
+                        $scope.user.privacy[idx].selected = false;
+                }
+            }
+            console.log($scope.user.privacy);
         };
 
-        // watch amenities for changes
-        $scope.$watch('privacy | filter:{selected:true}', function (data) {
-            console.log(data)
-            $scope.selection = data;
-        }, true);
-
         $scope.save = function(generalInfo) {
-            /*var privacy = {};
-            privacy.selectedPrivacy = $scope.selection.map(function(p) {
-                return p.name;
-            });*/
-
-            console.log(generalInfo)
+            generalInfo.privacy = $scope.clone($scope.user.privacy).filter(function(e) { return (e.selected === true); }).map(function(e) { return e.name; });
+            console.log(generalInfo);
+            console.log($scope.user.privacy);
 
             userService.saveAbout(generalInfo);
         }

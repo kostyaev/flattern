@@ -1,21 +1,12 @@
 <form class="form-horizontal" ng-submit="save(user)" role="form">
 
-    <!--<div class="form-group">
+    <div class="form-group">
         <label class="col-md-2 control-label" translate>PRIVACY</label>
         <div class="col-md-4">
-            <input type="text" ng-model="user.privacy" class="form-control">
-        </div>
-    </div>-->
-    <div class="form-group">
-        <div class="col-md-4">
-            <div class="input-control space4">
-                <h4 class="space2" translate>PRIVACY</h4>
-                <label for="{{privacy.name}}" ng-repeat="privacy in user.privacy">
-                    <input class="checkbox" id="{{privacy.name}}" name="selectedPrivacy[]" ng-model="user.privacySelected" type="checkbox" value="{{privacy.name}}" picker-plug />
-                    <span translate>{{privacy.name}} </span>
-                </label>
-
-            </div>
+            <label for="{{privacy.name}}" ng-repeat="privacy in user.privacy">
+                <input class="checkbox" id="{{privacy.name}}" name="selectedPrivacy[]" ng-model="user.privacySelected" ng-change="toggleSelection(privacy.name)" ng-checked="privacy.selected" type="checkbox" value="{{privacy.name}}" picker-plug />
+                <span translate>{{privacy.name}} </span>
+            </label>
         </div>
     </div>
 

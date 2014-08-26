@@ -26,5 +26,8 @@
     "AGE": "Возраст",
     "WPRICE": "Бюджет",
     "COUNTRY": "Страна",
-    "DISTRICT": "Район"
+    "DISTRICT": "Район",
+    "HOUSE_SEARCH": "Поиск жилья",
+    "USER_SEARCH": "Поиск сожителя",
+    "NOTHING_SEARCH": "Скрыть из поиска"
 }
