@@ -984,7 +984,10 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     position: relative;
     display: table;
     border-collapse: separate;
-    width: 125%;
+}
+
+#landing .input-group input {
+    min-width: 1100px;
 }
 
 /* END Landing section */
