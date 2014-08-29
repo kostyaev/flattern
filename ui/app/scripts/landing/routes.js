@@ -15,14 +15,11 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     },
                     views: {
                         '': {
-                            template: '<div ui-view></div>'
+                            templateUrl: 'views/landing/content.html',
+                            controller: controllers.LandingCtrl
                         },
                         'footer': {
                             templateUrl: 'views/general/footer.html'
-                        },
-                        'content': {
-                            templateUrl: 'views/landing/content.html',
-                            controller: controllers.LandingCtrl
                         }
                     }
 
