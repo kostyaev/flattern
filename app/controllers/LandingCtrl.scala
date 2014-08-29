@@ -7,7 +7,7 @@ import play.api.mvc._
 import dto.landing.LandingForm
 
 object LandingCtrl extends Controller {
-  implicit val userConstantsFormat = Json.format[LandingForm]
+  implicit val landingFormFormat = Json.format[LandingForm]
 
   def send = Action(parse.json) { request =>
     request.body.validate[LandingForm].fold(
