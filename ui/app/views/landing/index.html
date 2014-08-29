@@ -1,0 +1,149 @@
+<div id="landing">
+    <div class="header-image">
+        <div class="headline">
+            <div class="container">
+                <div class="header">
+                <!--<ul class="nav nav-pills pull-right">
+                    <li><a href="@securesocial.core.providers.utils.RoutesHelper.login().toString">Вход</a>
+                    </li>
+                    <li class="active"><a href="@securesocial.core.providers.utils.RoutesHelper.startSignUp().toString"><span class="glyphicon glyphicon-user"></span> Регистрация</a>
+                    </li>
+                </ul>-->
+                    <h3 class="text-muted"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
+                </div>
+                <h1>Все квартиры в одном месте</h1>
+                <!--<p class="subline">Более <strong>526,78<span class="dynamo" data-lines="3,4,5,6">2</span></strong> объявлений.</p>-->
+                <h6 class="text-muted">Подпишитесь на информационную рассылку, мы оповестим вас об открытии.</h6>
+            </div>
+        </div>
+        <div class="search-block">
+            <div class="container">
+                <form id="landing-form" ng-controller="LandingCtrl" ng-submit="send()" class="form-inline" role="form" method="post">
+                    <div class="row">
+                        <div class="col-lg-13 col-sm-13">
+                            <div class="input-group">
+                                <input type="text" ng-model="user.email" class="form-control input-lg" placeholder="Введите ваш Email">
+                                    <span class="input-group-btn">
+                                        <button id="landing_email" class="btn btn-success btn-lg" type="submit" ng-disabled="buttonDisabled">Пуск!</button>
+                                    </span>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /header-image -->
+</div>
+<!-- /Header Section -->
+<!-- Section 1 -->
+<div class="section secondary">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 animated slideInDown">
+                <h4>Тысячи квартир и домов на ваш выбор.</h4>
+                <p>Выберете подходящее место для проживания в одиночку или найдите сожителя.</p>
+            </div>
+            <div class="col-lg-4 col-md-4 animated fadeInUpBig">
+                <h4>Удобный поиск.</h4>
+                <p>Аоспользуйтесь поиском чтобы найти подходящее жилье.</p>
+            </div>
+            <div class="col-lg-4 col-md-4 animated slideInRight">
+                <h4>Бронирование.</h4>
+                <p>Забронируйте место прямо на сайте, предварительно узнав ваших сожителей или выберете своих (в можно арендовать всё в одиночку).</p>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /Section 1 -->
+<!-- Section 2 -->
+<div class="section">
+    <div class="container">
+        <div class="featurette animated slideInLeft">
+            <img alt="thumbnail" class="featurette-image img-circle img-responsive pull-right animated fade" src="images/landing/s-1.jpg">
+            <h2 class="featurette-heading">Простой поиск <span class="text-muted">жилья по различным характеристикам</span></h2>
+            <p class="lead">Простой и удобный поиск жилья, с возможностью указания числа комнат, сроков аренды, количества человек и различных других характеристик.</p>
+        </div>
+        <hr class="featurette-divider">
+        <div class="featurette animated slideInRight">
+            <img alt="thumbnail" class="featurette-image img-circle img-responsive pull-left animated fade" src="images/landing/s-2.jpg">
+            <h2 class="featurette-heading">Большое сообщество <span class="text-muted">пользователей.</span></h2>
+            <p class="lead">Свяжитесь с любым пользователем сервиса для возможного взаимного сотрудничества.</p>
+        </div>
+        <!--<hr class="featurette-divider">
+        <div class="featurette animated slideInRight">
+            <img alt="thumbnail" class="featurette-image img-circle img-responsive pull-right animated fade" src="images/landing/s-3.jpg">
+            <h2 class="featurette-heading">Большое сообщество <span class="text-muted">пользователей.</span></h2>
+            <p class="lead">Свяжитесь с любым пользователем сервиса для возможного взаимного сотрудничества.</p>
+        </div>
+        <hr>-->
+    </div>
+</div>
+<!-- /Section 2 -->
+<!-- Section 3 -->
+<!--<div class="sec-features">
+    <div class="container">
+        <h2 class="text-center">Аннонс <small>функционала</small></h2>
+        <hr>
+        <ul class="grid">
+            <li>
+                <div>
+                    <h5><i class="fa fa-globe"></i><a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <h5><i class="fa fa-map-marker"></i> <a href="#">Nulla non metus auctor </a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <h5><i class="fa fa-heart-o"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <h5><i class="fa fa-comments-o"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+
+            <li>
+                <div>
+                    <h5><i class="fa fa-thumbs-o-up"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <h5><i class="fa fa-search"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+
+                <div>
+                    <h5><i class="fa fa-camera"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+            <li>
+                <div>
+
+                    <h5><i class="fa fa-cloud"></i> <a href="#">Donec ullamcorper nulla</a></h5>
+                    <p>onec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>-->

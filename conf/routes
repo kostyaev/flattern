@@ -4,6 +4,10 @@
 
 GET         /test                          controllers.Test.test
 
+# landing
+
+POST        /landing/send                  controllers.LandingCtrl.send
+
 # house
 POST        /house/create                  controllers.HouseCtrl.createHouse
 
