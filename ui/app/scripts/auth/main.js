@@ -29,7 +29,9 @@ define(['angular', './routes', './controllers', './services'], function(angular,
         guest : 'guest'
     });
 
-    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
+
+    // uncomment to enble auth
+    /*mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
         var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
             history.push(next);
@@ -114,28 +116,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                     };
                 });
         });
-    });
-
-    mod.directive('formAutofillFix', function ($timeout) {
-        return function (scope, element, attrs) {
-            element.prop('method', 'post');
-            if (attrs.ngSubmit) {
-                $timeout(function () {
-                    element
-                        .unbind('submit')
-                        .bind('submit', function (event) {
-                            event.preventDefault();
-                            element
-                                .find('input, textarea, select')
-                                .trigger('input')
-                                .trigger('change')
-                                .trigger('keydown');
-                            scope.$apply(attrs.ngSubmit);
-                        });
-                });
-            }
-        };
-    });
+    });*/
 
     return mod;
 });

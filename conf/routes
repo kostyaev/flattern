@@ -37,6 +37,8 @@ POST        /user/edit/general             controllers.UserCtrl.saveGeneral
 GET         /user/edit/about               controllers.UserCtrl.getAbout
 POST        /user/edit/about               controllers.UserCtrl.saveAbout
 
+GET         /user/edit/houses              controllers.UserCtrl.getHouses
+
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()
 

@@ -32,6 +32,7 @@ object Application extends Controller with SecureSocial {
         routes.javascript.UserCtrl.saveGeneral,
         routes.javascript.UserCtrl.getAbout,
         routes.javascript.UserCtrl.saveAbout,
+        routes.javascript.UserCtrl.getHouses,
         routes.javascript.LandingCtrl.send
         // TODO Add your routes here
       )

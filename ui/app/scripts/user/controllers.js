@@ -38,7 +38,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var AboutCtrl = function ($scope, $stateParams, userService, $state, filterFilter) {
+    var AboutCtrl = function ($scope, $stateParams, userService, $state) {
 
         userService.getConstants()
             .success(function (data) {
@@ -129,16 +129,35 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
+    var HousesCtrl = function ($scope, userService) {
+        $scope.houses = [];
+
+            userService.getUserHouses()
+            .success(function (data) {
+                console.log(data)
+                $scope.houses = data
+            })
+            .error(function (data) {
+                console.log('lul2')
+                //$state.go('registered.home.houses');
+                //$location.path('/houses').replace();
+            });
+
+
+    };
+
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', 'userService', '$translate', '$translatePartialLoader'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
-    AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state', 'filterFilter'];
+    AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
+    HousesCtrl.$inject = ['$scope', 'userService'];
 
     return {
         LeftCtrl: LeftCtrl,
         ContentCtrl: ContentCtrl,
         GeneralCtrl: GeneralCtrl,
-        AboutCtrl: AboutCtrl
+        AboutCtrl: AboutCtrl,
+        HousesCtrl: HousesCtrl
     };
 
 });

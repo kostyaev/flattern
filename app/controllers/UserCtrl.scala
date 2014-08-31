@@ -7,6 +7,7 @@ import models._
 import play.api._
 import mvc._
 import dto.user._
+import dto.house.HouseEnums._
 import dto.user.UserEnums._
 import beans.{HouseBean, UserBean}
 import scala.language.reflectiveCalls
@@ -19,11 +20,15 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
   // enums
   implicit val sexTypeFormat = EnumUtils.enumFormat(SexType)
   implicit val privacyFormat = EnumUtils.enumFormat(Privacy)
+  implicit val houseTypeFormat = EnumUtils.enumFormat(HouseType)
+  implicit val rentTypeFormat = EnumUtils.enumFormat(RentType)
+  implicit val amenityFormat = EnumUtils.enumFormat(Amenity)
 
   // case classes
   implicit val userConstantsFormat = Json.format[UserConstants]
   implicit val userGeneralFormat = Json.format[UserGeneral]
   implicit val userAboutFormat = Json.format[UserAbout]
+  implicit val hosesFormat = Json.format[House]
 
   def getConstants = SecuredAction(ajaxCall = true) {
     Ok(Json.toJson(UserConstants()))
@@ -79,6 +84,13 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
         Ok(Json.toJson("Данные успешно сохранены"))
       }
     )
+  }
+
+  def getHouses = SecuredAction(ajaxCall = true) { implicit request =>
+    val user = AccountDao.findByIdentityId
+    val houseList = HouseBean.getHousesByFilter(HouseFilter(None, user.uid), 100, 0)
+
+    Ok(Json.toJson(houseList))
   }
 
   def picUpload = SecuredAction(parse.multipartFormData) { implicit request =>
