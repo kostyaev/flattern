@@ -61,7 +61,7 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
   }
 
   def getAbout = SecuredAction(ajaxCall = true) { implicit request =>
-    withTransaction{ implicit session =>
+    withTransaction { implicit session =>
       Logger.info("user.general")
       val account = AccountDao.findByIdentityId
       val user = UserBean.findUser(account)
@@ -91,6 +91,34 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
     val houseList = HouseBean.getHousesByFilter(HouseFilter(None, user.uid), 100, 0)
 
     Ok(Json.toJson(houseList))
+  }
+
+  def getUserById(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
+    AccountDao.findById(id) match {
+      case Some(u) => {
+        val houseList = HouseBean.getHousesByFilter(HouseFilter(None, Some(id)), 100, 0)
+        val pUser = UserBean.findUser(u)
+
+        val userAbout = UserAbout.fill(u, pUser)
+        val userGeneral = UserGeneral.fill(u, pUser)
+
+        Ok(Json.obj(
+          "success"     -> "true",
+          "userAbout"   -> userAbout,
+          "userGeneral" -> userGeneral,
+          "houses"      -> houseList
+        ))
+
+      }
+      case None => {
+        BadRequest(
+          Json.obj(
+            "success" -> "false",
+            "error"   -> "user.not.exists"
+          )
+        )
+      }
+    }
   }
 
   def picUpload = SecuredAction(parse.multipartFormData) { implicit request =>

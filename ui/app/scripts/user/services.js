@@ -10,11 +10,11 @@ define(['angular', 'common'], function (angular) {
         return {
             getConstants: function () {
                 console.log('userService.getConstants');
-                return playRoutes.controllers.UserCtrl.getConstants().get()
+                return playRoutes.controllers.UserCtrl.getConstants().get();
             },
             getGeneral: function () {
                 console.log('userService.getGeneral');
-                return playRoutes.controllers.UserCtrl.getGeneral().get()
+                return playRoutes.controllers.UserCtrl.getGeneral().get();
             },
             saveGeneral: function (general) {
                 return playRoutes.controllers.UserCtrl.saveGeneral().post(general).then(function(response) {
@@ -22,15 +22,19 @@ define(['angular', 'common'], function (angular) {
             },
             getAbout: function () {
                 console.log('userService.getAbout');
-                return playRoutes.controllers.UserCtrl.getAbout().get()
+                return playRoutes.controllers.UserCtrl.getAbout().get();
             },
             saveAbout: function (about) {
                 return playRoutes.controllers.UserCtrl.saveAbout().post(about).then(function(response) {
                 });
             },
             getUserHouses: function () {
-                console.log('userService.getUserHouses')
-                return playRoutes.controllers.UserCtrl.getHouses().get()
+                console.log('userService.getUserHouses');
+                return playRoutes.controllers.UserCtrl.getHouses().get();
+            },
+            getUserById: function (id) {
+                console.log('userService.getUserById: ' + id);
+                return playRoutes.controllers.UserCtrl.getUserById(id).get();
             }
         };
     }]);

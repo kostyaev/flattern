@@ -89,19 +89,17 @@ body .top-form-inner {padding: 20px 20px;
     background-color: #E7E7E7;
 }
 
-
 #top .navbar-nav > li > .dropdown-menu {
     text-transform: none;
     font-size: 12px;
 }
 
-
 .left-sec .filter-sec {}
 
-
-.left-sec .input-control {margin-top: 20px;
-    font-size: 13px;}
-
+.left-sec .input-control {
+    margin-top: 20px;
+    font-size: 13px;
+}
 
 .left-sec .input-control label {
     font-size: 12px;}
@@ -170,10 +168,16 @@ body .top-form-inner {padding: 20px 20px;
     padding: 3px 2px;
 }
 
+#houses {
+    padding: 0 0 0 20px;
+}
 
-.right-sec ul.media-list { font-family: 'Montserrat',Arial,Helvetica,sans-serif;}
+.right-sec ul.media-list, #houses ul.media-list {
+    font-family: 'Montserrat',Arial,Helvetica,sans-serif;
+}
 
-.right-sec ul.media-list li.premium-item {color: #DAF2FA;
+.right-sec ul.media-list li.premium-item, #houses ul.media-list li.premium-item {
+    color: #DAF2FA;
     background: #27B3E0;
 }
 
@@ -182,26 +186,32 @@ body .top-form-inner {padding: 20px 20px;
 
 .right-sec .media-body .label  {font-family: "Oxygen",Helvetica,Arial,sans-serif;}
 
-.right-sec ul.media-list li.premium-item .label-success {background: #FFF;
+.right-sec ul.media-list li.premium-item .label-success, #houses ul.media-list li.premium-item .label-success {
+    background: #FFF;
     color: #5CB85C;
-    font-size: 17px;}
+    font-size: 17px;
+}
 
-
-
-.right-sec ul.media-list li {
-
+.right-sec ul.media-list li, #houses ul.media-list li {
     background: #FFF;
     margin-bottom: 10px;
     border-right: 1px solid #D6D3D3;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
 }
 
-.right-sec ul.media-list .media-body  {padding:10px;
-    font-size: 12px;}
-.right-sec ul.media-list .media-object  {width: 125px;
-    height: 100px;
+#houses ul.media-list li {
+    border: 1px solid #e7e7e7;
 }
 
+.right-sec ul.media-list .media-body, #houses ul.media-list .media-body {
+    padding:10px;
+    font-size: 12px;
+}
+
+.right-sec ul.media-list .media-object, #houses ul.media-list .media-object {
+    width: 125px;
+    height: 100px;
+}
 
 .right-sec .thumbnail .label {
 

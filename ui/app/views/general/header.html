@@ -7,13 +7,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="@routes.MainPage.searchPage()"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></a>
+            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <div class="btn-toolbar pull-right">
                 <div class="btn-group">
-                    <a href="@routes.House.create()" target="_self" class="btn btn-success navbar-btn btn-sm"><span class="glyphicon glyphicon-home"></span>
+                    <a href="#/houses/create" target="_self" class="btn btn-success navbar-btn btn-sm"><span class="glyphicon glyphicon-home"></span>
                         Сдать жилье</a>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="navbar-buttons navbar-header pull-right flattern-menu" role="navigation">
                 <ul class="nav ace-nav">
                     <li class="light-blue left">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a data-toggle="dropdown" class="dropdown-toggle">
                             <i class="ace-icon fa fa-bell icon-animated-bell"></i>
                             <span class="badge badge-info">8</span>
                         </a>
@@ -142,7 +142,7 @@
 
                     <li class="light-blue right">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="../images/users/thumbnails/" alt="Jason's Photo">
+                            <img class="nav-user-photo" src="../images/users/thumbnails/{{ user.avatar }}" alt="Jason's Photo">
                                 <span class="user-info">
                                     <small>Добро пожаловать,</small>
                                     {{user.firstName}}
@@ -153,14 +153,14 @@
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
-                                <a href="@routes.User.edit">
+                                <a href="#/user/edit">
                                     <i class="ace-icon fa fa-cog"></i>
                                     Настройки
                                 </a>
                             </li>
 
                             <li>
-                                <a href="@routes.User.showAccount">
+                                <a href="#/user/ {{ user.id }}">
                                     <i class="ace-icon fa fa-user"></i>
                                    Профиль
                                 </a>
@@ -169,7 +169,7 @@
                             <li class="divider"></li>
 
                             <li>
-                                <a href="@securesocial.core.providers.utils.RoutesHelper.logout()">
+                                <a href="/logout">
                                     <i class="ace-icon fa fa-power-off"></i>
                                     Выйти
                                 </a>
