@@ -2,11 +2,12 @@ package controllers
 
 import beans.{HouseBean, UserBean}
 import dto.Empty
-import dto.house.HouseEnums.{RentType, Amenity, HouseType}
+import dto.house.HouseEnums.{Amenity, HouseType, RentType}
 import dto.house._
-import models.House
+import models.{House, Page}
 import play.api.Logger
-import play.api.libs.json.{JsError, Json}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import play.api.mvc.Controller
 import securesocial.core.SecureSocial
 import service.WithDefaultSession
@@ -26,8 +27,15 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
   implicit val houseDescFormat = Json.format[HouseDesc]
   implicit val houseConstantsFormat = Json.format[HouseConstants]
   implicit val houseAmenitiesFormat = Json.format[HouseAmenities]
+  implicit val houseThumbnailFormat = Json.format[HouseThumbnail]
 
-  //def getUser()(implicit request: SecuredRequest[AnyContent]): Account = UserBean.getAccount(request.user).get
+  implicit def pageFormat[T : Format]: Format[Page[T]] = (
+    (__ \ "items").format[List[T]] ~
+      (__ \ "page").format[Int] ~
+      (__ \ "pageSize").format[Int] ~
+      (__ \ "total").format[Int]
+    )(Page.apply, unlift(Page.unapply))
+
 
   def getConstants = SecuredAction(ajaxCall = true) {
     Ok(Json.toJson(HouseConstants()))
@@ -177,9 +185,7 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     }
   }
 
-
   def uploadPhoto(id: Long) = SecuredAction(ajaxCall = true)(parse.multipartFormData) { implicit request =>
-    Logger.info("picture")
     request.body.file("photo").map { picture =>
       val photo = HouseBean.savePhoto(id, picture)
       val json = Json.obj("id" -> photo.id,  "title" -> photo.title, "description" -> photo.description)
@@ -187,6 +193,13 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
       Thread.sleep(1500)
       Ok(json)
     }.getOrElse(Ok("Failed"))
+  }
+
+  def getHouses = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+    withTransaction { implicit session =>
+      val housesPage = HouseBean.getHousePage(pageSize = Page.DEFAULT_PAGE_SIZE, page = 1)
+      Ok(Json.toJson(housesPage))
+    }
   }
 
 

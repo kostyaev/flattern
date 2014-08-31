@@ -1,6 +1,5 @@
 package models
 
-import play.api.libs.json._
 
 case class Page[T](items: List[T], page: Int, pageSize: Int, total: Int) {
   val from = Math.min((page - 1) * pageSize, total)
@@ -14,3 +13,4 @@ object Page {
   def getOffset(page: Int, pageSize: Int) =
     if (page > 0 && pageSize > 0) (page - 1) * pageSize else 0
 }
+

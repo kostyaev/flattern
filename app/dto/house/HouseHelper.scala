@@ -27,6 +27,20 @@ object HouseHelper {
       house.title,
       house.description)
 
+  import utils.Conversions.dateToDays
+
+  def getHouseThumbnail(house: House, address: Address): HouseThumbnail =
+    HouseThumbnail(
+      house.id.get,
+      house.title,
+      getHouseAddress(address),
+      house.photo,
+      house.price,
+      house.views,
+      house.date.get)
+
+
+
 
 }
 

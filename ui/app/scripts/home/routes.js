@@ -32,7 +32,8 @@ define(['angular', './controllers'], function(angular, controllers) {
                             controller: controllers.LeftCtrl
                         },
                         'content': {
-                            templateUrl: 'views/home/houses/content.html'
+                            templateUrl: 'views/home/houses/content.html',
+                            controller: controllers.HousesCtrl
                         }
                     }
                 })

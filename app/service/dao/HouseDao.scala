@@ -1,10 +1,10 @@
 package service.dao
 
+import dto.house.{HouseHelper, HouseThumbnail}
 import models._
 import service.filters.HouseFilter
 import utils.DgDriver.simple._
 import utils.equal
-
 import scala.languageFeature.implicitConversions
 import scala.slick.lifted.TableQuery
 
@@ -45,28 +45,28 @@ object HouseDao extends SlickDao[House, Long] {
     })
   }
 
-//  def getHouseThumbnails(filter: HouseFilter, page: Int, pageSize: Int)(implicit session: FlatternSession): Page[HouseThumbnail] = {
-//    val tupleList= for {
-//      house <- findByFilter(filter)
-//      address <- addresses if address.id === house.addressId
-//    } yield {
-//      (house, address)
-//    }
-//
-//    val result = tupleList
-//      .drop(Page.getOffset(page, pageSize))
-//      .take(pageSize)
-//      .list
-//      .map(x => HouseThumbnail(x._1, x._2))
-//
-//    Page(
-//      items = result,
-//      page = page,
-//      pageSize = pageSize,
-//      total = tupleList.length.run
-//    )
-//
-//  }
+  def getHouseThumbnails(filter: HouseFilter, page: Int, pageSize: Int)(implicit session: FlatternSession): Page[HouseThumbnail] = {
+    val tupleList= for {
+      house <- findByFilter(filter)
+      address <- addresses if address.id === house.addressId
+    } yield {
+      (house, address)
+    }
+
+    val result = tupleList
+      .drop(Page.getOffset(page, pageSize))
+      .take(pageSize)
+      .list
+      .map(x => HouseHelper.getHouseThumbnail(x._1, x._2))
+
+    Page(
+      items = result,
+      page = page,
+      pageSize = pageSize,
+      total = tupleList.length.run
+    )
+
+  }
 
   def extractId(house: House): Option[Long] = house.id
 

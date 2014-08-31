@@ -61,10 +61,10 @@ object HouseBean extends WithDefaultSession {
     houseDAO.save(house)
   }
 
-//  def getHousePage(page: Int, pageSize: Int)
-//                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
-//    houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
-//  }
+  def getHousePage(page: Int, pageSize: Int)
+                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
+    houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+  }
 
   def saveAddress(address: Address)
                  (implicit session: FlatternSession) =  {
@@ -83,8 +83,8 @@ object HouseBean extends WithDefaultSession {
   def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile]): HousePhoto =
     withTransaction { implicit session =>
       val housePhoto = housePhotoDAO.save(HousePhoto(houseId = houseId))
-      val thumbnail = new File(Paths.HOUSE_THUMBNAIL_DIR + Paths.THUMBNAIL_PREFIX + housePhoto.id.get + ".jpg")
-      val photo = new File(Paths.HOUSE_PHOTO_DIR + Paths.PHOTO_PREFIX + housePhoto.id.get + ".jpg")
+      val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + housePhoto.id.get + ".jpg")
+      val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + housePhoto.id.get + ".jpg")
       Image(picture.ref.file)
         .cover(300, 200, ScaleMethod.FastScale)
         .writer(Format.JPEG)
