@@ -1,10 +1,10 @@
 /**
  * User controllers.
  */
-define(['angular', 'jquery'], function(angular, $) {
+define(['angular'], function(angular) {
     'use strict';
 
-    var LeftCtrl = function ($scope) {
+    var LeftCtrl = function () {
 
     };
 
@@ -17,17 +17,17 @@ define(['angular', 'jquery'], function(angular, $) {
 
         userService.getConstants()
             .success(function (data) {
-                console.log('user constants')
+                console.log('user constants');
                 console.log(data);
                 $scope.constants = data;
             });
 
         userService.getGeneral()
             .success(function (data) {
-                console.log("user data");
+                console.log('user data');
                 $scope.user = data;
             })
-            .error(function (data) {
+            .error(function () {
                 $state.go('registered.home.houses');
                 //$location.path('/houses').replace();
             });
@@ -42,7 +42,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
         userService.getConstants()
             .success(function (data) {
-                console.log('user constants')
+                console.log('user constants');
                 console.log(data);
                 $scope.constants = data;
             });
@@ -51,7 +51,7 @@ define(['angular', 'jquery'], function(angular, $) {
         userService.getAbout()
             .success(function (data) {
                 console.log(data);
-                console.log("user data");
+                console.log('user data');
                 $scope.user = data;
 
                 $scope.user.privacy = $scope.constants.privacy.map(function(p) {
@@ -63,9 +63,9 @@ define(['angular', 'jquery'], function(angular, $) {
                     }
                 });
 
-                console.log($scope.user.privacy)
+                console.log($scope.user.privacy);
             })
-            .error(function (data) {
+            .error(function () {
                 $state.go('registered.home.houses');
                 //$location.path('/houses').replace();
             });
@@ -74,7 +74,9 @@ define(['angular', 'jquery'], function(angular, $) {
             var copy;
 
             // Handle the 3 simple types, and null or undefined
-            if (null == obj || "object" != typeof obj) return obj;
+            if (null === obj || 'object' !== typeof obj) {
+                return obj;
+            }
 
             // Handle Date
             if (obj instanceof Date) {
@@ -96,12 +98,14 @@ define(['angular', 'jquery'], function(angular, $) {
             if (obj instanceof Object) {
                 copy = {};
                 for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) copy[attr] = $scope.clone(obj[attr]);
+                    if (obj.hasOwnProperty(attr)) {
+                        copy[attr] = $scope.clone(obj[attr]);
+                    }
                 }
                 return copy;
             }
 
-            throw new Error("Unable to copy obj! Its type isn't supported.");
+            throw new Error('Unable to copy obj! Its type isn\'t supported.');
         };
 
         $scope.toggleSelection = function toggleSelection(p) {
@@ -110,10 +114,11 @@ define(['angular', 'jquery'], function(angular, $) {
             // is currently selected
             if (idx > -1) {
                 if(typeof $scope.user.privacy[idx].name !== 'undefined'){
-                    if(!$scope.user.privacy[idx].selected)
+                    if(!$scope.user.privacy[idx].selected) {
                         $scope.user.privacy[idx].selected = true;
-                    else
+                    } else {
                         $scope.user.privacy[idx].selected = false;
+                    }
                 }
             }
             console.log($scope.user.privacy);
@@ -125,7 +130,7 @@ define(['angular', 'jquery'], function(angular, $) {
             console.log(sendData);
 
             userService.saveAbout(sendData);
-        }
+        };
 
     };
 
@@ -134,11 +139,11 @@ define(['angular', 'jquery'], function(angular, $) {
 
             userService.getUserHouses()
             .success(function (data) {
-                console.log(data)
-                $scope.houses = data
+                console.log(data);
+                $scope.houses = data;
             })
-            .error(function (data) {
-                console.log('lul2')
+            .error(function () {
+                console.log('lul2');
                 //$state.go('registered.home.houses');
                 //$location.path('/houses').replace();
             });
@@ -146,7 +151,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    LeftCtrl.$inject = ['$scope'];
+    LeftCtrl.$inject = [];
     ContentCtrl.$inject = ['$scope', 'userService', '$translate', '$translatePartialLoader'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
     AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];

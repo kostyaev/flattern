@@ -6,10 +6,10 @@ define(['angular', './routes', './controllers', './services'], function(angular,
     'use strict';
 
     var mod = angular.module('flattern.auth', ['ui.router', 'auth.routes', 'auth.services', 'ngAnimate', 'http-auth-interceptor']);
-    mod.controller("AuthCtrl", controllers.AuthCtrl);
-    mod.controller("LoginCtrl", controllers.LoginCtrl);
-    mod.controller("SignUpCtrl", controllers.SignUpCtrl);
-    mod.controller("PasswordCtrl", controllers.PasswordCtrl);
+    mod.controller('AuthCtrl', controllers.AuthCtrl);
+    mod.controller('LoginCtrl', controllers.LoginCtrl);
+    mod.controller('SignUpCtrl', controllers.SignUpCtrl);
+    mod.controller('PasswordCtrl', controllers.PasswordCtrl);
 
     mod.constant('AUTH_EVENTS', {
         loginConfirmed: 'event:auth-loginConfirmed',
@@ -31,7 +31,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
 
 
     // uncomment to enble auth
-    /*mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
+    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
         var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
             history.push(next);
@@ -42,7 +42,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                     $rootScope.$scope.form = {
                         errors: { message: 'У вас недостаточно прав для просмотра данной страницы'}
                     };
-                    $state.go('login')
+                    $state.go('login');
                 } else {
                     Session.create('', '', USER_ROLES.guest);
                     if (!authServices.isAuthorized(authorizedRoles)) {
@@ -58,7 +58,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                                 response.currentScope.form = {
                                     errors: { message: 'Для просмотра данной страницы необходимо авторизоваться'}
                                 };
-                                $state.go('login')
+                                $state.go('login');
                             });
                     }
                 }
@@ -86,7 +86,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
         });
 
         $rootScope.$on(AUTH_EVENTS.loginMessage, function(event, msg) {
-            console.log(event)
+            console.log(event);
             event.targetScope.form = {
                 errors: {
                     infomessage: msg.infomessage || '',
@@ -96,7 +96,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
         });
 
         $rootScope.$on(AUTH_EVENTS.currentMessage, function(event, msg) {
-            console.log(event)
+            console.log(event);
             event.currentScope.form = {
                 errors: {
                     infomessage: msg.infomessage || '',
@@ -105,9 +105,9 @@ define(['angular', './routes', './controllers', './services'], function(angular,
             };
         });
 
-        $rootScope.$on(AUTH_EVENTS.checkAuth, function(event, options) {
+        $rootScope.$on(AUTH_EVENTS.checkAuth, function() {
             authServices.checkAuth()
-                .success(function(response) {
+                .success(function() {
 
                 }).error(function(response) {
                     Session.create('', '', USER_ROLES.guest);
@@ -116,7 +116,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                     };
                 });
         });
-    });*/
+    });
 
     return mod;
 });
