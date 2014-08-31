@@ -10,6 +10,13 @@ define(['angular', 'common'], function (angular) {
         return {
             getHouses: function () {
                 return playRoutes.controllers.HouseCtrl.getHouses().get()
+            },
+            getUsers: function (page) {
+                if(typeof page == 'undeined' || page < 1) {
+                    page = 1;
+                }
+
+                return playRoutes.controllers.UserCtrl.getUsers(page).get()
             }
 
         };

@@ -34,6 +34,8 @@ POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id:
 
 # user
 
+GET         /user/search/:page             controllers.UserCtrl.getUsers(page: Int)
+
 GET         /user/constants                controllers.UserCtrl.getConstants
 
 GET         /user/edit/general             controllers.UserCtrl.getGeneral

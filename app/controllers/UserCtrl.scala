@@ -121,6 +121,10 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
     }
   }
 
+  def getUsers(page: Int) = SecuredAction(ajaxCall = true) {
+    Ok(Json.toJson(UserConstants()))
+  }
+
   def picUpload = SecuredAction(parse.multipartFormData) { implicit request =>
     val user = AccountDao.findByIdentityId
     request.body.file("user-pic").map { picture =>

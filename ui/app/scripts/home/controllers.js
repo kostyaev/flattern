@@ -21,15 +21,24 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
+    var UsersCtrl = function ($scope, homeService) {
+        $homeService.getHouses.success(function (page) {
+            $scope.housePage = page;
+        });
+
+    };
+
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
     HousesCtrl.$inject = ['$scope'];
+    UsersCtrl.$inject = ['$scope'];
 
     return {
         LeftCtrl: LeftCtrl,
         ContentCtrl: ContentCtrl,
-        HousesCtrl: HousesCtrl
+        HousesCtrl: HousesCtrl,
+        UsersCtrl: UsersCtrl
     };
 
 });
