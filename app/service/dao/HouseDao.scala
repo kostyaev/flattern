@@ -46,7 +46,7 @@ object HouseDao extends SlickDao[House, Long] {
   }
 
   def getHouseThumbnails(filter: HouseFilter, page: Int, pageSize: Int)(implicit session: FlatternSession): Page[HouseThumbnail] = {
-    val tupleList= for {
+    val tupleList = for {
       house <- findByFilter(filter)
       address <- addresses if address.id === house.addressId
     } yield {

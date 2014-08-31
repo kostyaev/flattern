@@ -6,6 +6,7 @@ import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
 import dto.house._
 import global.Paths
 import models._
+import play.api.Logger
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
 import service.WithDefaultSession
@@ -63,7 +64,9 @@ object HouseBean extends WithDefaultSession {
 
   def getHousePage(page: Int, pageSize: Int)
                   (implicit  session: FlatternSession): Page[HouseThumbnail] = {
-    houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+    val result = houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+    Logger.info(result.toString)
+    result
   }
 
   def saveAddress(address: Address)

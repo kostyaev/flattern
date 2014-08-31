@@ -5,7 +5,7 @@ define(['angular', 'common'], function (angular) {
     'use strict';
 
     var mod = angular.module('home.services', ['flattern.common']);
-    mod.factory('homeService', ['$http', 'playRoutes', '$state', function ($http, playRoutes, $state) {
+    mod.factory('homeService', ['$http', 'playRoutes', '$state', function ($http, playRoutes) {
 
         return {
             getHouses: function () {

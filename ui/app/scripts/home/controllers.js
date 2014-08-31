@@ -14,9 +14,11 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
 
-    var HousesCtrl = function ($scope, $homeService) {
-        $homeService.getHouses.success(function (page) {
+    var HousesCtrl = function ($scope, homeService) {
+        console.log(homeService);
+        homeService.getHouses().success(function (page) {
             $scope.housePage = page;
+            console.log(page);
         });
 
     };
@@ -24,7 +26,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
-    HousesCtrl.$inject = ['$scope'];
+    HousesCtrl.$inject = ['$scope', 'homeService'];
 
     return {
         LeftCtrl: LeftCtrl,
