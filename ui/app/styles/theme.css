@@ -991,3 +991,6 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 }
 
 /* END Landing section */
+
+
+#galleria{height: 600px; width: 100%;}

@@ -108,8 +108,27 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
     var PhotosCtrl = function ($scope, $stateParams) {
-        $scope.image = null;
-        $scope.imageFileName = ''
+        $scope.images = {
+            images:[
+                {
+                    image : "../../../images/houses/thumbnails/1.jpg",      // Image url
+                    thumb : "../../../images/houses/thumbnails/1.jpg"       // Thumb url
+                },
+                {
+                    image : "../../../images/houses/thumbnails/2.jpg",      // Image url
+                    thumb : "../../../images/houses/thumbnails/2.jpg"       // Thumb url
+                },
+                {
+                    image : "../../../images/houses/thumbnails/3.jpg",      // Image url
+                    thumb : "../../../images/houses/thumbnails/3.jpg"       // Thumb url
+                }
+
+            ],
+            index : {     // Selected image object when loaded
+                image : "../../../images/houses/thumbnails/1.jpg",      // Image url
+                thumb : "../../../images/houses/thumbnails/1.jpg"       // Thumb url
+            }
+        }
     };
 
     LeftCtrl.$inject = ['$scope'];

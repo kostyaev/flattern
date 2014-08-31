@@ -50,6 +50,33 @@ define(["angular"], function(angular) {
         }
     });
 
+    mod.directive('ngGalleria', function ($timeout) {
+        return {
+            restrict: 'E',
+            template: '<div class="galleria" style="height: 600px; width: 100%">' +
+                '<a href="{{img.image}}" ng-repeat="img in source.images">' +
+                '<img src="{{img.thumb}}">' +
+                '</a>' +
+                '</div>',
+            scope: {
+                source: '='
+            },
+            link: function (scope, element, attrs) {
+                var obj = element.find('.galleria');
+                Galleria.loadTheme('../../../styles/plugins/galleria/themes/folio/galleria.folio.js');
+                $timeout(function () {
+                    var match = _.findWhere(scope.source.images, { image: scope.source.index.image });
+                    var index = _.indexOf(scope.source.images, match);
+                    Galleria.run(obj, {
+                        show: index
+                    });
+                });
+            }
+        };
+    });
+
+
+
     mod.directive('formAutofillFix', function ($timeout) {
         return function (scope, element, attrs) {
             element.prop('method', 'post');
