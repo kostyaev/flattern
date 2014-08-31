@@ -5,7 +5,6 @@
 define(['angular', './routes', './controllers', './services'], function(angular, routes, controllers) {
     'use strict';
 
-    var mod = angular.module('flattern.home', ['ui.router', 'home.routes']);
-    mod.controller("MainCtrl", controllers.MainCtrl);
+    var mod = angular.module('flattern.home', ['ui.router', 'home.routes', 'home.services']);
     return mod;
 });

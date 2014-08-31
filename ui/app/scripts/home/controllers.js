@@ -14,25 +14,26 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
 
-    var HousesCtrl = function ($scope, $homeService) {
-        $homeService.getHouses.success(function (page) {
+    var HousesCtrl = function ($scope, homeService) {
+        console.log(homeService);
+        homeService.getHouses().success(function (page) {
             $scope.housePage = page;
+            console.log(page);
         });
-
     };
 
     var UsersCtrl = function ($scope, homeService) {
-        $homeService.getHouses.success(function (page) {
-            $scope.housePage = page;
+        homeService.getUsers(1).success(function (page) {
+            $scope.userPage = page;
+            console.log(page);
         });
-
     };
 
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
-    HousesCtrl.$inject = ['$scope'];
-    UsersCtrl.$inject = ['$scope'];
+    HousesCtrl.$inject = ['$scope', 'homeService'];
+    UsersCtrl.$inject = ['$scope', 'homeService'];
 
     return {
         LeftCtrl: LeftCtrl,

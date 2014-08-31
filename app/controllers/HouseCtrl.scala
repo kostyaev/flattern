@@ -195,7 +195,7 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     }.getOrElse(Ok("Failed"))
   }
 
-  def getHouses = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+  def getHouses = SecuredAction(ajaxCall = true) { implicit request =>
     withTransaction { implicit session =>
       val housesPage = HouseBean.getHousePage(pageSize = Page.DEFAULT_PAGE_SIZE, page = 1)
       Ok(Json.toJson(housesPage))

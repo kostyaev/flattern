@@ -18,28 +18,26 @@
         <div class="row">
             <div class="col-md-4 col-sm-6" ng-repeat="house in housePage.items">
                 <div class="thumbnail">
-                    <a href="@routes.House.get(flat.id)">
-                        <img alt="300x200" src="assets/images/houses/{{@flat.img">
+                    <a ng-sref="house.general">
+                        <img alt="300x200" src="/images/houses/thumbnails/{{house.photo}}.jpg">
                     </a>
-                    <span class="label label-primary">@flat.labelPrimary</span>
+                    <span class="label label-primary">{{house.title}}</span>
                     <div class="caption">
                         <ul class="list-unstyled">
                             <li>
-                                <span class="li-bold">Станция метро:</span> @flat.station
+                                <span class="li-bold">Станция метро:</span> Метро
                             </li>
                             <li>
-                                <span class="li-bold">Адрес:</span> @flat.address
+                                <span class="li-bold">Адрес:</span> {{house.address.street}}
                             </li>
                         </ul>
 
                         <ul class="list-inline index-props">
-                            <li><span class="glyphicon glyphicon-stats"></span> @flat.views</li>
+                            <li><span class="glyphicon glyphicon-stats"></span> {{house.views}} </li>
                             <li>·</li>
-                            <li> <span class="glyphicon glyphicon-map-marker"></span> @flat.city</li>
+                            <li> <span class="glyphicon glyphicon-map-marker"></span> {{house.address.city}}</li>
                             <li>·</li>
-                            <li><span class="glyphicon glyphicon-time"></span> @flat.time</li>
-                            <li>·</li>
-                            <li><span class="glyphicon glyphicon-user"></span> @flat.currentCount / @flat.maxCount</li>
+                            <li><span class="glyphicon glyphicon-time"></span> {{house.daysAgo}}</li>
                         </ul>
                     </div>
                 </div>

@@ -150,7 +150,9 @@ body .top-form-inner {padding: 20px 20px;
 }
 
 .right-sec .thumbnail.user img {
-    height: 150px;
+    height: 300px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
 }
 
 .right-sec h4.title {
