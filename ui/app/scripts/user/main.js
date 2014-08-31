@@ -6,7 +6,25 @@ define(['angular', './routes', './controllers', './services'], function(angular,
     'use strict';
 
     var mod = angular.module('flattern.user', ['ui.router', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'user.routes', 'user.services']);
-    mod.controller("EditCtrl", controllers.EditCtrl);
+
+    mod.directive('errSrc', function() {
+        return {
+            link: function(scope, element, attrs) {
+
+                scope.$watch(function() {
+                    return attrs['ngSrc'];
+                }, function (value) {
+                    if (!value) {
+                        element.attr('src', attrs.errSrc);
+                    }
+                });
+
+                element.bind('error', function() {
+                    element.attr('src', attrs.errSrc);
+                });
+            }
+        }
+    });
 
     return mod;
 
