@@ -13,12 +13,23 @@ define(['angular', 'jquery'], function(angular, $) {
         $translate.refresh();
     };
 
+
+    var HousesCtrl = function ($scope, $homeService) {
+        $homeService.getHouses.success(function (page) {
+            $scope.housePage = page;
+        });
+
+    };
+
+
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
+    HousesCtrl.$inject = ['$scope'];
 
     return {
         LeftCtrl: LeftCtrl,
-        ContentCtrl: ContentCtrl
+        ContentCtrl: ContentCtrl,
+        HousesCtrl: HousesCtrl
     };
 
 });

@@ -38,13 +38,13 @@ define(["angular"], function(angular) {
         };
     });
 
-    mod.directive('dropzone', function() {
+    mod.directive('dropzone', function($stateParams) {
         return function(scope, element, attrs) {
             element.dropzone({
-                url: "/house/1/upload",
-                maxFilesize: 5000,
-                paramName: "uploadfile",
-                maxThumbnailFilesize: 5,
+                url: '/house/' + $stateParams.id + '/upload',
+                maxFilesize: 15000,
+                paramName: "photo",
+                maxThumbnailFilesize: 10,
                 dictDefaultMessage: "Загрузите фотографии вашего жилья"
             });
         }

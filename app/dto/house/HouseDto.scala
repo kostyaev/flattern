@@ -31,3 +31,12 @@ case class HouseAddress(id: Option[Long], countryCode: Option[String], city: Opt
 case class HouseDesc(title: Option[String], desc: Option[String]) extends HouseInfo
 
 case class HouseAmenities(selectedAmenities: List[Amenity]) extends HouseInfo
+
+case class HouseThumbnail(  id          : Long,
+                            title       : Option[String] = None,
+                            address     : HouseAddress,
+                            photo       : Option[Long]   = None,
+                            price       : Option[Long]   = None,
+                            views       : Int            = 0,
+                            daysAgo     : Int            = 0
+                           )
