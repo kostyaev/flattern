@@ -43,7 +43,28 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     templateUrl: 'views/user/sections/houses.html',
                     controller: controllers.HousesCtrl
 
+                })
+                .state('user-show', {
+                    abstract: true,
+                    parent: 'registered',
+                    url: '/user',
+                    data: {
+                        authorizedRoles: [USER_ROLES.guest, USER_ROLES.editor]
+                    },
+                    views: {
+                        '': {
+                            templateUrl: 'views/user/content.html'
+                        }
+                    }
+
+                })
+                .state('user-show.index', {
+                    url: '/:id',
+                    templateUrl: 'views/user/show.html',
+                    controller: controllers.ShowCtrl
                 });
+
+            ;
                 /*.state('user.address', {
                     url: '/address',
                     templateUrl: 'views/user/sections/address.html',

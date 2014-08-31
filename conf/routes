@@ -43,6 +43,8 @@ POST        /user/edit/about               controllers.UserCtrl.saveAbout
 
 GET         /user/edit/houses              controllers.UserCtrl.getHouses
 
+GET         /user/:id                      controllers.UserCtrl.getUserById(id: Long)
+
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()
 

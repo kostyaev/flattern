@@ -126,7 +126,10 @@ define(['angular'], function(angular) {
 
         $scope.save = function(generalInfo) {
             var sendData = $scope.clone(generalInfo);
-            sendData.privacy = $scope.user.privacy.filter(function(e) { return (e.selected === true); }).map(function(e) { return e.name; });
+            sendData.privacy = $scope.user.privacy
+                .filter(function(e) { return (e.selected === true); })
+                .map(function(e) { return e.name; });
+
             console.log(sendData);
 
             userService.saveAbout(sendData);
@@ -137,17 +140,33 @@ define(['angular'], function(angular) {
     var HousesCtrl = function ($scope, userService) {
         $scope.houses = [];
 
-            userService.getUserHouses()
+        userService.getUserHouses()
             .success(function (data) {
                 console.log(data);
                 $scope.houses = data;
             })
-            .error(function () {
-                console.log('lul2');
-                //$state.go('registered.home.houses');
-                //$location.path('/houses').replace();
+            .error(function (response) {
+                console.log(response);
             });
+    };
 
+    var ShowCtrl = function ($scope, $stateParams, $state, userService) {
+        var id = $stateParams.id || -1;
+        $scope.houses = [];
+
+        if(id <= 0) {
+            $state.go('registered.home.houses');
+        }
+
+        userService.getUserById(id)
+            .success(function (user) {
+                console.log(user);
+                $scope.user = user;
+            })
+            .error (function (response) {
+                console.log(response);
+                $state.go('registered.home.houses');
+            });
 
     };
 
@@ -156,13 +175,15 @@ define(['angular'], function(angular) {
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
     AboutCtrl.$inject = ['$scope', '$stateParams', 'userService', '$state'];
     HousesCtrl.$inject = ['$scope', 'userService'];
+    ShowCtrl.$inject = ['$scope', '$stateParams', '$state', 'userService'];
 
     return {
         LeftCtrl: LeftCtrl,
         ContentCtrl: ContentCtrl,
         GeneralCtrl: GeneralCtrl,
         AboutCtrl: AboutCtrl,
-        HousesCtrl: HousesCtrl
+        HousesCtrl: HousesCtrl,
+        ShowCtrl: ShowCtrl
     };
 
 });
