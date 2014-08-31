@@ -33,7 +33,9 @@ require.config({
         'jsRoutes': '../jsRoutes',
         'http-auth-interceptor': '../components/angular-http-auth/src/http-auth-interceptor',
         'ui-select': '../components/angular-ui-select/dist/select',
-        'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap'
+        'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap',
+        'galleria': '../components/galleria/src/galleria',
+        'underscore': '../components/underscore/underscore'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -71,7 +73,9 @@ require.config({
         'sco.modal' : ['jquery'],
         'http-auth-interceptor': ['angular'],
         'ui-select': ['angular'],
-        'ui-bootstrap' : ['angular']
+        'ui-bootstrap' : ['angular'],
+        'galleria' : ['jquery'],
+        'underscore' : []
     },
     priority: [
         'angular'
@@ -111,7 +115,9 @@ require([
         'scroller',
         'http-auth-interceptor',
         'ui-select',
-        'ui-bootstrap'
+        'ui-bootstrap',
+        'galleria',
+        'underscore'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
