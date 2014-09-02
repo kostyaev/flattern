@@ -4,7 +4,7 @@ import beans.{HouseBean, UserBean}
 import dto.Empty
 import dto.house.HouseEnums.{Amenity, HouseType, RentType}
 import dto.house._
-import models.{House, Page}
+import models.{House, Page, Address}
 import play.api.Logger
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -44,7 +44,8 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
   def createHouse = SecuredAction(ajaxCall = true) { implicit request =>
     withTransaction { implicit session =>
       val userId = UserBean.getAccount(request.user).get.uid.get
-      val house = HouseBean.saveHouse(House(userId = userId))
+      val address = HouseBean.saveAddress(Address())
+      val house = HouseBean.saveHouse(House(userId = userId, addressId = address.id))
       Ok(Json.toJson(house.id.get))
     }
   }
@@ -185,14 +186,20 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
     }
   }
 
-  def uploadPhoto(id: Long) = SecuredAction(ajaxCall = true)(parse.multipartFormData) { implicit request =>
-    request.body.file("photo").map { picture =>
-      val photo = HouseBean.savePhoto(id, picture)
-      val json = Json.obj("id" -> photo.id,  "title" -> photo.title, "description" -> photo.description)
-      //FIXME replace sleep, possibly with java.nio
-      Thread.sleep(1500)
-      Ok(json)
-    }.getOrElse(Ok("Failed"))
+  def uploadPhoto(houseId: Long) = SecuredAction(ajaxCall = true)(parse.multipartFormData) { implicit request =>
+    withTransaction { implicit session =>
+      request.body.file("photo").map { picture =>
+        val userId = UserBean.getAccount(request.user).get.uid.get
+        HouseBean.getHouse(houseId, userId) match {
+          case Some(house) => {
+            val photoId = HouseBean.savePhoto(houseId, picture).id
+            HouseBean.saveHouse(house.copy(photoId = photoId))
+            Ok(Json.toJson("Данные успешно сохранены"))
+          }
+          case None => BadRequest(Json.toJson(Empty()))
+        }
+      }.getOrElse(BadRequest(Json.toJson(Empty())))
+    }
   }
 
   def getHouses = SecuredAction(ajaxCall = true) { implicit request =>

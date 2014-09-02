@@ -33,7 +33,8 @@ require.config({
         'jsRoutes': '../jsRoutes',
         'http-auth-interceptor': '../components/angular-http-auth/src/http-auth-interceptor',
         'ui-select': '../components/angular-ui-select/dist/select',
-        'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap',
+//        'ui-bootstrap': '../components/angular-bootstrap/ui-bootstrap',
+        'ui-templates': '../components/angular-bootstrap/ui-bootstrap-tpls',
         'galleria': '../components/galleria/src/galleria',
         'underscore': '../components/underscore/underscore'
     },
@@ -73,7 +74,8 @@ require.config({
         'sco.modal' : ['jquery'],
         'http-auth-interceptor': ['angular'],
         'ui-select': ['angular'],
-        'ui-bootstrap' : ['angular'],
+//        'ui-bootstrap' : ['angular'],
+        'ui-templates' : ['angular'],
         'galleria' : ['jquery'],
         'underscore' : []
     },
@@ -115,7 +117,8 @@ require([
         'scroller',
         'http-auth-interceptor',
         'ui-select',
-        'ui-bootstrap',
+//        'ui-bootstrap',
+        'ui-templates',
         'galleria',
         'underscore'
     ],

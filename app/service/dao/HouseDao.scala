@@ -14,11 +14,11 @@ object HouseDao extends SlickDao[House, Long] {
   def photos = TableQuery[HousePhotos]
   def addresses = TableQuery[Addresses]
 
-  def findOptionByFilter(filter: HouseFilter) = {
-    findByFilter(filter)
+  def findOptionByFilter(filter: HouseFilter)(implicit session: FlatternSession): Option[House] = {
+    findByFilter(filter).firstOption
   }
 
-  def findByFilterWithLimit(filter: HouseFilter, limit: Int, offset: Int) = {
+  def findByFilterWithLimit(filter: HouseFilter, limit: Int, offset: Int)(implicit session: FlatternSession) = {
     findByFilter(filter).drop(offset).take(limit)
   }
 
@@ -46,14 +46,13 @@ object HouseDao extends SlickDao[House, Long] {
   }
 
   def getHouseThumbnails(filter: HouseFilter, page: Int, pageSize: Int)(implicit session: FlatternSession): Page[HouseThumbnail] = {
-    val tupleList = for {
+    val data = for {
       house <- findByFilter(filter)
-      address <- addresses if address.id === house.addressId
+      address <- addresses if house.addressId === address.id
     } yield {
       (house, address)
     }
-
-    val result = tupleList
+    val result = data
       .drop(Page.getOffset(page, pageSize))
       .take(pageSize)
       .list
@@ -63,9 +62,8 @@ object HouseDao extends SlickDao[House, Long] {
       items = result,
       page = page,
       pageSize = pageSize,
-      total = tupleList.length.run
+      total = data.length.run
     )
-
   }
 
   def extractId(house: House): Option[Long] = house.id

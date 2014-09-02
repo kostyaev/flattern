@@ -16,10 +16,11 @@
         </div>
 
         <div class="row">
+
             <div class="col-md-4 col-sm-6" ng-repeat="house in housePage.items">
                 <div class="thumbnail">
                     <a ng-sref="house.general">
-                        <img alt="300x200" src="/images/houses/thumbnails/{{house.photo}}.jpg">
+                        <img alt="300x200" src="/images/houses/thumbnails/th-{{house.photoId}}.jpg">
                     </a>
                     <span class="label label-primary">{{house.title}}</span>
                     <div class="caption">

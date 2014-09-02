@@ -21,8 +21,8 @@ case class House( id          : Option[Long]      = None,
                   price       : Option[Long]      = None,
                   title       : Option[String]    = None,
                   description : Option[String]    = None,
+                  photoId     : Option[Long]      = None,
                   amenities   : List[Amenity]     = List(),
-                  photo       : Option[Long]      = None,
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
                   isPublished : Option[Boolean]   = None
@@ -41,9 +41,9 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
   def area        = column[Option[Double]]("area")
   def title       = column[Option[String]]("title")
   def description = column[Option[String]]("description")
+  def photoId     = column[Option[Long]]("photo_id")
   def price       = column[Option[Long]]("price")
   def amenities   = column[List[Amenity]]("amenities")
-  def photo       = column[Option[Long]]("photo")
   def views       = column[Int]("views")
   def date        = column[Option[LocalDate]]("date")
   def isPublished = column[Option[Boolean]]("published")
@@ -63,7 +63,7 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
 
   def * = (
     id.?, userId, houseType, rentType, addressId, allSlots, freeSlots,
-    busySlots, numOfRooms, area, price, title, description, amenities, photo, views, date, isPublished
+    busySlots, numOfRooms, area, price, title, description, photoId, amenities, views, date, isPublished
     ) <> (House.tupled, House.unapply)
 }
 

@@ -5,8 +5,8 @@ import service.dao.IdentifiableTable
 import utils.DgDriver.simple._
 
 case class Address( id          : Option[Long]   = None,
-                    city        : Option[String],
-                    country     : Option[String],
+                    city        : Option[String] = None,
+                    country     : Option[String] = None,
                     street      : Option[String] = None,
                     building    : Option[String] = None,
                     housing     : Option[String] = None,

@@ -83,8 +83,8 @@ object HouseBean extends WithDefaultSession {
     houseDAO.findByFilter(HouseFilter(id = Option(id), userId = Option(userId))).firstOption
   }
 
-  def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile]): HousePhoto =
-    withTransaction { implicit session =>
+  def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile])
+               (implicit session: FlatternSession): HousePhoto = {
       val housePhoto = housePhotoDAO.save(HousePhoto(houseId = houseId))
       val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + housePhoto.id.get + ".jpg")
       val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + housePhoto.id.get + ".jpg")
@@ -98,12 +98,6 @@ object HouseBean extends WithDefaultSession {
         .writer(Format.JPEG)
         .write(photo)
 
-      val house = houseDAO.findOptionById(houseId).get
-
-      house.photo match {
-        case None => houseDAO.save(house.copy(photo = housePhoto.id))
-        case _ =>
-      }
      housePhoto
   }
 
