@@ -18,21 +18,21 @@ define(['angular', 'jquery'], function(angular, $) {
         homeService.getHouses().success(function (page) {
             $scope.housePage = page;
         });
-    };
 
         $scope.myInterval = 5000;
         var slides = $scope.slides = [];
-        $scope.addSlide = function() {
+        $scope.addSlide = function () {
             var newWidth = 600 + slides.length;
             slides.push({
                 image: 'http://placekitten.com/' + newWidth + '/300',
-                text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+                text: ['More', 'Extra', 'Lots of', 'Surplus'][slides.length % 4] + ' ' +
                     ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
             });
         };
-        for (var i=0; i<4; i++) {
+        for (var i = 0; i < 4; i++) {
             $scope.addSlide();
         }
+    };
 
     var UsersCtrl = function ($scope, homeService) {
         homeService.getUsers(1).success(function (page) {
