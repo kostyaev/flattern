@@ -7,10 +7,13 @@ import models._
 import play.api._
 import mvc._
 import dto.user._
+import dto.UserThumbnail
 import dto.house.HouseEnums._
 import dto.user.UserEnums._
 import beans.{HouseBean, UserBean}
 import scala.language.reflectiveCalls
+import play.api.Logger
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import service.WithDefaultSession
 import utils.EnumUtils
@@ -29,6 +32,14 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
   implicit val userGeneralFormat = Json.format[UserGeneral]
   implicit val userAboutFormat = Json.format[UserAbout]
   implicit val hosesFormat = Json.format[House]
+  implicit val userThumbnailFormat = Json.format[UserThumbnail]
+
+  implicit def pageFormat[T : Format]: Format[Page[T]] = (
+    (__ \ "items").format[List[T]] ~
+      (__ \ "page").format[Int] ~
+      (__ \ "pageSize").format[Int] ~
+      (__ \ "total").format[Int]
+    )(Page.apply, unlift(Page.unapply))
 
   def getConstants = SecuredAction(ajaxCall = true) {
     Ok(Json.toJson(UserConstants()))
@@ -118,6 +129,13 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
           )
         )
       }
+    }
+  }
+
+  def getUsers(page: Int) = SecuredAction(ajaxCall = true) { implicit request =>
+    withTransaction { implicit session =>
+      val usersPage = UserBean.getUserPage(pageSize = Page.DEFAULT_PAGE_SIZE, page = 1)
+      Ok(Json.toJson(usersPage))
     }
   }
 

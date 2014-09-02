@@ -18,6 +18,7 @@ define(['angular', 'jquery'], function(angular, $) {
         homeService.getHouses().success(function (page) {
             $scope.housePage = page;
         });
+    };
 
         $scope.myInterval = 5000;
         var slides = $scope.slides = [];
@@ -33,17 +34,24 @@ define(['angular', 'jquery'], function(angular, $) {
             $scope.addSlide();
         }
 
+    var UsersCtrl = function ($scope, homeService) {
+        homeService.getUsers(1).success(function (page) {
+            $scope.userPage = page;
+            console.log(page);
+        });
     };
 
 
     LeftCtrl.$inject = ['$scope'];
     ContentCtrl.$inject = ['$scope', '$translate', '$translatePartialLoader'];
     HousesCtrl.$inject = ['$scope', 'homeService'];
+    UsersCtrl.$inject = ['$scope', 'homeService'];
 
     return {
         LeftCtrl: LeftCtrl,
         ContentCtrl: ContentCtrl,
-        HousesCtrl: HousesCtrl
+        HousesCtrl: HousesCtrl,
+        UsersCtrl: UsersCtrl
     };
 
 });

@@ -28,6 +28,7 @@ object Application extends Controller with SecureSocial {
         routes.javascript.HouseCtrl.getAmenities,
         routes.javascript.HouseCtrl.saveAmenities,
         routes.javascript.HouseCtrl.getHouses,
+        routes.javascript.UserCtrl.getUsers,
         routes.javascript.UserCtrl.getConstants,
         routes.javascript.UserCtrl.getGeneral,
         routes.javascript.UserCtrl.saveGeneral,

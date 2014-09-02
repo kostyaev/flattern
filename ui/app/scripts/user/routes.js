@@ -49,11 +49,11 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     parent: 'registered',
                     url: '/user',
                     data: {
-                        authorizedRoles: [USER_ROLES.guest, USER_ROLES.editor]
+                        authorizedRoles: [USER_ROLES.editor]
                     },
                     views: {
                         '': {
-                            templateUrl: 'views/user/content.html'
+                            templateUrl: 'views/user/content-show.html'
                         }
                     }
 
@@ -64,7 +64,6 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     controller: controllers.ShowCtrl
                 });
 
-            ;
                 /*.state('user.address', {
                     url: '/address',
                     templateUrl: 'views/user/sections/address.html',
