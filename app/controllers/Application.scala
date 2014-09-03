@@ -46,7 +46,7 @@ object Application extends Controller with SecureSocial {
     val user = AccountDao.findByIdentityId
     Ok(Json.toJson(Map(
       "success"   -> "true",
-      "id"        -> user.uid.toString,
+      "id"        -> user.uid.get.toString,
       "fullName"  -> user.fullName.toString,
       "avatarUrl" -> user.avatarUrl.getOrElse("")
     )))

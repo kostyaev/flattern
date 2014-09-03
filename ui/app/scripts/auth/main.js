@@ -32,6 +32,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
 
     // uncomment to enble auth
     mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
+        $rootScope.userSession = Session.session;
         var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
             history.push(next);
@@ -50,7 +51,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                         // user is not logged in
                         authServices.checkAuth()
                             .success(function(response) {
-                                Session.create(response.id, response.name, USER_ROLES.editor);
+                                Session.create(response.id, response.fullName, USER_ROLES.editor, response.avatarUrl);
                                 var nextState = history.pop().name || 'registered.home.houses';
                                 $state.go(nextState);
                             }).error(function(response) {

@@ -142,10 +142,10 @@
 
                     <li class="light-blue right">
                         <a data-toggle="dropdown" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="../images/users/thumbnails/{{ user.avatar }}" alt="Jason's Photo">
+                            <img class="nav-user-photo" src="../images/users/thumbnails/{{ userSession.avatarUrl }}" alt="Jason's Photo">
                                 <span class="user-info">
                                     <small>Добро пожаловать,</small>
-                                    {{user.firstName}}
+                                    {{userSession.fullName}}
                                 </span>
 
                             <i class="ace-icon fa fa-caret-down"></i>
@@ -160,7 +160,7 @@
                             </li>
 
                             <li>
-                                <a href="#/user/ {{ user.id }}">
+                                <a href="#/user/ {{ userSession.id }}">
                                     <i class="ace-icon fa fa-user"></i>
                                    Профиль
                                 </a>

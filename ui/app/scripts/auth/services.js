@@ -58,20 +58,22 @@ define(['angular', 'common'], function (angular) {
     }]);
 
     mod.service('Session', function () {
-        this.session = { userId: '', userName: '', userRole: '' };
+        this.session = { id: '', fullName: '', userRole: '', avatarUrl: '' };
         var outer = this;
 
-        this.create = function (userId, userName, userRole) {
-            outer.session.userId = userId;
-            outer.session.userName = userName;
+        this.create = function (id, fullName, userRole, avatarUrl) {
+            outer.session.id = id;
+            outer.session.fullName = fullName;
             outer.session.userRole = userRole;
+            outer.session.avatrURL = avatarUrl;
 
             return outer.session;
         };
         this.destroy = function () {
-            outer.session.userId = null;
-            outer.session.userName = null;
+            outer.session.id = null;
+            outer.session.fullName = null;
             outer.session.userRole = null;
+            outer.session.avatrURL = null;
 
             return outer.session;
         };
