@@ -1,6 +1,6 @@
 define(["angular"], function(angular) {
     var mod = angular.module("common.directives.template", []);
-    mod.directive("customInit", ['$', function ($) {
+    mod.directive("customInit", function () {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -9,7 +9,7 @@ define(["angular"], function(angular) {
 
             }
         };
-    }]);
+    });
 
     return mod;
 });
