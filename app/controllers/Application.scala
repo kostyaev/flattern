@@ -45,9 +45,10 @@ object Application extends Controller with SecureSocial {
   def checkAuth = SecuredAction(ajaxCall = true) { implicit request =>
     val user = AccountDao.findByIdentityId
     Ok(Json.toJson(Map(
-      "success" -> "true",
-      "id"       -> user.uid.toString,
-      "fullName" -> user.fullName.toString
+      "success"   -> "true",
+      "id"        -> user.uid.toString,
+      "fullName"  -> user.fullName.toString,
+      "avatarUrl" -> user.avatarUrl.getOrElse("")
     )))
   }
 
