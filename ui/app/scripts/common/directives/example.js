@@ -12,7 +12,7 @@ define(["angular"], function(angular) {
                 $log.info("Here prints the example directive from /common/directives.");
             }
         };
-    }])
+    }]);
 
     mod.directive('selecterPlug', function() {
         return {
