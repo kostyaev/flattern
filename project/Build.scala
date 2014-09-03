@@ -9,6 +9,7 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     jdbc,
+    cache,
     "ws.securesocial" %% "securesocial" % "2.1.3",
     "com.typesafe.slick" %% "slick" % "2.0.0",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
