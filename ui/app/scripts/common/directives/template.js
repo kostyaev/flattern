@@ -299,7 +299,7 @@ define(['angular', '../services/helper'], function(angular) {
 
     mod.run(function ($rootScope, $state, custom) {
         $rootScope.$on('$stateChangeSuccess', function () {
-            console.log('here')
+            console.log('$stateChangeSuccess');
             custom.onStateChange();
         });
     });
