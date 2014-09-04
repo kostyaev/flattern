@@ -25,7 +25,9 @@ case class House( id          : Option[Long]      = None,
                   amenities   : List[Amenity]     = List(),
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
-                  isPublished : Option[Boolean]   = None
+                  isPublished : Option[Boolean]   = None,
+                  lat         : Option[Double]    = None,
+                  lng         : Option[Double]    = None
                   )
 
 class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable[Long] with WithDefaultSession {
@@ -47,6 +49,8 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
   def views       = column[Int]("views")
   def date        = column[Option[LocalDate]]("date")
   def isPublished = column[Option[Boolean]]("published")
+  def lat         = column[Option[Double]]("lat")
+  def lng         = column[Option[Double]]("lng")
 
   val accounts = new TableQuery[Accounts](new Accounts(_))
   def accountFK = withSession { implicit session =>
@@ -63,7 +67,8 @@ class Houses(tag: Tag) extends Table[House](tag, "house") with IdentifiableTable
 
   def * = (
     id.?, userId, houseType, rentType, addressId, allSlots, freeSlots,
-    busySlots, numOfRooms, area, price, title, description, photoId, amenities, views, date, isPublished
+    busySlots, numOfRooms, area, price, title, description, photoId,
+    amenities, views, date, isPublished, lat, lng
     ) <> (House.tupled, House.unapply)
 }
 
