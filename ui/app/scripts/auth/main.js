@@ -2,7 +2,7 @@
  * User package module.
  * Manages all sub-modules so other RequireJS modules only have to import the package.
  */
-define(['angular', './routes', './controllers', './services'], function(angular, routes, controllers) {
+define(['angular', './routes', './controllers', './services', '../common/services/helper'], function(angular, routes, controllers) {
     'use strict';
 
     var mod = angular.module('flattern.auth', ['ui.router', 'auth.routes', 'auth.services', 'ngAnimate', 'http-auth-interceptor']);
@@ -31,7 +31,7 @@ define(['angular', './routes', './controllers', './services'], function(angular,
 
 
     // uncomment to enble auth
-    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session) {
+    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session, custom) {
         $rootScope.userSession = Session.session;
         var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -64,6 +64,11 @@ define(['angular', './routes', './controllers', './services'], function(angular,
                     }
                 }
             }
+        });
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+            console.log('here')
+            custom.onStateChange();
         });
 
         $rootScope.$on(AUTH_EVENTS.loginRequired, function(response) {
