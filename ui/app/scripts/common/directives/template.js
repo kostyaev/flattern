@@ -2,6 +2,7 @@ define(['angular', '../services/helper'], function(angular) {
     var mod = angular.module('common.directives.template', ['common.helper']);
     mod.directive('customInit', function (custom) {
         var $ = angular.element;
+
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {

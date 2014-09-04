@@ -6,13 +6,13 @@
                 <figure><strong>Email:</strong>zoner@example.com</figure>
             </div>
             <div class="user-area">
-                <a href="create-agency.html" class="promoted">Create Agency</a>
-                <a href="create-account.html" class="promoted"><strong>Register</strong></a>
-                <a href="sign-in.html">Sign In</a>
+                <a ui-sref="create-agency" class="promoted">Create Agency</a>
+                <a ui-sref="create-account" class="promoted"><strong>Register</strong></a>
+                <a ui-sref="sign-in">Sign In</a>
                 <div class="language-bar">
-                    <a href="#" class="active"><img src="/images/flags/gb.png"></a>
-                    <a href="#"><img src="/images/flags/de.png"></a>
-                    <a href="#"><img src="/images/flags/es.png"></a>
+                    <a ui-sref="#" class="active"><img src="/images/flags/gb.png"></a>
+                    <a ui-sref="#"><img src="/images/flags/de.png"></a>
+                    <a ui-sref="#"><img src="/images/flags/es.png"></a>
                 </div>
             </div>
         </div>
@@ -27,84 +27,84 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand nav" id="brand">
-                    <a href="index-google-map-fullscreen.html"><img src="/images/logo.png" alt="brand"></a>
+                    <a ui-sref="index-advanced-horizontal-search"><img src="/images/logo.png" alt="brand"></a>
                 </div>
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li class="active has-child"><a href="#">Homepage</a>
+                    <li class="active has-child"><a ui-sref="#">Homepage</a>
                         <ul class="child-navigation">
-                            <li><a href="index-google-map-fullscreen.html">Google Map Full Screen</a></li>
-                            <li><a href="index-google-map-fixed-height.html">Google Map Fixed Height</a></li>
-                            <li><a href="index-google-map-fixed-navigation.html">Google Map Fixed Navigation</a></li>
-                            <li><a href="index-osm.html">OpenStreetMap Full Screen</a></li>
-                            <li><a href="index-osm-fixed-height.html">OpenStreetMap Fixed Height</a></li>
-                            <li><a href="index-osm-fixed-navigation.html">OpenStreetMap Fixed Navigation</a></li>
-                            <li><a href="index-slider.html">Slider Homepage</a></li>
-                            <li><a href="index-slider-search-box.html">Slider with Search Box</a></li>
-                            <li><a href="index-horizontal-search-floated.html">Horizontal Search Floated</a></li>
-                            <li><a href="index-advanced-horizontal-search.html">Horizontal Advanced Search</a></li>
-                            <li><a href="index-slider-horizontal-search-box.html">Horizontal Slider Search</a></li>
-                            <li><a href="index-slider-horizontal-search-box-floated.html">Horizontal Slider Floated Search</a></li>
+                            <li><a ui-sref="index-google-map-fullscreen">Google Map Full Screen</a></li>
+                            <li><a ui-sref="index-google-map-fixed-height">Google Map Fixed Height</a></li>
+                            <li><a ui-sref="index-google-map-fixed-navigation">Google Map Fixed Navigation</a></li>
+                            <li><a ui-sref="index-osm">OpenStreetMap Full Screen</a></li>
+                            <li><a ui-sref="index-osm-fixed-height">OpenStreetMap Fixed Height</a></li>
+                            <li><a ui-sref="index-osm-fixed-navigation">OpenStreetMap Fixed Navigation</a></li>
+                            <li><a ui-sref="index-slider">Slider Homepage</a></li>
+                            <li><a ui-sref="index-slider-search-box">Slider with Search Box</a></li>
+                            <li><a ui-sref="index-horizontal-search-floated">Horizontal Search Floated</a></li>
+                            <li><a ui-sref="index-advanced-horizontal-search">Horizontal Advanced Search</a></li>
+                            <li><a ui-sref="index-slider-horizontal-search-box">Horizontal Slider Search</a></li>
+                            <li><a ui-sref="index-slider-horizontal-search-box-floated">Horizontal Slider Floated Search</a></li>
                         </ul>
                     </li>
-                    <li class="has-child"><a href="#">Properties</a>
+                    <li class="has-child"><a ui-sref="#">Properties</a>
                         <ul class="child-navigation">
-                            <li><a href="property-detail.html">Property Detail</a></li>
-                            <li><a href="properties-listing.html">Masonry Listing</a></li>
-                            <li><a href="properties-listing-grid.html">Grid Listing</a></li>
-                            <li><a href="properties-listing-lines.html">Lines Listing</a></li>
+                            <li><a ui-sref="property-detail">Property Detail</a></li>
+                            <li><a ui-sref="properties-listing">Masonry Listing</a></li>
+                            <li><a ui-sref="properties-listing-grid">Grid Listing</a></li>
+                            <li><a ui-sref="properties-listing-lines">Lines Listing</a></li>
                         </ul>
                     </li>
-                    <li class="has-child"><a href="#">Pages</a>
+                    <li class="has-child"><a ui-sref="#">Pages</a>
                         <ul class="child-navigation">
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="agent-detail.html">Agent Detail</a></li>
-                            <li><a href="invoice-print.html">Invoice</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="my-properties.html">My Properties</a></li>
-                            <li><a href="bookmarked.html">Bookmarked Properties</a></li>
-                            <li><a href="create-account.html">Create Account</a></li>
-                            <li><a href="create-agency.html">Create Agency</a></li>
-                            <li><a href="sign-in.html">Sign In</a></li>
-                            <li class="has-child"><a href="#">Error Pages</a>
+                            <li><a ui-sref="about-us">About Us</a></li>
+                            <li><a ui-sref="agent-detail">Agent Detail</a></li>
+                            <li><a ui-sref="invoice-print">Invoice</a></li>
+                            <li><a ui-sref="profile">Profile</a></li>
+                            <li><a ui-sref="my-properties">My Properties</a></li>
+                            <li><a ui-sref="bookmarked">Bookmarked Properties</a></li>
+                            <li><a ui-sref="create-account">Create Account</a></li>
+                            <li><a ui-sref="create-agency">Create Agency</a></li>
+                            <li><a ui-sref="sign-in">Sign In</a></li>
+                            <li class="has-child"><a ui-sref="#">Error Pages</a>
                                 <ul class="child-navigation">
-                                    <li><a href="403.html">403</a></li>
-                                    <li><a href="404.html">404</a></li>
-                                    <li><a href="500.html">500</a></li>
+                                    <li><a ui-sref="403">403</a></li>
+                                    <li><a ui-sref="404">404</a></li>
+                                    <li><a ui-sref="500">500</a></li>
                                 </ul>
                             </li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="left-sidebar.html">Left Sidebar</a></li>
-                            <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                            <li><a href="sticky-footer.html">Sticky Footer</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="shortcodes.html">Shortcodes</a></li>
-                            <li><a href="shortcodes.html">Shortcodes</a></li>
-                            <li><a href="timeline.html">Timeline</a></li>
-                            <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                            <li><a ui-sref="faq">FAQ</a></li>
+                            <li><a ui-sref="left-sidebar">Left Sidebar</a></li>
+                            <li><a ui-sref="right-sidebar">Right Sidebar</a></li>
+                            <li><a ui-sref="sticky-footer">Sticky Footer</a></li>
+                            <li><a ui-sref="pricing">Pricing</a></li>
+                            <li><a ui-sref="shortcodes">Shortcodes</a></li>
+                            <li><a ui-sref="shortcodes">Shortcodes</a></li>
+                            <li><a ui-sref="timeline">Timeline</a></li>
+                            <li><a ui-sref="terms-conditions">Terms & Conditions</a></li>
                         </ul>
                     </li>
-                    <li class="has-child"><a href="#">Agents & Agencies</a>
+                    <li class="has-child"><a ui-sref="#">Agents & Agencies</a>
                         <ul class="child-navigation">
-                            <li><a href="agents-listing.html">Agents Listing</a></li>
-                            <li><a href="agent-detail.html">Agent Detail</a></li>
-                            <li><a href="agencies-listing.html">Agencies Listing</a></li>
-                            <li><a href="agency-detail.html">Agency Detail</a></li>
+                            <li><a ui-sref="agents-listing">Agents Listing</a></li>
+                            <li><a ui-sref="agent-detail">Agent Detail</a></li>
+                            <li><a ui-sref="agencies-listing">Agencies Listing</a></li>
+                            <li><a ui-sref="agency-detail">Agency Detail</a></li>
                         </ul>
                     </li>
-                    <li><a href="submit.html">Submit</a></li>
-                    <li class="has-child"><a href="#">Blog</a>
+                    <li><a ui-sref="submit">Submit</a></li>
+                    <li class="has-child"><a ui-sref="#">Blog</a>
                         <ul class="child-navigation">
-                            <li><a href="blog.html">Blog Listing</a></li>
-                            <li><a href="blog-detail.html">Blog Post Detail</a></li>
+                            <li><a ui-sref="blog">Blog Listing</a></li>
+                            <li><a ui-sref="blog-detail">Blog Post Detail</a></li>
                         </ul>
                     </li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a ui-sref="contact">Contact</a></li>
                 </ul>
             </nav><!-- /.navbar collapse-->
             <div class="add-your-property">
-                <a href="submit.html" class="btn btn-default"><i class="fa fa-plus"></i><span class="text">Add Your Property</span></a>
+                <a ui-sref="submit" class="btn btn-default"><i class="fa fa-plus"></i><span class="text">Add Your Property</span></a>
             </div>
         </header><!-- /.navbar -->
     </div><!-- /.container -->
