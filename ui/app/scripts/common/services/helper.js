@@ -37,8 +37,7 @@ define(['angular'], function(angular) {
             var $body = $('body');
             if($body.hasClass('has-fullscreen-map')) {
                 $('#map').height($(window).height() - $('.navigation').height());
-            }
-            if($body.hasClass('has-fullscreen-map')) {
+
                 $(window).on('resize', function() {
                     $('#map').height($(window).height() - $('.navigation').height());
                     var mapHeight = $('#map').height();
@@ -183,38 +182,6 @@ define(['angular'], function(angular) {
             });
         };
 
-        var drawFooterThumbnails = function () {
-
-            var i = 0;
-            var rows = 1; // how many rows to display, default = 1
-            var thumbnailsPerRow = 1; // how many thumbnails per row to display, default = 1
-
-            $.getScript("/scripts/map/locations.js", function() {
-                // Create thumbnail function
-                function createThumbnail() {
-                    for (i = 0; i < rows * thumbnailsPerRow; i++) {
-                        $('.footer-thumbnails').append("<div class='property-thumbnail'><a href='" + locations[i][5] + "'><img src="  + locations[i][6] + "></a></div>");
-                        var $thumbnail = $('.footer-thumbnails .property-thumbnail');
-                        $thumbnail.css('width', 100/thumbnailsPerRow + '%');
-                    }
-                }
-
-                if ($(window).width() < 768) {
-                    rows = 1;
-                    thumbnailsPerRow = 5;
-                    //createThumbnail();
-                } else if ($(window).width() >= 768 && $(window).width() < 1199 ) {
-                    rows = 1;
-                    thumbnailsPerRow = 10;
-                    createThumbnail();
-                } else if ($(window).width() >= 1200) {
-                    rows = 1;
-                    thumbnailsPerRow = 20;
-                    createThumbnail();
-                }
-            });
-        };
-
         // Disable click when dragging
         var disableClick = function () {
             $('.owl-carousel .property').css('pointer-events', 'none');
@@ -250,7 +217,7 @@ define(['angular'], function(angular) {
 
             //  Draw thumbnails in the footer
 
-            this.drawFooterThumbnails();
+            //this.drawFooterThumbnails();
 
             //  Show counter after appear
 
@@ -343,10 +310,6 @@ define(['angular'], function(angular) {
             //  Equal heights
 
             equalHeight: equalHeight,
-
-            //  Creating property thumbnails in the footer
-
-            drawFooterThumbnails: drawFooterThumbnails,
 
             // former windows load
             onStateChange: onStateChange

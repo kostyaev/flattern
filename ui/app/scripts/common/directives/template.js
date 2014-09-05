@@ -304,5 +304,46 @@ define(['angular', '../services/helper'], function(angular) {
         });
     });
 
+
+    mod.directive("footerThumbnails", function() {
+        return {
+            restrict: "AE",
+            link: function(scope, el, attrs) {
+                console.log("activation thumbnails");
+                var $ = angular.element;
+                var i = 0;
+                var rows = 1; // how many rows to display, default = 1
+                var thumbnailsPerRow = 1; // how many thumbnails per row to display, default = 1
+
+                $.getScript("/scripts/map/locations.js", function() {
+                    // Create thumbnail function
+                    function createThumbnail() {
+                        for (i = 0; i < rows * thumbnailsPerRow; i++) {
+                            $('.footer-thumbnails').append("<div class='property-thumbnail'><a href='" + locations[i][5] + "'><img src="  + locations[i][6] + "></a></div>");
+                            var $thumbnail = $('.footer-thumbnails .property-thumbnail');
+                            $thumbnail.css('width', 100/thumbnailsPerRow + '%');
+                        }
+                    }
+
+                    if ($(window).width() < 768) {
+                        rows = 1;
+                        thumbnailsPerRow = 5;
+                        //createThumbnail();
+                    } else if ($(window).width() >= 768 && $(window).width() < 1199 ) {
+                        rows = 1;
+                        thumbnailsPerRow = 10;
+                        createThumbnail();
+                    } else if ($(window).width() >= 1200) {
+                        rows = 1;
+                        thumbnailsPerRow = 20;
+                        createThumbnail();
+                    }
+                });
+            }
+        };
+    });
+
+
+
     return mod;
 });
