@@ -319,8 +319,8 @@ define(['angular', '../services/helper'], function(angular) {
                     // Create thumbnail function
                     function createThumbnail() {
                         for (i = 0; i < rows * thumbnailsPerRow; i++) {
-                            $('.footer-thumbnails').append("<div class='property-thumbnail'><a href='" + locations[i][5] + "'><img src="  + locations[i][6] + "></a></div>");
-                            var $thumbnail = $('.footer-thumbnails .property-thumbnail');
+                            el.append("<div class='property-thumbnail'><a href='" + locations[i][5] + "'><img src="  + locations[i][6] + "></a></div>");
+                            var $thumbnail = el.find('.property-thumbnail');
                             $thumbnail.css('width', 100/thumbnailsPerRow + '%');
                         }
                     }
@@ -342,8 +342,6 @@ define(['angular', '../services/helper'], function(angular) {
             }
         };
     });
-
-
 
     return mod;
 });
