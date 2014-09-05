@@ -33,25 +33,6 @@ define(['angular'], function(angular) {
             $('#slider .slide img').css('left', -centerImage);
         };
 
-        var setMapHeight = function () {
-            var $body = $('body');
-            if($body.hasClass('has-fullscreen-map')) {
-                $('#map').height($(window).height() - $('.navigation').height());
-
-                $(window).on('resize', function() {
-                    $('#map').height($(window).height() - $('.navigation').height());
-                    var mapHeight = $('#map').height();
-                    var contentHeight = $('.search-box').height();
-                    var top;
-                    top = (mapHeight / 2) - (contentHeight / 2);
-                    $('.search-box-wrapper').css('top', top);
-                });
-            }
-            if ($(window).width() < 768) {
-                $('#map').height($(window).height() - $('.navigation').height());
-            }
-        };
-
         var setNavigationPosition = function () {
             $('.nav > li').each(function () {
                 if($(this).hasClass('has-child')) {
@@ -280,10 +261,6 @@ define(['angular'], function(angular) {
             // Mobile Slider
 
             centerSlider: centerSlider,
-
-            // Set height of the map
-
-            setMapHeight: setMapHeight,
 
             setNavigationPosition: setNavigationPosition,
 

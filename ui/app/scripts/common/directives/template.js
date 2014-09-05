@@ -328,7 +328,7 @@ define(['angular', '../services/helper'], function(angular) {
                     if ($(window).width() < 768) {
                         rows = 1;
                         thumbnailsPerRow = 5;
-                        //createThumbnail();
+                        createThumbnail();
                     } else if ($(window).width() >= 768 && $(window).width() < 1199 ) {
                         rows = 1;
                         thumbnailsPerRow = 10;
@@ -339,6 +339,34 @@ define(['angular', '../services/helper'], function(angular) {
                         createThumbnail();
                     }
                 });
+            }
+        };
+    });
+
+    mod.directive('map', function() {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'AE',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("activating map");
+                var $ = angular.element;
+                var $content = $('content');
+                if($content.hasClass('has-fullscreen-map')) {
+                    el.height($(window).height() - $('.navigation').height());
+
+                    $(window).on('resize', function() {
+                        el.height($(window).height() - $('.navigation').height());
+                        var mapHeight = $('#map').height();
+                        var contentHeight = $('.search-box').height();
+                        var top;
+                        top = (mapHeight / 2) - (contentHeight / 2);
+                        $('.search-box-wrapper').css('top', top);
+                    });
+                }
+                if ($(window).width() < 768) {
+                    el.height($(window).height() - $('.navigation').height());
+                }
             }
         };
     });
