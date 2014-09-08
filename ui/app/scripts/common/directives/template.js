@@ -151,7 +151,7 @@ define(['angular', '../services/helper'], function(angular) {
                 //  Parallax scrolling and fixed header after scroll
 
                 $('#map .marker-style').css('opacity', '.5 !important');
-                $('#map .marker-style').css('bakground-color', 'red');
+                $('#map .marker-style').css('baсkground-color', 'red');
 
                 $(window).scroll(function () {
                     var scrollAmount = $(window).scrollTop() / 1.5;
@@ -395,7 +395,7 @@ define(['angular', '../services/helper'], function(angular) {
         };
     });
 
-    mod.directive('map', function() {
+    mod.directive('map', function(customMap) {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'AE',
@@ -422,6 +422,10 @@ define(['angular', '../services/helper'], function(angular) {
                 if ($(window).width() < 768) {
                     el.height($(window).height() - $('.navigation').height());
                 }
+
+                _latitude = 48.87;
+                _longitude = 2.29;
+                customMap.createHomepageGoogleMap(_latitude,_longitude);
             }
         };
     });

@@ -29,7 +29,9 @@ require.config({
         'google-infobox': '../components/google-infobox/google-infobox',
         'markerclusterer': '../components/gmaps-markerclusterer-plus/src/markerclusterer',
         'raf': '../components/raf.js/raf',
-        'smoothscroll': '../components/smoothscroll/dist/smoothscroll'
+        'smoothscroll': '../components/smoothscroll/dist/smoothscroll',
+        'googlemaps': '../components/googlemaps-amd/src/googlemaps',
+        'async': '../components/requirejs-plugins/src/async'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -60,8 +62,8 @@ require.config({
         'underscore' : [],
         'icheck': ['jquery'],
         'owl.carousel': ['jquery'],
-        'markerwithlabel' : [],
-        'google-infobox': [],
+        'markerwithlabel' : ['googlemaps!'],
+        'google-infobox': ['googlemaps!'],
         'markerclusterer': [],
         'raf' : [],
         'smoothscroll': ['raf']
@@ -100,7 +102,8 @@ require([
         'google-infobox',
         'markerclusterer',
         'raf' ,
-        'smoothscroll'
+        'smoothscroll',
+        'googlemaps'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
