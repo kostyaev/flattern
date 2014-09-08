@@ -81,10 +81,6 @@ define(['angular', '../services/helper'], function(angular) {
 
                 $('.tool-tip').tooltip();
 
-                var select = $('select');
-                if (select.length > 0 ){
-                    select.selectpicker();
-                }
 
                 var bootstrapSelect = $('.bootstrap-select');
                 var dropDownMenu = $('.dropdown-menu');
@@ -317,16 +313,6 @@ define(['angular', '../services/helper'], function(angular) {
                     });
                 }
 
-                //  iCheck
-
-                if ($('.checkbox').length > 0) {
-                    $('input').iCheck();
-                }
-
-                if ($('.radio').length > 0) {
-                    $('input').iCheck();
-                }
-
                 //  Pricing Tables in Submit page
 
                 if($('.submit-pricing').length >0 ){
@@ -356,6 +342,44 @@ define(['angular', '../services/helper'], function(angular) {
         });
     });
 
+
+
+    mod.directive('content', function (custom) {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'E',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                var $ = angular.element;
+                console.log("draw content");
+
+                custom.equalHeight('.equal-height');
+
+                $('.nav > li > ul li > ul').css('left', $('.nav > li > ul').width());
+
+                var navigationLi = $('.nav > li');
+                navigationLi.hover(function() {
+                    if (el.hasClass('navigation-fixed-bottom')){
+                        if ($(window).width() > 768) {
+                            var spaceUnderNavigation = $(window).height() - ($(this).offset().top - $(window).scrollTop());
+                            if(spaceUnderNavigation < $(this).children('.child-navigation').height()){
+                                $(this).children('.child-navigation').addClass('position-bottom');
+                                console.log('smaller');
+                            } else {
+                                $(this).children('.child-navigation').removeClass('position-bottom');
+                                console.log('bigger');
+                            }
+                        }
+                    }
+                });
+
+
+                if (el.hasClass('navigation-fixed-bottom')){
+                    $('#page-content').css('padding-top',$('.navigation').height());
+                }
+            }
+        }
+    });
 
     mod.directive('select', function () {
         return {

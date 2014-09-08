@@ -29,6 +29,11 @@ $(document).ready(function($) {
 
     $('.tool-tip').tooltip();
 
+    var select = $('select');
+    if (select.length > 0 ){
+        select.selectpicker();
+    }
+
     var bootstrapSelect = $('.bootstrap-select');
     var dropDownMenu = $('.dropdown-menu');
 
@@ -258,6 +263,16 @@ $(document).ready(function($) {
             mainClass: 'mfp-fade',
             overflowY: 'scroll'
         });
+    }
+
+//  iCheck
+
+    if ($('.checkbox').length > 0) {
+        $('input').iCheck();
+    }
+
+    if ($('.radio').length > 0) {
+        $('input').iCheck();
     }
 
 //  Pricing Tables in Submit page
