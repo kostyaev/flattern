@@ -357,6 +357,30 @@ define(['angular', '../services/helper'], function(angular) {
     });
 
 
+    mod.directive('select', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'E',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw selects");
+                el.selectpicker();
+            }
+        }
+    });
+
+    mod.directive('input', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'E',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw checkboxes");
+                el.iCheck();
+            }
+        }
+    });
+
     mod.directive('footerThumbnails', function() {
         return {
             restrict: 'AE',
