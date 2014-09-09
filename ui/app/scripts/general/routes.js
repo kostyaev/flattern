@@ -22,6 +22,51 @@ define(['angular', './controllers'], function(angular, controllers) {
                     }
                 })
 
+                .state('main-scroll-fixed-top', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll-fixed-top.html'
+                        },
+                        'header@main-scroll-fixed-top': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll-fixed-top': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
+                .state('main-scroll-fixed-bottom', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll-fixed-bottom.html'
+                        },
+                        'header@main-scroll-fixed-bottom': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll-fixed-bottom': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
+                .state('main-scroll', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll.html'
+                        },
+                        'header@main-scroll': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
 
         }]);
     return mod;

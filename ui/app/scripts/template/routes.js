@@ -8,7 +8,7 @@ define(['angular', './controllers'], function(angular, controllers) {
         function($stateProvider)  {
             $stateProvider
                 .state('home', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '',
                     templateUrl: 'views/template/index-advanced-horizontal-search.html',
                     controller: controllers.ContentCtrl
@@ -88,62 +88,62 @@ define(['angular', './controllers'], function(angular, controllers) {
                     templateUrl: 'views/template/faq.html'
                 })
                 .state('index-advanced-horizontal-search', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/',
                     templateUrl: 'views/template/index-advanced-horizontal-search.html'
                 })
                 .state('index-google-map-fixed-height', {
-                    parent: 'main',
+                    parent: 'main-scroll',
                     url: '/index-google-map-fixed-height',
                     templateUrl: 'views/template/index-google-map-fixed-height.html'
                 })
                 .state('index-google-map-fixed-navigation', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-google-map-fixed-navigation',
                     templateUrl: 'views/template/index-google-map-fixed-navigation.html'
                 })
                 .state('index-google-map-fullscreen', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-bottom',
                     url: '/index-google-map-fullscreen',
                     templateUrl: 'views/template/index-google-map-fullscreen.html'
                 })
                 .state('index-horizontal-search-floated', {
-                    parent: 'main',
+                    parent: 'main-scroll',
                     url: '/index-horizontal-search-floated',
                     templateUrl: 'views/template/index-horizontal-search-floated.html'
                 })
                 .state('index-osm', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-bottom',
                     url: '/index-osm',
                     templateUrl: 'views/template/index-osm.html'
                 })
                 .state('index-osm-fixed-height', {
-                    parent: 'main',
+                    parent: 'main-scroll',
                     url: '/index-osm-fixed-height',
                     templateUrl: 'views/template/index-osm-fixed-height.html'
                 })
                 .state('index-osm-fixed-navigation', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-osm-fixed-navigation',
                     templateUrl: 'views/template/index-osm-fixed-navigation.html'
                 })
                 .state('index-slider', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-slider',
                     templateUrl: 'views/template/index-slider.html'
                 })
                 .state('index-slider-horizontal-search-box', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-slider-horizontal-search-box',
                     templateUrl: 'views/template/index-slider-horizontal-search-box.html'
                 })
                 .state('index-slider-horizontal-search-box-floated', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-slider-horizontal-search-box-floated',
                     templateUrl: 'views/template/index-slider-horizontal-search-box-floated.html'
                 })
                 .state('index-slider-search-box', {
-                    parent: 'main',
+                    parent: 'main-scroll-fixed-top',
                     url: '/index-slider-search-box',
                     templateUrl: 'views/template/index-slider-search-box.html'
                 })
