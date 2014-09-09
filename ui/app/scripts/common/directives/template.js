@@ -28,7 +28,7 @@ define(['angular', '../services/helper'], function(angular) {
 
                 var navigationLi = $('.nav > li');
                 navigationLi.hover(function() {
-                    if ($('content').hasClass('navigation-fixed-bottom')){
+                    if ($('div').hasClass('navigation-fixed-bottom')){
                         if ($(window).width() > 768) {
                             var spaceUnderNavigation = $(window).height() - ($(this).offset().top - $(window).scrollTop());
                             if(spaceUnderNavigation < $(this).children('.child-navigation').height()){
@@ -223,7 +223,7 @@ define(['angular', '../services/helper'], function(angular) {
                     }
                 });
 
-                if ($('content').hasClass('navigation-fixed-bottom')){
+                if ($('div').hasClass('navigation-fixed-bottom')){
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
 
@@ -414,7 +414,7 @@ define(['angular', '../services/helper'], function(angular) {
                 console.log("activating map");
                 var $ = angular.element;
                 $('#map .marker-style').css('opacity', '.5 !important');
-                $('#map .marker-style').css('bakground-color', 'red');
+                $('#map .marker-style').css('background-color', 'red');
                 $('.search-box.map').addClass('show-search-box');
                 var $content = $('content');
                 if($content.hasClass('has-fullscreen-map')) {
@@ -526,7 +526,7 @@ define(['angular', '../services/helper'], function(angular) {
                 var $searchBox = $('.search-box-wrapper');
                 var $navigation = $('.navigation');
                 var positionFromBottom = 20;
-                if ($('content').hasClass('navigation-fixed-top')) {
+                if ($('div').hasClass('navigation-fixed-top')) {
                     $('#map, #slider').css('margin-top',$navigation.height());
                     $searchBox.css('z-index',98);
                 } else {
