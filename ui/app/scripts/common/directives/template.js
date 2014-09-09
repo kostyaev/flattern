@@ -117,7 +117,7 @@ define(['angular', '../services/helper'], function(angular) {
                 $(window).scroll(function () {
                     var scrollAmount = $(window).scrollTop() / 1.5;
                     scrollAmount = Math.round(scrollAmount);
-                    if ( $('body').hasClass('navigation-fixed-bottom') ) {
+                    if ( $('content').hasClass('navigation-fixed-bottom') ) {
                         if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
                             $('.navigation').addClass('navigation-fix-to-top');
                         } else {
@@ -439,6 +439,35 @@ define(['angular', '../services/helper'], function(angular) {
             }
         };
     });
+
+    mod.directive('mapSubmit', function(customMap) {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'AE',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log('mapSubmit');
+                _latitude = 48.87;
+                _longitude = 2.29;
+                customMap.initSubmitMap(_latitude,_longitude);
+            }
+        };
+    });
+
+    mod.directive('mapContact', function (customMap) {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'AE',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log('mapContact');
+                _latitude = 48.87;
+                 _longitude = 2.29;
+                 customMap.contactUsMap(_latitude,_longitude);
+            }
+        }
+    });
+
 
     mod.directive('centerSlider', function () {
         return {

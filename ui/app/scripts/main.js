@@ -70,7 +70,13 @@ require.config({
     },
     priority: [
         'angular'
-    ]
+    ],
+    googlemaps: {
+        url: 'https://maps.googleapis.com/maps/api/js',
+        params: {
+            libraries: 'places'
+        }
+    }
 });
 
 //http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
