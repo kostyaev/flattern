@@ -197,6 +197,11 @@ define(['angular'], function(angular) {
 
         };
 
+        var initPropertyDetailMap = function () {
+            var propertyId = 0;
+            google.maps.event.addDomListener(window, 'load', initMap(propertyId));
+        };
+
         function successSubmit(position) {
             initSubmitMap(position.coords.latitude, position.coords.longitude);
             $('#latitude').val( position.coords.latitude );
@@ -484,7 +489,8 @@ define(['angular'], function(angular) {
             initMap: initMap,
             contactUsMap: contactUsMap,
             createHomepageOSM: createHomepageOSM,
-            initSubmitMap: initSubmitMap
+            initSubmitMap: initSubmitMap,
+            initPropertyDetailMap: initPropertyDetailMap
         }
     });
 

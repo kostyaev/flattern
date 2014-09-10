@@ -4404,6 +4404,7 @@ form label.error:before {
 #page-footer .inner {
     display: table;
     width: 100%;
+    position: absolute;
 }
 #page-footer .inner h3 {
     color: #2a2a2a;

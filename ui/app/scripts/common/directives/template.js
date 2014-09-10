@@ -475,6 +475,18 @@ define(['angular', '../services/helper'], function(angular) {
         };
     });
 
+    mod.directive('mapPropertyDetail', function(customMap) {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'AE',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log('mapPropertyDetail');
+                customMap.initPropertyDetailMap();
+            }
+        };
+    });
+
     mod.directive('mapContact', function (customMap) {
         return {
             // Restrict it to be an attribute in this case
