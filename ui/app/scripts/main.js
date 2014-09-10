@@ -31,7 +31,13 @@ require.config({
         'raf': '../components/raf.js/raf',
         'smoothscroll': '../components/smoothscroll/dist/smoothscroll',
         'googlemaps': '../components/googlemaps-amd/src/googlemaps',
-        'async': '../components/requirejs-plugins/src/async'
+        'async': '../components/requirejs-plugins/src/async',
+        'slider': '../components/jslider/js/jquery.slider',
+        'draggable': '../components/jslider/js/draggable-0.1',
+        'dependClass': '../components/jslider/js/jquery.dependClass-0.1',
+        'numberformatter': '../components/jslider/js/jquery.numberformatter-1.2.3',
+        'hashtable': '../components/jslider/js/jshashtable-2.1_src',
+        'tmpl': '../components/jslider/js/tmpl'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -63,10 +69,17 @@ require.config({
         'icheck': ['jquery'],
         'owl.carousel': ['jquery'],
         'markerwithlabel' : ['googlemaps!'],
-        'google-infobox': ['googlemaps!'],
-        'markerclusterer': [],
+        'google-infobox' : ['googlemaps!'],
+        'markerclusterer' : [],
         'raf' : [],
-        'smoothscroll': ['raf']
+        'smoothscroll': ['raf'],
+        'slider': ['jquery', 'draggable', 'dependClass',
+            'numberformatter', 'tmpl'],
+        'draggable' : ['jquery'],
+        'dependClass' : ['jquery'],
+        'numberformatter' : ['jquery', 'hashtable'],
+        'hashtable' : ['jquery'],
+        'tmpl' : ['jquery']
     },
     priority: [
         'angular'
@@ -109,6 +122,7 @@ require([
         'markerclusterer',
         'raf' ,
         'smoothscroll',
+        'slider',
         'googlemaps'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {

@@ -3258,7 +3258,7 @@ ul.list-links li a:hover {
     transition: 0.4s;
     background-color: transparent;
     border: none;
-    background-image: url("../img/marker.png");
+    background-image: url("/images/marker.png");
 }
 .leaflet-div-icon:after {
     -moz-transition: 0.4s;
@@ -4043,7 +4043,7 @@ form label.error:before {
     -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    background: url("../img/price-range-dragger.png") no-repeat 50% 50% #1396e2;
+    background: url("/images/price-range-dragger.png") no-repeat 50% 50% #1396e2;
     height: 14px;
     width: 14px;
     top: 12px;

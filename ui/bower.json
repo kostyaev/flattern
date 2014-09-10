@@ -35,9 +35,9 @@
     "jshashtable": "~3.0.0",
     "jquery.numberformatter": "git://github.com/atzkey/jquery.numberformatter.git",
     "draggable": "~1.0.0",
-    "jquery-slider": "*",
     "gmaps-markerclusterer-plus": "~2.1.1",
-    "googlemaps-amd": "~1.0.1"
+    "googlemaps-amd": "~1.0.1",
+    "jslider": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.2",

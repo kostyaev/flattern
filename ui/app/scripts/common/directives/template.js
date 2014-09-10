@@ -109,33 +109,7 @@ define(['angular', '../services/helper'], function(angular) {
                     });
                 }
 
-                //  Parallax scrolling and fixed header after scroll
 
-                $('#map .marker-style').css('opacity', '.5 !important');
-                $('#map .marker-style').css('baсkground-color', 'red');
-
-                $(window).scroll(function () {
-                    var scrollAmount = $(window).scrollTop() / 1.5;
-                    scrollAmount = Math.round(scrollAmount);
-                    if ( $('content').hasClass('navigation-fixed-bottom') ) {
-                        if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
-                            $('.navigation').addClass('navigation-fix-to-top');
-                        } else {
-                            $('.navigation').removeClass('navigation-fix-to-top');
-                        }
-                    }
-
-                    if ($(window).width() > 768) {
-                        if($('#map').hasClass('has-parallax')){
-                            //$('#map .gm-style > div:first-child > div:first-child').css('margin-top', scrollAmount + 'px'); // old script
-                            $('#map .gm-style').css('margin-top', scrollAmount + 'px');
-                            $('#map .leaflet-map-pane').css('margin-top', scrollAmount + 'px');
-                        }
-                        if($('#slider').hasClass('has-parallax')){
-                            $(".homepage-slider").css('top', scrollAmount + 'px');
-                        }
-                    }
-                });
 
                 //  Smooth Navigation Scrolling
 
@@ -338,6 +312,53 @@ define(['angular', '../services/helper'], function(angular) {
 
                 if (el.hasClass('navigation-fixed-bottom')){
                     $('#page-content').css('padding-top',$('.navigation').height());
+                }
+
+
+                //  Parallax scrolling and fixed header after scroll
+                $(window).scroll(function () {
+                    var scrollAmount = $(window).scrollTop() / 1.5;
+                    scrollAmount = Math.round(scrollAmount);
+                    if ( $('content').hasClass('navigation-fixed-bottom') ) {
+                        if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
+                            $('.navigation').addClass('navigation-fix-to-top');
+                        } else {
+                            $('.navigation').removeClass('navigation-fix-to-top');
+                        }
+                    }
+
+                    if ($(window).width() > 768) {
+                        if($('#map').hasClass('has-parallax')){
+                            //$('#map .gm-style > div:first-child > div:first-child').css('margin-top', scrollAmount + 'px'); // old script
+                            $('#map .gm-style').css('margin-top', scrollAmount + 'px');
+                            $('#map .leaflet-map-pane').css('margin-top', scrollAmount + 'px');
+                        }
+                        if($('#slider').hasClass('has-parallax')){
+                            $(".homepage-slider").css('top', scrollAmount + 'px');
+                        }
+                    }
+                });
+
+
+            }
+        }
+    });
+
+    mod.directive('priceInput', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw price inputs");
+                if(el.length > 0) {
+                    el.slider({
+                        from: 1000,
+                        to: 299000,
+                        step: 1000,
+                        round: 1,
+                        format: { format: '$ ###,###', locale: 'en' }
+                    });
                 }
             }
         }
