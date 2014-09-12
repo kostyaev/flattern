@@ -9,41 +9,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 var $ = element;
                 console.log('customInit');
 
-                function setNavigationPosition(){
-                    $('.nav > li').each(function () {
-                        if($(this).hasClass('has-child')){
-                            var fullNavigationWidth = $(this).children('.child-navigation').width() + $(this).children('.child-navigation').children('li').children('.child-navigation').width();
-                            if(($(this).children('.child-navigation').offset().left + fullNavigationWidth) > $(window).width()){
-                                $(this).children('.child-navigation').addClass('navigation-to-left');
-                            }
-                        }
-                    });
-                }
-
-
-                $('.nav > li > ul li > ul').css('left', $('.nav > li > ul').width());
-
-                var navigationLi = $('.nav > li');
-                navigationLi.hover(function() {
-                    if ($('div').hasClass('navigation-fixed-bottom')){
-                        if ($(window).width() > 768) {
-                            var spaceUnderNavigation = $(window).height() - ($(this).offset().top - $(window).scrollTop());
-                            if(spaceUnderNavigation < $(this).children('.child-navigation').height()){
-                                $(this).children('.child-navigation').addClass('position-bottom');
-                                console.log('smaller');
-                            } else {
-                                $(this).children('.child-navigation').removeClass('position-bottom');
-                                console.log('bigger');
-                            }
-                        }
-                    }
-                });
-
-                setNavigationPosition();
-
-                $('.tool-tip').tooltip();
-
-
                 var bootstrapSelect = $('.bootstrap-select');
                 var dropDownMenu = $('.dropdown-menu');
 
@@ -106,7 +71,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 });
 
                 //  Rating
-
                 var ratingOverall = $('.rating-overall');
                 if (ratingOverall.length > 0) {
                     ratingOverall.raty({
@@ -197,13 +161,18 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         };
     });
 
-    mod.run(function ($rootScope, $state, custom) {
-        $rootScope.$on('$stateChangeSuccess', function () {
-            console.log('$stateChangeSuccess');
-            custom.onStateChange();
-        });
-    });
 
+    mod.directive('toolTip', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw tooltip");
+                el.tooltip();
+            }
+        }
+    });
 
     mod.directive('video', function () {
         return {
@@ -266,11 +235,11 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     }
                 });
 
+                custom.setNavigationPosition();
 
                 if (el.hasClass('navigation-fixed-bottom')){
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
-
 
                 //  Parallax scrolling and fixed header after scroll
                 $(window).scroll(function () {
