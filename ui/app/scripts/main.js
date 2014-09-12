@@ -41,7 +41,8 @@ require.config({
         'imagesloaded': '../components/imagesloaded/imagesloaded.pkgd',
         'masonry': '../components/masonry/dist/masonry.pkgd',
         'bridget': '../components/jquery-bridget/jquery.bridget',
-        'scroll-reveal': '../components/scrollReveal.js/dist/scrollReveal'
+        'scroll-reveal': '../components/scrollReveal.js/dist/scrollReveal',
+        'jquery-raty': '../components/jquery-raty/lib/jquery.raty'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -83,8 +84,7 @@ require.config({
         'dependClass' : ['jquery'],
         'numberformatter' : ['jquery', 'hashtable'],
         'hashtable' : ['jquery'],
-        'tmpl' : ['jquery'],
-        'scroll-reveal': []
+        'tmpl' : ['jquery']
     },
     priority: [
         'angular'
@@ -128,11 +128,7 @@ require([
         'raf' ,
         'smoothscroll',
         'slider',
-        'googlemaps',
-        'imagesloaded',
-        'masonry',
-        'bridget',
-        'scroll-reveal'
+        'googlemaps'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

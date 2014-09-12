@@ -718,5 +718,52 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
+    mod.directive('propertyRating', function() {
+        return {
+            restrict: 'AE',
+            link: function() {
+                function showRatingForm(){
+                    $('.rating-form').css('height', $('.rating-form form').height() + 85 + 'px');
+                }
+
+                var ratingOverall = $('.rating-overall');
+                if (ratingOverall.length > 0) {
+                    ratingOverall.raty({
+                        path: '/images',
+                        readOnly: true,
+                        score: function() {
+                            return $(this).attr('data-score');
+                        }
+                    });
+                }
+                var ratingIndividual = $('.rating-individual');
+                if (ratingIndividual.length > 0) {
+                    ratingIndividual.raty({
+                        path: '/images',
+                        readOnly: true,
+                        score: function() {
+                            return $(this).attr('data-score');
+                        }
+                    });
+                }
+                var ratingUser = $('.rating-user');
+                if (ratingUser.length > 0) {
+                    $('.rating-user .inner').raty({
+                        path: '/images',
+                        starOff : 'big-star-off.png',
+                        starOn  : 'big-star-on.png',
+                        width: 150,
+                        //target : '#hint',
+                        targetType : 'number',
+                        targetFormat : 'Rating: {score}',
+                        click: function(score, evt) {
+                            showRatingForm();
+                        }
+                    });
+                }
+            }
+        }
+    });
+
     return mod;
 });
