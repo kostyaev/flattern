@@ -9,37 +9,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 var $ = element;
                 console.log('customInit');
 
-                var bootstrapSelect = $('.bootstrap-select');
-                var dropDownMenu = $('.dropdown-menu');
-
-                bootstrapSelect.on('shown.bs.dropdown', function () {
-                    dropDownMenu.removeClass('animation-fade-out');
-                    dropDownMenu.addClass('animation-fade-in');
-                });
-
-                bootstrapSelect.on('hide.bs.dropdown', function () {
-                    dropDownMenu.removeClass('animation-fade-in');
-                    dropDownMenu.addClass('animation-fade-out');
-                });
-
-                bootstrapSelect.on('hidden.bs.dropdown', function () {
-                    var _this = $(this);
-                    $(_this).addClass('open');
-                    setTimeout(function() {
-                        $(_this).removeClass('open');
-                    }, 100);
-                });
-
-                select.change(function() {
-                    if ($(this).val() != '') {
-                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
-                    }else {
-                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
-                    }
-                });
-
                 //  Contact form
-
                 $("#form-contact-submit").bind("click", function(event){
                     $("#form-contact").validate({
                         submitHandler: function() {
@@ -70,45 +40,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     }
                 });
 
-                //  Rating
-                var ratingOverall = $('.rating-overall');
-                if (ratingOverall.length > 0) {
-                    ratingOverall.raty({
-                        path: '/images',
-                        readOnly: true,
-                        score: function() {
-                            return $(this).attr('data-score');
-                        }
-                    });
-                }
-                var ratingIndividual = $('.rating-individual');
-                if (ratingIndividual.length > 0) {
-                    ratingIndividual.raty({
-                        path: '/images',
-                        readOnly: true,
-                        score: function() {
-                            return $(this).attr('data-score');
-                        }
-                    });
-                }
-                var ratingUser = $('.rating-user');
-                if (ratingUser.length > 0) {
-                    $('.rating-user .inner').raty({
-                        path: '/images',
-                        starOff : 'big-star-off.png',
-                        starOn  : 'big-star-on.png',
-                        width: 150,
-                        //target : '#hint',
-                        targetType : 'number',
-                        targetFormat : 'Rating: {score}',
-                        click: function(score, evt) {
-                            showRatingForm();
-                        }
-                    });
-                }
-
                 //  Agent State
-
                 $('#agent-switch').on('ifClicked', function(event) {
                     agentState();
                 });
@@ -142,10 +74,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
 
-
-
                 //  Pricing Tables in Submit page
-
                 if($('.submit-pricing').length >0 ){
                     $('.btn').click(function() {
                             $('.submit-pricing .buttons td').each(function () {
@@ -161,6 +90,39 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         };
     });
 
+
+    mod.directive('bootstrapSelect', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw bootstrapSelect");
+
+                var bootstrapSelect = el;
+                var dropDownMenu = $('.dropdown-menu');
+
+                bootstrapSelect.on('shown.bs.dropdown', function () {
+                    dropDownMenu.removeClass('animation-fade-out');
+                    dropDownMenu.addClass('animation-fade-in');
+                });
+
+                bootstrapSelect.on('hide.bs.dropdown', function () {
+                    dropDownMenu.removeClass('animation-fade-in');
+                    dropDownMenu.addClass('animation-fade-out');
+                });
+
+                bootstrapSelect.on('hidden.bs.dropdown', function () {
+                    var _this = $(this);
+                    $(_this).addClass('open');
+                    setTimeout(function() {
+                        $(_this).removeClass('open');
+                    }, 100);
+                });
+
+            }
+        }
+    });
 
     mod.directive('toolTip', function () {
         return {
@@ -206,14 +168,14 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
     });
 
 
-    mod.directive('content', function (custom) {
+    mod.directive('page', function (custom) {
         return {
             // Restrict it to be an attribute in this case
-            restrict: 'E',
+            restrict: 'A',
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
                 var $ = angular.element;
-                console.log("draw content");
+                console.log("draw page");
 
                 //custom.equalHeight('.equal-height');
 
@@ -245,7 +207,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 $(window).scroll(function () {
                     var scrollAmount = $(window).scrollTop() / 1.5;
                     scrollAmount = Math.round(scrollAmount);
-                    if ( $('content').hasClass('navigation-fixed-bottom') ) {
+                    if ( el.hasClass('navigation-fixed-bottom') ) {
                         if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
                             $('.navigation').addClass('navigation-fix-to-top');
                         } else {
@@ -343,6 +305,13 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             link: function(scope, el, attrs) {
                 console.log("draw selects");
                 el.selectpicker();
+                el.change(function() {
+                    if ($(this).val() != '') {
+                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
+                    }else {
+                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
+                    }
+                });
             }
         }
     });
