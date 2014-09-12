@@ -87,12 +87,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     });
                 });
 
-                //  Fit videos width and height
-
-                if($('.video').length > 0) {
-                    $('.video').fitVids();
-                }
-
 
                 //  Smooth Navigation Scrolling
 
@@ -211,6 +205,19 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
     });
 
 
+    mod.directive('video', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw video");
+                //  Fit videos width and height
+                el.fitVids();
+            }
+        }
+    });
+
     mod.directive('imagePopup', function () {
         return {
             // Restrict it to be an attribute in this case
@@ -218,15 +225,13 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
                 console.log("draw image-popup");
-                //  Magnific Popup
-                if (el.length > 0) {
-                    el.magnificPopup({
-                        type:'image',
-                        removalDelay: 300,
-                        mainClass: 'mfp-fade',
-                        overflowY: 'scroll'
-                    });
-                }
+                el.magnificPopup({
+                    type:'image',
+                    removalDelay: 300,
+                    mainClass: 'mfp-fade',
+                    overflowY: 'scroll'
+                });
+
             }
         }
     });
@@ -290,8 +295,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                         }
                     }
                 });
-
-
             }
         }
     });
@@ -494,8 +497,8 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             link: function(scope, el, attrs) {
                 console.log('mapContact');
                 _latitude = 48.87;
-                 _longitude = 2.29;
-                 customMap.contactUsMap(_latitude,_longitude);
+                _longitude = 2.29;
+                customMap.contactUsMap(_latitude,_longitude);
             }
         }
     });
