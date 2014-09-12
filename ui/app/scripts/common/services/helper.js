@@ -58,17 +58,17 @@ define(['angular'], function(angular) {
         };
 
         var equalHeight = function(container) {
-
             var currentTallest = 0,
                 currentRowStart = 0,
                 rowDivs = new Array(),
                 $el,
                 topPosition = 0;
             $(container).each(function() {
-
                 $el = $(this);
+                console.log($el);
                 $($el).height('auto');
                 topPostion = $el.position().top;
+                console.log(topPosition);
 
                 if (currentRowStart != topPostion) {
                     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {

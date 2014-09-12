@@ -37,7 +37,11 @@ require.config({
         'dependClass': '../components/jslider/js/jquery.dependClass-0.1',
         'numberformatter': '../components/jslider/js/jquery.numberformatter-1.2.3',
         'hashtable': '../components/jslider/js/jshashtable-2.1_src',
-        'tmpl': '../components/jslider/js/tmpl'
+        'tmpl': '../components/jslider/js/tmpl',
+        'imagesloaded': '../components/imagesloaded/imagesloaded.pkgd',
+        'masonry': '../components/masonry/dist/masonry.pkgd',
+        'bridget': '../components/jquery-bridget/jquery.bridget',
+        'scroll-reveal': '../components/scrollReveal.js/dist/scrollReveal'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -79,7 +83,8 @@ require.config({
         'dependClass' : ['jquery'],
         'numberformatter' : ['jquery', 'hashtable'],
         'hashtable' : ['jquery'],
-        'tmpl' : ['jquery']
+        'tmpl' : ['jquery'],
+        'scroll-reveal': []
     },
     priority: [
         'angular'
@@ -123,7 +128,11 @@ require([
         'raf' ,
         'smoothscroll',
         'slider',
-        'googlemaps'
+        'googlemaps',
+        'imagesloaded',
+        'masonry',
+        'bridget',
+        'scroll-reveal'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
