@@ -37,6 +37,7 @@
     "draggable": "~1.0.0",
     "gmaps-markerclusterer-plus": "~2.1.1",
     "googlemaps-amd": "~1.0.1",
+    "jquery-raty": "~2.7.0",
     "jslider": "*"
   },
   "devDependencies": {

@@ -37,7 +37,8 @@ require.config({
         'dependClass': '../components/jslider/js/jquery.dependClass-0.1',
         'numberformatter': '../components/jslider/js/jquery.numberformatter-1.2.3',
         'hashtable': '../components/jslider/js/jshashtable-2.1_src',
-        'tmpl': '../components/jslider/js/tmpl'
+        'tmpl': '../components/jslider/js/tmpl',
+        'jquery-raty': '../components/jquery-raty/lib/jquery.raty'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -79,7 +80,8 @@ require.config({
         'dependClass' : ['jquery'],
         'numberformatter' : ['jquery', 'hashtable'],
         'hashtable' : ['jquery'],
-        'tmpl' : ['jquery']
+        'tmpl' : ['jquery'] ,
+        'jquery-raty' : ['jquery']
     },
     priority: [
         'angular'
@@ -123,7 +125,8 @@ require([
         'raf' ,
         'smoothscroll',
         'slider',
-        'googlemaps'
+        'googlemaps',
+        'jquery-raty'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
