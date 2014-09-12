@@ -42,7 +42,8 @@ require.config({
         'masonry': '../components/masonry/dist/masonry.pkgd',
         'bridget': '../components/jquery-bridget/jquery.bridget',
         'scroll-reveal': '../components/scrollReveal.js/dist/scrollReveal',
-        'jquery-raty': '../components/jquery-raty/lib/jquery.raty'
+        'jquery-raty': '../components/jquery-raty/lib/jquery.raty',
+        'magnific-popup': '../components/magnific-popup/dist/jquery.magnific-popup'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -86,7 +87,8 @@ require.config({
         'hashtable' : ['jquery'],
         'tmpl' : ['jquery'],
         'jquery-raty' : ['jquery'],
-        'scroll-reveal': []
+        'scroll-reveal': [],
+        'magnific-popup': ['jquery']
     },
     priority: [
         'angular'
@@ -135,7 +137,8 @@ require([
         'masonry',
         'bridget',
         'scroll-reveal',
-        'jquery-raty'
+        'jquery-raty',
+        'magnific-popup'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

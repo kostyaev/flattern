@@ -20,9 +20,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     });
                 }
 
-                function setCarouselWidth(){
-                    $('.carousel-full-width').css('width', $(window).width());
-                }
 
                 $('.nav > li > ul li > ul').css('left', $('.nav > li > ul').width());
 
@@ -95,20 +92,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 if($('.video').length > 0) {
                     $('.video').fitVids();
                 }
-
-                //  Price slider
-
-                var $priceSlider = $("#price-input");
-                if($priceSlider.length > 0) {
-                    $priceSlider.slider({
-                        from: 1000,
-                        to: 299000,
-                        step: 1000,
-                        round: 1,
-                        format: { format: '$ ###,###', locale: 'en' }
-                    });
-                }
-
 
 
                 //  Smooth Navigation Scrolling
@@ -201,56 +184,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
 
-                //  Masonry grid listing
 
-                if($('.property').hasClass('masonry')){
-                    var container = $('.grid');
-                    container.imagesLoaded( function() {
-                        container.masonry({
-                            gutter: 15,
-                            itemSelector: '.masonry'
-                        });
-                    });
-                    if ($(window).width() > 991) {
-
-                        $('.masonry').hover(function() {
-                                $('.masonry').each(function () {
-                                    $('.masonry').addClass('masonry-hide-other');
-                                    $(this).removeClass('masonry-show');
-                                });
-                                $(this).addClass('masonry-show');
-                            }, function() {
-                                $('.masonry').each(function () {
-                                    $('.masonry').removeClass('masonry-hide-other');
-                                });
-                            }
-                        );
-
-                        var config = {
-                            after: '0s',
-                            enter: 'bottom',
-                            move: '20px',
-                            over: '.5s',
-                            easing: 'ease-out',
-                            viewportFactor: 0.33,
-                            reset: false,
-                            init: true
-                        };
-                        window.scrollReveal = new scrollReveal(config);
-                    }
-                }
-
-                //  Magnific Popup
-
-                var imagePopup = $('.image-popup');
-                if (imagePopup.length > 0) {
-                    imagePopup.magnificPopup({
-                        type:'image',
-                        removalDelay: 300,
-                        mainClass: 'mfp-fade',
-                        overflowY: 'scroll'
-                    });
-                }
 
                 //  Pricing Tables in Submit page
 
@@ -265,8 +199,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                         }
                     );
                 }
-
-
             }
         };
     });
@@ -278,6 +210,26 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         });
     });
 
+
+    mod.directive('imagePopup', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw image-popup");
+                //  Magnific Popup
+                if (el.length > 0) {
+                    el.magnificPopup({
+                        type:'image',
+                        removalDelay: 300,
+                        mainClass: 'mfp-fade',
+                        overflowY: 'scroll'
+                    });
+                }
+            }
+        }
+    });
 
 
     mod.directive('content', function (custom) {
@@ -640,67 +592,71 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-    mod.directive('owlCarousel', function() {
+    mod.directive('owlCarousel', function($timeout) {
         return {
             // Restrict it to be an attribute in this case
-            restrict: 'AE',
+            restrict: 'A',
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
-
+                console.log("draw owl carousel");
                 function setCarouselWidth() {
                     $('.carousel-full-width').css('width', $(window).width());
                 }
 
                 // Disable click when dragging
-                function disableClick(){
+                function disableClick() {
                     $('.owl-carousel .property').css('pointer-events', 'none');
                 }
+
                 // Enable click after dragging
-                function enableClick(){
+                function enableClick() {
                     $('.owl-carousel .property').css('pointer-events', 'auto');
                 }
 
-                if ($('.owl-carousel').length > 0) {
-                    if ($('.carousel-full-width').length > 0) {
-                        setCarouselWidth();
+                $timeout(function () {
+                    if ($('.owl-carousel').length > 0) {
+                        if ($('.carousel-full-width').length > 0) {
+                            setCarouselWidth();
+                        }
+                        $(".featured-properties-carousel").owlCarousel({
+                            items: 5,
+                            itemsDesktop: [1700, 4],
+                            responsiveBaseWidth: ".featured-properties-carousel",
+                            pagination: false,
+                            startDragging: disableClick,
+                            beforeMove: enableClick
+                        });
+                        $(".testimonials-carousel").owlCarousel({
+                            items: 1,
+                            responsiveBaseWidth: ".testimonial",
+                            pagination: true
+                        });
+                        $(".property-carousel").owlCarousel({
+                            items: 1,
+                            responsiveBaseWidth: ".property-slide",
+                            pagination: false,
+                            autoHeight: true,
+                            navigation: true,
+                            navigationText: ["", ""],
+                            startDragging: disableClick,
+                            beforeMove: enableClick
+                        });
+                        $(".homepage-slider").owlCarousel({
+                            autoPlay: 10000,
+                            navigation: true,
+                            mouseDrag: false,
+                            items: 1,
+                            responsiveBaseWidth: ".slide",
+                            pagination: false,
+                            transitionStyle: 'fade',
+                            navigationText: ["", ""],
+                            afterInit: sliderLoaded,
+                            afterAction: animateDescription,
+                            startDragging: animateDescription
+                        });
                     }
-                    $(".featured-properties-carousel").owlCarousel({
-                        items: 5,
-                        itemsDesktop: [1700,4],
-                        responsiveBaseWidth: ".featured-properties-carousel",
-                        pagination: false,
-                        startDragging: disableClick,
-                        beforeMove: enableClick
-                    });
-                    $(".testimonials-carousel").owlCarousel({
-                        items: 1,
-                        responsiveBaseWidth: ".testimonial",
-                        pagination: true
-                    });
-                    $(".property-carousel").owlCarousel({
-                        items: 1,
-                        responsiveBaseWidth: ".property-slide",
-                        pagination: false,
-                        autoHeight : true,
-                        navigation: true,
-                        navigationText: ["",""],
-                        startDragging: disableClick,
-                        beforeMove: enableClick
-                    });
-                    $(".homepage-slider").owlCarousel({
-                        autoPlay: 10000,
-                        navigation: true,
-                        mouseDrag: false,
-                        items: 1,
-                        responsiveBaseWidth: ".slide",
-                        pagination: false,
-                        transitionStyle : 'fade',
-                        navigationText: ["",""],
-                        afterInit: sliderLoaded,
-                        afterAction: animateDescription,
-                        startDragging: animateDescription
-                    });
-                }
+                }, 500);
+
                 function sliderLoaded(){
                     $('#slider').removeClass('loading');
                     document.getElementById("loading-icon").remove();
