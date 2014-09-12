@@ -84,7 +84,9 @@ require.config({
         'dependClass' : ['jquery'],
         'numberformatter' : ['jquery', 'hashtable'],
         'hashtable' : ['jquery'],
-        'tmpl' : ['jquery']
+        'tmpl' : ['jquery'],
+        'jquery-raty' : ['jquery'],
+        'scroll-reveal': []
     },
     priority: [
         'angular'
@@ -128,7 +130,12 @@ require([
         'raf' ,
         'smoothscroll',
         'slider',
-        'googlemaps'
+        'googlemaps',
+        'imagesloaded',
+        'masonry',
+        'bridget',
+        'scroll-reveal',
+        'jquery-raty'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
