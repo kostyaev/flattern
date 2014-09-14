@@ -1,76 +1,16 @@
 define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], function(angular, imagesLoaded, Masonry, bridget) {
     var mod = angular.module('common.directives.template', ['common.helper']);
     var $ = angular.element;
-    mod.directive('customInit', function (custom) {
 
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var $ = element;
-                console.log('customInit');
-
-                //  Contact form
-                $("#form-contact-submit").bind("click", function(event){
-                    $("#form-contact").validate({
-                        submitHandler: function() {
-                            $.post("assets/php/contact.php", $("#form-contact").serialize(),  function(response) {
-                                $('#form-status').html(response);
-                                $('#form-contact-submit').attr('disabled','true');
-                            });
-                            return false;
-                        }
-                    });
-                });
-
-
-
-
-                //  Agent State
-                $('#agent-switch').on('ifClicked', function(event) {
-                    agentState();
-                });
-
-                $('#create-account-user').on('ifClicked', function(event) {
-                    $('#agent-switch').data('agent-state', '');
-                    agentState();
-                });
-
-                // Set Bookmark button attribute
-
-                var bookmarkButton = $(".bookmark");
-
-                if (bookmarkButton.data('bookmark-state') == 'empty') {
-                    bookmarkButton.removeClass('bookmark-added');
-                } else if (bookmarkButton.data('bookmark-state') == 'added') {
-                    bookmarkButton.addClass('bookmark-added');
-                }
-
-                bookmarkButton.on("click", function() {
-                    if (bookmarkButton.data('bookmark-state') == 'empty') {
-                        bookmarkButton.data('bookmark-state', 'added');
-                        bookmarkButton.addClass('bookmark-added');
-                    } else if (bookmarkButton.data('bookmark-state') == 'added') {
-                        bookmarkButton.data('bookmark-state', 'empty');
-                        bookmarkButton.removeClass('bookmark-added');
-                    }
-                });
-
-                //  Pricing Tables in Submit page
-                if($('.submit-pricing').length >0 ){
-                    $('.btn').click(function() {
-                            $('.submit-pricing .buttons td').each(function () {
-                                $(this).removeClass('package-selected');
-                            });
-                            $(this).parent().css('opacity','1');
-                            $(this).parent().addClass('package-selected');
-
-                        }
-                    );
-                }
-            }
-        };
+    mod.run(function ($rootScope, $state, custom) {
+        console.log("global init function");
+        $(window).on('resize', function(){
+            custom.setNavigationPosition();
+            custom.setCarouselWidth();
+            //custom.equalHeight('.equal-height');
+            custom.centerSlider();
+        });
     });
-
 
     mod.directive('bootstrapSelect', function () {
         return {
@@ -105,33 +45,30 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-    mod.directive('goTop', function () {
+
+
+    mod.directive('layoutExpandable', function () {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'A',
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
-                console.log("draw go-top");
-                //  Smooth Navigation Scrolling
-
-                el.bind('click', function() {
-//                    el.preventDefault();
-                    console.log('click event');
-                    var target = this.hash,
-                        $target = $(target);
-                    if ($(window).width() > 768) {
-                        $('html, page').stop().animate({
-                            'scrollTop': $target.offset().top - $('.navigation').height()
-                        }, 2000)
+                console.log("draw layout expandable");
+                var rowsToShow = 2; // number of collapsed rows to show
+                var $layoutExpandable = $('.layout-expandable');
+                var layoutHeightOriginal = $layoutExpandable.height();
+                $layoutExpandable.height($('.layout-expandable .row').height()*rowsToShow-5);
+                $('.show-all').on("click", function() {
+                    if ($layoutExpandable.hasClass('layout-expanded')) {
+                        $layoutExpandable.height($('.layout-expandable .row').height()*rowsToShow-5);
+                        $layoutExpandable.removeClass('layout-expanded');
+                        $('.show-all').removeClass('layout-expanded');
                     } else {
-                        $('html, page').stop().animate({
-                            'scrollTop': $target.offset().top
-                        }, 2000)
+                        $layoutExpandable.height(layoutHeightOriginal);
+                        $layoutExpandable.addClass('layout-expanded');
+                        $('.show-all').addClass('layout-expanded');
                     }
                 });
-
-
-
             }
         }
     });
@@ -148,6 +85,36 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
+    mod.directive('bookmark', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw bookmarks");
+                // Set Bookmark button attribute
+
+                var bookmarkButton = el;
+
+                if (bookmarkButton.data('bookmark-state') == 'empty') {
+                    bookmarkButton.removeClass('bookmark-added');
+                } else if (bookmarkButton.data('bookmark-state') == 'added') {
+                    bookmarkButton.addClass('bookmark-added');
+                }
+
+                bookmarkButton.on("click", function() {
+                    if (bookmarkButton.data('bookmark-state') == 'empty') {
+                        bookmarkButton.data('bookmark-state', 'added');
+                        bookmarkButton.addClass('bookmark-added');
+                    } else if (bookmarkButton.data('bookmark-state') == 'added') {
+                        bookmarkButton.data('bookmark-state', 'empty');
+                        bookmarkButton.removeClass('bookmark-added');
+                    }
+                });
+            }
+        }
+    });
+
     mod.directive('video', function () {
         return {
             // Restrict it to be an attribute in this case
@@ -160,6 +127,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             }
         }
     });
+
 
     mod.directive('imagePopup', function () {
         return {

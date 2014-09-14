@@ -16,10 +16,7 @@ define(['angular'], function(angular) {
     mod.service('custom', function () {
         var $ = angular.element;
 
-
         var showAllButton = function () {
-            console.log("WARN!!!")
-
             var rowsToShow = 2; // number of collapsed rows to show
             var $layoutExpandable = $('.layout-expandable');
             var layoutHeightOriginal = $layoutExpandable.height();
@@ -48,6 +45,7 @@ define(['angular'], function(angular) {
         };
 
         var setNavigationPosition = function () {
+            console.log("called from from global init function");
             $('.nav > li').each(function () {
                 if($(this).hasClass('has-child')){
                     var fullNavigationWidth = $(this).children('.child-navigation').width() + $(this).children('.child-navigation').children('li').children('.child-navigation').width();
@@ -59,14 +57,10 @@ define(['angular'], function(angular) {
         };
 
         var setCarouselWidth = function () {
-            console.log("WARN!!!")
-
             $('.carousel-full-width').css('width', $(window).width());
         };
 
         var equalHeight = function(container) {
-            console.log("WARN!!!")
-
             var currentTallest = 0,
                 currentRowStart = 0,
                 rowDivs = new Array(),
@@ -98,7 +92,6 @@ define(['angular'], function(angular) {
         };
 
         var centerSlider = function() {
-
             if ($(window).width() < 979) {
                 var $navigation = $('.navigation');
                 $('#slider .slide').height($(window).height() - $navigation.height());
@@ -113,9 +106,6 @@ define(['angular'], function(angular) {
 
         var onStateChange = function () {
             showAllButton();
-
-            console.log("WARN!!!")
-
             var $number = $('.number');
             if ($number.length > 0 ) {
                 $number.waypoint(function() {
@@ -131,6 +121,7 @@ define(['angular'], function(angular) {
             });
 
         };
+
 
         return {
             initCounter: initCounter,
