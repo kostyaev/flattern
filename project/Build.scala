@@ -11,6 +11,7 @@ object ApplicationBuild extends Build {
     jdbc,
     cache,
     "ws.securesocial" %% "securesocial" % "2.1.3",
+    "org.squeryl" %% "squeryl" % "0.9.6-RC3",
     "com.typesafe.slick" %% "slick" % "2.0.0",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "com.github.tototoshi" %% "slick-joda-mapper" % "1.0.0",

@@ -1,202 +1,143 @@
 package models
 
-import securesocial.core._
-import utils.DgDriver.simple._
-import service.dao.IdentifiableTable
-import service.WithDefaultSession
-import scala.slick.lifted.ProvenShape
-import scala.language.implicitConversions
-import securesocial.core.providers.Token
-import org.joda.time.DateTime
+import service._
+import SquerylEntryPoint._
+import org.squeryl.Query
+import org.squeryl.dsl._
+import securesocial.core.{Identity, AuthenticationMethod, IdentityId}
+import securesocial.core.{OAuth1Info, OAuth2Info, PasswordInfo}
+import play.Logger
 
-case class Account(uid: Option[Long] = None,
-                identityId: IdentityId,
-                firstName: String,
-                lastName: String,
-                fullName: String,
-                email: Option[String],
-                avatarUrl: Option[String],
-                authMethod: AuthenticationMethod,
-                oAuth1Info: Option[OAuth1Info],
-                oAuth2Info: Option[OAuth2Info],
-                passwordInfo: Option[PasswordInfo] = None
-                 ) extends Identity
 
-object AccountFromIdentity {
-  def apply(i: Identity): Account = Account(None, i.identityId, i.firstName, i.lastName, i.fullName,
-    i.email, i.avatarUrl, i.authMethod, i.oAuth1Info, i.oAuth2Info, i.passwordInfo)
+case class Account( id: Long,
+                    user_id: String,
+                    auth_method: String,
+                    provider_id: String,
+                    avatar_url: Option[String],
+                    firstname: String,
+                    lastname: String,
+                    fullname: String,
+                    email_address: Option[String]) extends securesocial.core.Identity {
 
-  def apply(i: Identity, a: Account): Account = Account(None, i.identityId, i.firstName, i.lastName, i.fullName,
-    i.email, a.avatarUrl, i.authMethod, i.oAuth1Info, i.oAuth2Info, i.passwordInfo)
+  lazy val oauth1CredentialSets: OneToMany[OAuth1CredentialSet] =
+    Database.accountToOAuth1Info.left(this)
+  lazy val oauth2CredentialSets: OneToMany[OAuth2CredentialSet] =
+    Database.accountToOAuth2Info.left(this)
+  lazy val passwordCredentialSets: OneToMany[PasswordCredentialSet] =
+    Database.accountToPasswordInfo.left(this)
+
+  /*
+   * SecureSocial Identity trait implementation
+   */
+
+  def authMethod: AuthenticationMethod = AuthenticationMethod(auth_method)
+  def avatarUrl: Option[String] = avatar_url
+  def email: Option[String] = email_address
+  def firstName: String = firstname
+  def fullName: String = fullname
+  def lastName: String = lastname
+  def userId: String = user_id
+
+  def oAuth1Info: Option[OAuth1Info] = inTransaction {
+    oauth1CredentialSets headOption match {
+      case Some(cs) => Some(OAuth1Info(cs.token, cs.secret))
+      case None => None
+    }
+  }
+
+  def oAuth2Info: Option[OAuth2Info] = inTransaction {
+    oauth2CredentialSets headOption match {
+      case Some(cs) => Some(OAuth2Info(cs.access_token, cs.token_type, cs.expires_in, cs.refresh_token))
+      case None => None
+    }
+  }
+
+  def passwordInfo: Option[PasswordInfo] = inTransaction {
+    passwordCredentialSets headOption match {
+      case Some(pw) => {
+        Some(PasswordInfo(pw.hasher, pw.password, pw.salt))
+      }
+      case None => None
+    }
+  }
+
+  def identityId: securesocial.core.IdentityId = securesocial.core.IdentityId(user_id, provider_id)
 }
 
-class Accounts(tag: Tag) extends Table[Account](tag, "account") with IdentifiableTable[Long] with WithDefaultSession {
+object Account {
+  import Database.accountTable
 
-  implicit def string2AuthenticationMethod = MappedColumnType.base[AuthenticationMethod, String](
-    authenticationMethod => authenticationMethod.method,
-    string => AuthenticationMethod(string)
-  )
-
-  implicit def tuple2OAuth1Info(tuple: (Option[String], Option[String])): Option[OAuth1Info] = tuple match {
-    case (Some(token), Some(secret)) => Some(OAuth1Info(token, secret))
-    case _ => None
+  def insert(account: Account): Account = inTransaction {
+    accountTable.insert(account)
   }
 
-  implicit def tuple2OAuth2Info(tuple: (Option[String], Option[String], Option[Int], Option[String])): Option[OAuth2Info] = tuple match {
-    case (Some(token), tokenType, expiresIn, refreshToken) => Some(OAuth2Info(token, tokenType, expiresIn, refreshToken))
-    case _ => None
+  def findByEmailSocialProvider(email: String, socialProvider: String): Option[Account] =
+    inTransaction { findByEmailSocialProviderQ(email, socialProvider).toList.headOption }
+
+  def findByUserId(id: Long): Option[Account] = inTransaction {
+    findByAccountIdQ(id).toList.headOption
   }
 
-  implicit def tuple2IdentityId(tuple: (String, String)): IdentityId = tuple match {
-    case (userId, providerId) => IdentityId(userId, providerId)
+  def findByIdentityId(uid: IdentityId): Option[Account] = inTransaction {
+    findByIdentityIdQ(uid).toList.headOption
   }
 
+  def fromIdentity(i: Identity): Account = {
+    val a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
+      i.lastName, i.fullName, i.email)
+    Account.insert(a)  	// Get id to associate OAuth objects
 
-  implicit def tuple2PasswordInfo(tuple: (Option[String], Option[String], Option[String])) =
-    tuple match {
-      case (Some(hasher), Some(password), salt) =>
-        Some(PasswordInfo(hasher, password, salt))
-      case _ => None
+    // Save the three associated elements of Identity trait (oauth info, passwords)
+    i.oAuth1Info match {
+      case Some(ssoa1i) => {
+        val oa1 = OAuth1CredentialSet(0, a.id, ssoa1i.token, ssoa1i.secret)
+        OAuth1CredentialSet.insert(oa1)
+      }
+      case None => {}
     }
 
-  def uid = column[Long]("id", O.PrimaryKey, O.AutoInc)
-
-  def id = uid
-
-  def userId = column[String]("user_id")
-
-  def providerId = column[String]("provider_id")
-
-  def email = column[Option[String]]("email")
-
-  def firstName = column[String]("firstname")
-
-  def lastName = column[String]("lastname")
-
-  def fullName = column[String]("fullname")
-
-  def authMethod = column[AuthenticationMethod]("auth_method")
-
-  def avatarUrl = column[Option[String]]("avatar_url")
-
-  // oAuth 1
-  def token = column[Option[String]]("token")
-
-  def secret = column[Option[String]]("secret")
-
-  // oAuth 2
-  def accessToken = column[Option[String]]("access_token")
-
-  def tokenType = column[Option[String]]("token_type")
-
-  def expiresIn = column[Option[Int]]("expires_in")
-
-  def refreshToken = column[Option[String]]("refresh_token")
-
-  def hasher = column[Option[String]]("hasher")
-  def password = column[Option[String]]("password")
-  def salt = column[Option[String]]("salt")
-
-  def * : ProvenShape[Account] = {
-    val shapedValue = (uid.?,
-      userId,
-      providerId,
-      firstName,
-      lastName,
-      fullName,
-      email,
-      avatarUrl,
-      authMethod,
-      token,
-      secret,
-      accessToken,
-      tokenType,
-      expiresIn,
-      refreshToken,
-      hasher,
-      password,
-      salt
-      ).shaped
-
-    shapedValue.<>({
-      tuple =>
-        Account.apply(uid = tuple._1,
-          identityId = tuple2IdentityId(tuple._2, tuple._3),
-          firstName = tuple._4,
-          lastName = tuple._5,
-          fullName = tuple._6,
-          email = tuple._7,
-          avatarUrl = tuple._8,
-          authMethod = tuple._9,
-          oAuth1Info = (tuple._10, tuple._11),
-          oAuth2Info = (tuple._12, tuple._13, tuple._14, tuple._15),
-          passwordInfo = (tuple._16, tuple._17, tuple._18)
-        )
-    }, {
-      (u: Account) =>
-        Some {
-          (
-            u.uid,
-            u.identityId.userId,
-            u.identityId.providerId,
-            u.firstName,
-            u.lastName,
-            u.fullName,
-            u.email,
-            u.avatarUrl,
-            u.authMethod,
-            u.oAuth1Info.map(_.token),
-            u.oAuth1Info.map(_.secret),
-            u.oAuth2Info.map(_.accessToken),
-            u.oAuth2Info.flatMap(_.tokenType),
-            u.oAuth2Info.flatMap(_.expiresIn),
-            u.oAuth2Info.flatMap(_.refreshToken),
-            u.passwordInfo.map(_.hasher),
-            u.passwordInfo.map(_.password),
-            u.passwordInfo.flatMap(_.salt)
-            )
-        }
+    i.oAuth2Info match {
+      case Some(ssoa2i) => {
+        val oa2 = OAuth2CredentialSet(0, a.id, ssoa2i.accessToken, ssoa2i.tokenType,
+          ssoa2i.expiresIn, ssoa2i.refreshToken)
+        OAuth2CredentialSet.insert(oa2)
+      }
+      case None => {}
     }
-    )
+
+    i.passwordInfo match {
+      case Some(sspwi) => {
+        Logger.info("Saving password info.")
+        Logger.info("Data: " + a.user_id + ", " + sspwi.hasher + ", " + sspwi.password + ", " +
+          sspwi.salt + ", ")
+        val pwi = PasswordCredentialSet(0, a.id, sspwi.hasher, sspwi.password, sspwi.salt)
+        PasswordCredentialSet.insert(pwi)
+      }
+      case None => {}
+    }
+
+    a
   }
 
-}
+  def remove(account: Account) = inTransaction {
+    removeQ(account)
+  }
 
-class Tokens(tag: Tag) extends Table[Token](tag, "token") with IdentifiableTable[String] with WithDefaultSession {
+  private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(accountTable) {
+    Logger.info("Constructing query for email " + email + ", social provider: " + sp)
+    a => where(a.email_address === email and a.auth_method === sp).select(a)
+  }
 
-  def uuid = column[String]("uuid")
+  private def findByAccountIdQ(id: Long): Query[Account] = from(accountTable) {
+    account => where(account.id === id).select(account)
+  }
 
-  def id = uuid
+  private def findByIdentityIdQ(uid: IdentityId): Query[Account] = from(accountTable) {
+    account => where(account.user_id === uid.userId and
+      account.provider_id === uid.providerId).select(account)
+  }
 
-  def email = column[String]("email")
-
-  def creationTime = column[DateTime]("creation_time")
-
-  def expirationTime = column[DateTime]("expiration_time")
-
-  def isSignUp = column[Boolean]("is_signup")
-
-  def * : ProvenShape[Token] = {
-    val shapedValue = (uuid, email, creationTime, expirationTime, isSignUp).shaped
-
-    shapedValue.<>({
-      tuple =>
-        Token(uuid = tuple._1,
-          email = tuple._2,
-          creationTime = tuple._3,
-          expirationTime = tuple._4,
-          isSignUp = tuple._5
-        )
-    }, {
-      (t: Token) =>
-        Some {
-          (t.uuid,
-            t.email,
-            t.creationTime,
-            t.expirationTime,
-            t.isSignUp
-            )
-        }
-    })
+  private def removeQ(account: Account) = {
+    accountTable.deleteWhere(a => account.user_id === a.user_id)
   }
 }
