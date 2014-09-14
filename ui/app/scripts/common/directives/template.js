@@ -10,6 +10,29 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             //custom.equalHeight('.equal-height');
             custom.centerSlider();
         });
+
+        $(window).scroll(function () {
+            var scrollAmount = $(window).scrollTop() / 1.5;
+            scrollAmount = Math.round(scrollAmount);
+            if ( $("#page-top").hasClass("navigation-fixed-bottom") ) {
+                if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
+                    $('.navigation').addClass('navigation-fix-to-top');
+                } else {
+                    $('.navigation').removeClass('navigation-fix-to-top');
+                }
+            }
+
+            if ($(window).width() > 768) {
+                if($('#map').hasClass('has-parallax')){
+                    //$('#map .gm-style > div:first-child > div:first-child').css('margin-top', scrollAmount + 'px'); // old script
+                    $('#map .gm-style').css('margin-top', scrollAmount + 'px');
+                    $('#map .leaflet-map-pane').css('margin-top', scrollAmount + 'px');
+                }
+                if($('#slider').hasClass('has-parallax')){
+                    $(".homepage-slider").css('top', scrollAmount + 'px');
+                }
+            }
+        });
     });
 
     mod.directive('bootstrapSelect', function () {
@@ -184,29 +207,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
 
-                //  Parallax scrolling and fixed header after scroll
-                $(window).scroll(function () {
-                    var scrollAmount = $(window).scrollTop() / 1.5;
-                    scrollAmount = Math.round(scrollAmount);
-                    if ( el.hasClass('navigation-fixed-bottom') ) {
-                        if ($(window).scrollTop() > $(window).height() - $('.navigation').height() ) {
-                            $('.navigation').addClass('navigation-fix-to-top');
-                        } else {
-                            $('.navigation').removeClass('navigation-fix-to-top');
-                        }
-                    }
 
-                    if ($(window).width() > 768) {
-                        if($('#map').hasClass('has-parallax')){
-                            //$('#map .gm-style > div:first-child > div:first-child').css('margin-top', scrollAmount + 'px'); // old script
-                            $('#map .gm-style').css('margin-top', scrollAmount + 'px');
-                            $('#map .leaflet-map-pane').css('margin-top', scrollAmount + 'px');
-                        }
-                        if($('#slider').hasClass('has-parallax')){
-                            $(".homepage-slider").css('top', scrollAmount + 'px');
-                        }
-                    }
-                });
             }
         }
     });

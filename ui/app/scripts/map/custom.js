@@ -99,7 +99,7 @@ $(document).ready(function($) {
 //  Parallax scrolling and fixed header after scroll
 
     $('#map .marker-style').css('opacity', '.5 !important');
-    $('#map .marker-style').css('bakground-color', 'red');
+    $('#map .marker-style').css('background-color', 'red');
 
     $(window).scroll(function () {
         var scrollAmount = $(window).scrollTop() / 1.5;
