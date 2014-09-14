@@ -23,22 +23,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 });
 
 
-                //  Smooth Navigation Scrolling
 
-                $('.navigation .nav a[href^="#"], a[href^="#"].roll').on('click',function (e) {
-                    e.preventDefault();
-                    var target = this.hash,
-                        $target = $(target);
-                    if ($(window).width() > 768) {
-                        $('html, content').stop().animate({
-                            'scrollTop': $target.offset().top - $('.navigation').height()
-                        }, 2000)
-                    } else {
-                        $('html, content').stop().animate({
-                            'scrollTop': $target.offset().top
-                        }, 2000)
-                    }
-                });
 
                 //  Agent State
                 $('#agent-switch').on('ifClicked', function(event) {
@@ -69,10 +54,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                         bookmarkButton.removeClass('bookmark-added');
                     }
                 });
-
-                if ($('div').hasClass('navigation-fixed-bottom')){
-                    $('#page-content').css('padding-top',$('.navigation').height());
-                }
 
                 //  Pricing Tables in Submit page
                 if($('.submit-pricing').length >0 ){
@@ -119,6 +100,37 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                         $(_this).removeClass('open');
                     }, 100);
                 });
+
+            }
+        }
+    });
+
+    mod.directive('goTop', function () {
+        return {
+            // Restrict it to be an attribute in this case
+            restrict: 'A',
+            // responsible for registering DOM listeners as well as updating the DOM
+            link: function(scope, el, attrs) {
+                console.log("draw go-top");
+                //  Smooth Navigation Scrolling
+
+                el.bind('click', function() {
+//                    el.preventDefault();
+                    console.log('click event');
+                    var target = this.hash,
+                        $target = $(target);
+                    if ($(window).width() > 768) {
+                        $('html, page').stop().animate({
+                            'scrollTop': $target.offset().top - $('.navigation').height()
+                        }, 2000)
+                    } else {
+                        $('html, page').stop().animate({
+                            'scrollTop': $target.offset().top
+                        }, 2000)
+                    }
+                });
+
+
 
             }
         }
@@ -176,6 +188,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             link: function(scope, el, attrs) {
                 var $ = angular.element;
                 console.log("draw page");
+
 
                 //custom.equalHeight('.equal-height');
 
@@ -376,7 +389,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 var $ = angular.element;
                 $('#map .marker-style').css('opacity', '.5 !important');
                 $('#map .marker-style').css('background-color', 'red');
-                $('.search-box.map').addClass('show-search-box');
                 var $content = $('content');
                 if($content.hasClass('has-fullscreen-map')) {
                     el.height($(window).height() - $('.navigation').height());
@@ -496,6 +508,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
             link: function(scope, el, attrs) {
                 var $ = angular.element;
                 console.log("draw center search box");
+                $('.search-box.map').addClass('show-search-box');
                 var $searchBox = $('.search-box-wrapper');
                 var $navigation = $('.navigation');
                 var positionFromBottom = 20;
@@ -529,11 +542,12 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                         }
                     });
                 }
+
             }
         }
     });
 
-    mod.directive('owlCarousel', function($timeout) {
+    mod.directive('owlCarousel', function($timeout, custom) {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'A',
@@ -601,7 +615,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 function sliderLoaded(){
                     $('#slider').removeClass('loading');
                     document.getElementById("loading-icon").remove();
-                    centerSlider();
+                    custom.centerSlider();
                 }
                 function animateDescription(){
                     var $description = $(".slide .overlay .info");

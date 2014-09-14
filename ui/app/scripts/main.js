@@ -24,7 +24,7 @@ require.config({
         'galleria': '../components/galleria/src/galleria',
         'underscore': '../components/underscore/underscore',
         'icheck': '../components/iCheck/icheck',
-        'owl.carousel': '../components/owl.carousel/dist/owl.carousel.min',
+        'owl.carousel': '../components/owlcarousel/owl-carousel/owl.carousel',
         'markerwithlabel': '../components/easy-markerwithlabel/src/markerwithlabel',
         'google-infobox': '../components/google-infobox/google-infobox',
         'markerclusterer': '../components/gmaps-markerclusterer-plus/src/markerclusterer',
@@ -44,7 +44,8 @@ require.config({
         'scroll-reveal': '../components/scrollReveal.js/dist/scrollReveal',
         'jquery-raty': '../components/jquery-raty/lib/jquery.raty',
         'magnific-popup': '../components/magnific-popup/dist/jquery.magnific-popup',
-        'fitvids': '../components/fitvids/jquery.fitvids'
+        'fitvids': '../components/fitvids/jquery.fitvids',
+        'angular-scroll': '../components/angular-scroll/angular-scroll'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -90,7 +91,8 @@ require.config({
         'jquery-raty' : ['jquery'],
         'scroll-reveal': [],
         'magnific-popup': ['jquery'],
-        'fitvids': ['jquery']
+        'fitvids': ['jquery'],
+        'angular-scroll': ['angular']
     },
     priority: [
         'angular'
@@ -141,7 +143,8 @@ require([
         'scroll-reveal',
         'jquery-raty',
         'magnific-popup',
-        'fitvids'
+        'fitvids',
+        'angular-scroll'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
