@@ -1,118 +1,87 @@
 package service.dao
 
-import scala.slick.lifted.TableQuery
+import service._
+import SquerylEntryPoint._
+import org.squeryl.Query
+import securesocial.core.{Identity, IdentityId}
+import play.Logger
 import models._
-import scala.languageFeature.implicitConversions
-import utils.DgDriver.simple._
-import securesocial.core.Identity
-import models.Account
-import securesocial.core.IdentityId
-import securesocial.core.SecuredRequest
-import scala.Some
 
-object AccountDao extends SlickDao[Account, Long] {
 
-  def query = TableQuery[Accounts]
+object AccountDao {
+  import Database.accountTable
 
-  def extractId(account: Account): Option[Long] = account.uid
-
-  def withId(account: Account, uid: Long): Account = account.copy(uid = Option(uid))
-
-  def queryById(uid: Long) = query.filter(_.uid === uid)
-
-  def findById(id: Long) = withSession {
-    implicit session =>
-      val q = for {
-        user <- query
-        if user.uid is id
-      } yield user
-
-      q.firstOption
+  def insert(account: Account): Account = inTransaction {
+    accountTable.insert(account)
   }
 
-  def findByEmailAndProvider(email:String, providerId:String) : Option[Account] = withSession {
-    implicit session =>
-      val q = for {
-        user <- query
-        if (user.email is email) && (user.providerId is providerId)
-      } yield user
+  def findByEmailSocialProvider(email: String, socialProvider: String): Option[Account] =
+    inTransaction { findByEmailSocialProviderQ(email, socialProvider).toList.headOption }
 
-      q.firstOption
+  def findByUserId(id: Long): Option[Account] = inTransaction {
+    findByAccountIdQ(id).toList.headOption
   }
 
-  def findByIdentityId(identityId: IdentityId): Option[Account] = withSession {
-    implicit session =>
-      val q = for {
-        user <- query
-        if (user.userId is identityId.userId) && (user.providerId is identityId.providerId)
-      } yield user
-
-      q.firstOption
+  def findByIdentityId(uid: IdentityId): Option[Account] = inTransaction {
+    findByIdentityIdQ(uid).toList.headOption
   }
 
-  def findByIdentityId[T](implicit request: SecuredRequest[T]): Account = withSession { implicit session =>
-    val q = for {
-      user <- query
-      if (user.userId is request.user.identityId.userId) && (user.providerId is request.user.identityId.providerId)
-    } yield user
+  def fromIdentity(i: Identity): Account = {
+    val a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
+      i.lastName, i.fullName, i.email)
+    AccountDao.insert(a)  	// Get id to associate OAuth objects
 
-    q.firstOption.get
-  }
-
-  def findByEmail(email: String) : Option[Account] = withSession {
-    implicit session =>
-      val q = for {
-        user <- query
-        if user.email is email
-      } yield user
-
-      q.firstOption
-  }
-
-
-  def emailExists(email: String) : Boolean = withSession {
-    implicit session =>
-      findByEmail(email) match {
-        case None => false
-        case _    => true
+    // Save the three associated elements of Identity trait (oauth info, passwords)
+    i.oAuth1Info match {
+      case Some(ssoa1i) => {
+        val oa1 = OAuth1CredentialSet(0, a.id, ssoa1i.token, ssoa1i.secret)
+        OAuth1CredentialSet.insert(oa1)
       }
-  }
-
-  def all = withSession {
-    implicit session =>
-      val q = for {
-        user <- query
-      } yield user
-
-      q.list
-  }
-
-  def save(i: Identity): Account = this.save(AccountFromIdentity(i))
-
-  def update(i: Identity): Account = {
-    findByIdentityId(i.identityId) match {
-      case None    => save(i)
-      case Some(u) => this.save(AccountFromIdentity(i, u))
+      case None => {}
     }
+
+    i.oAuth2Info match {
+      case Some(ssoa2i) => {
+        val oa2 = OAuth2CredentialSet(0, a.id, ssoa2i.accessToken, ssoa2i.tokenType,
+          ssoa2i.expiresIn, ssoa2i.refreshToken)
+        OAuth2CredentialSet.insert(oa2)
+      }
+      case None => {}
+    }
+
+    i.passwordInfo match {
+      case Some(sspwi) => {
+        Logger.info("Saving password info.")
+        Logger.info("Data: " + a.user_id + ", " + sspwi.hasher + ", " + sspwi.password + ", " +
+          sspwi.salt + ", ")
+        val pwi = PasswordCredentialSet(0, a.id, sspwi.hasher, sspwi.password, sspwi.salt)
+        PasswordCredentialSet.insert(pwi)
+      }
+      case None => {}
+    }
+
+    a
   }
 
-  def save(account: Account): Account = withSession {
-    implicit session =>
-      findByIdentityId(account.identityId) match {
-        case None => {
-          val uid = this.add(account)
-          account.copy(uid = Some(uid))
-        }
-        case Some(existingUser) => {
-          val userRow = for {
-            u <- query
-            if u.uid is existingUser.uid
-          } yield u
+  def remove(account: Account) = inTransaction {
+    removeQ(account)
+  }
 
-          val updatedUser = account.copy(uid = existingUser.uid)
-          userRow.update(updatedUser)
-          updatedUser
-        }
-      }
+  private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(accountTable) {
+    Logger.info("Constructing query for email " + email + ", social provider: " + sp)
+    a => where(a.email_address === email and a.auth_method === sp).select(a)
+  }
+
+  private def findByAccountIdQ(id: Long): Query[Account] = from(accountTable) {
+    account => where(account.id === id).select(account)
+  }
+
+  private def findByIdentityIdQ(uid: IdentityId): Query[Account] = from(accountTable) {
+    account => where(account.user_id === uid.userId and
+      account.provider_id === uid.providerId).select(account)
+  }
+
+  private def removeQ(account: Account) = {
+    accountTable.deleteWhere(a => account.user_id === a.user_id)
   }
 }
