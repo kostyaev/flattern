@@ -133,7 +133,7 @@ define(['angular'], function(angular) {
         }
     });
 
-    mod.directive('owlCarousel', function($timeout, custom) {
+    mod.directive('owlCarousel', function($timeout, layoutHelper) {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'A',
@@ -201,7 +201,7 @@ define(['angular'], function(angular) {
                 function sliderLoaded(){
                     $('#slider').removeClass('loading');
                     document.getElementById("loading-icon").remove();
-                    custom.centerSlider();
+                    layoutHelper.centerSlider();
                 }
                 function animateDescription(){
                     var $description = $(".slide .overlay .info");
