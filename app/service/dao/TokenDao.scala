@@ -1,69 +1,35 @@
 package service.dao
 
-import scala.slick.lifted.TableQuery
-import scala.languageFeature.implicitConversions
-import utils.DgDriver.simple._
-import securesocial.core.providers.Token
-import models.Tokens
-import scala.Some
+import models._
+import service._
+import SquerylEntryPoint._
 import org.joda.time.DateTime
+import org.squeryl.Query
 
-object TokenDao extends SlickDao[Token, String] {
+object TokenDao {
+  import Database.secureSocialTokenTable
 
-  def query = TableQuery[Tokens]
-
-  def extractId(token: Token): Option[String] = Some(token.uuid)
-
-  def withId(token: Token, uuid: String): Token = token.copy(uuid = uuid)
-
-  def queryById(uuid: String) = query.filter(_.uuid === uuid)
-
-  def findById(tokenId: String): Option[Token] = withSession {
-    implicit session =>
-      val q = for {
-        token <- query
-        if token.uuid is tokenId
-      } yield token
-
-      q.firstOption
+  def insert(t: SecureSocialToken): SecureSocialToken = inTransaction {
+    secureSocialTokenTable.insert(t)
   }
 
-  def save(token: Token): Token = withSession {
-    implicit session =>
-      findById(token.uuid) match {
-        case None => {
-          this.add(token)
-          token
-        }
-        case Some(existingToken) => {
-          val tokenRow = for {
-            t <- query
-            if t.uuid is existingToken.uuid
-          } yield t
-
-          val updatedToken = token.copy(uuid = existingToken.uuid)
-          tokenRow.update(updatedToken)
-          updatedToken
-        }
-      }
+  def deleteAll: Int = inTransaction {
+    secureSocialTokenTable.deleteWhere(t => 1 === 1)
   }
 
-  def delete(uuid:String) = withSession {
-    implicit session =>
-      val q = for {
-        t <- query
-        if t.uuid is uuid
-      } yield t
-
-      q.delete
+  def deleteExpired: Int = inTransaction {
+    secureSocialTokenTable.deleteWhere(t => t.expiration_time < DateTime.now())
   }
 
-  def deleteExpiredTokens(currentDate:DateTime) = withSession {
-    implicit session =>
-      val q = for {
-        t <- query
-        if t.expirationTime < currentDate
-      } yield t
-      q.delete
+  def deleteByUUID(uuid: String): Int = inTransaction {
+    secureSocialTokenTable.deleteWhere(t => t.uuid === uuid)
+  }
+
+  private def findByUUIDQ(uuid: String): Query[SecureSocialToken] = from(secureSocialTokenTable) {
+    t => where(t.uuid === uuid).select(t)
+  }
+
+  def findByUUID(uuid: String): Option[SecureSocialToken] = inTransaction {
+    SecureSocialToken.findByUUIDQ(uuid).headOption
   }
 }
