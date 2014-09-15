@@ -1,4 +1,4 @@
-define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n']/*deps*/, function (angular)/*invoke*/ {
+define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'], function (angular) {
     'use strict';
 
     return angular

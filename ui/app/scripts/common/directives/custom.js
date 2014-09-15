@@ -1,14 +1,74 @@
-define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], function(angular, imagesLoaded, Masonry, bridget) {
-    var mod = angular.module('common.directives.template', ['common.helper']);
+define(['angular',  '../services/helper'], function(angular) {
+    var mod = angular.module('custom', ['common.helper']);
     var $ = angular.element;
 
-    mod.run(function ($rootScope, $state, custom) {
+    var setNavigationPosition = function () {
+        console.log("called from from global init function");
+        $('.nav > li').each(function () {
+            if($(this).hasClass('has-child')){
+                var fullNavigationWidth = $(this).children('.child-navigation').width() + $(this).children('.child-navigation').children('li').children('.child-navigation').width();
+                if(($(this).children('.child-navigation').offset().left + fullNavigationWidth) > $(window).width()){
+                    $(this).children('.child-navigation').addClass('navigation-to-left');
+                }
+            }
+        });
+    };
+
+    var setCarouselWidth = function () {
+        $('.carousel-full-width').css('width', $(window).width());
+    };
+
+    var centerSlider = function() {
+        if ($(window).width() < 979) {
+            var $navigation = $('.navigation');
+            $('#slider .slide').height($(window).height() - $navigation.height());
+            $('#slider').height($(window).height() - $navigation.height());
+
+        }
+        var imageWidth = $('#slider .slide img').width();
+        var viewPortWidth = $(window).width();
+        var centerImage = ( imageWidth/2 ) - ( viewPortWidth/2 );
+        $('#slider .slide img').css('left', -centerImage);
+    };
+
+    var equalHeight = function(container) {
+        var currentTallest = 0,
+            currentRowStart = 0,
+            rowDivs = new Array(),
+            $el,
+            topPosition = 0;
+        $(container).each(function() {
+            $el = $(this);
+            console.log($el);
+            $($el).height('auto');
+            topPostion = $el.position().top;
+            console.log(topPosition);
+
+            if (currentRowStart != topPostion) {
+                for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+                    rowDivs[currentDiv].height(currentTallest);
+                }
+                rowDivs.length = 0; // empty the array
+                currentRowStart = topPostion;
+                currentTallest = $el.height();
+                rowDivs.push($el);
+            } else {
+                rowDivs.push($el);
+                currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+            }
+            for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+                rowDivs[currentDiv].height(currentTallest);
+            }
+        });
+    };
+
+    mod.run(function ($rootScope, $state ) {
         console.log("global init function");
         $(window).on('resize', function(){
-            custom.setNavigationPosition();
-            custom.setCarouselWidth();
-            //custom.equalHeight('.equal-height');
-            custom.centerSlider();
+            setNavigationPosition();
+            setCarouselWidth();
+            //equalHeight('.equal-height');
+            centerSlider();
         });
 
         $(window).scroll(function () {
@@ -33,39 +93,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 }
             }
         });
-    });
-
-    mod.directive('bootstrapSelect', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw bootstrapSelect");
-
-                var bootstrapSelect = el;
-                var dropDownMenu = $('.dropdown-menu');
-
-                bootstrapSelect.on('shown.bs.dropdown', function () {
-                    dropDownMenu.removeClass('animation-fade-out');
-                    dropDownMenu.addClass('animation-fade-in');
-                });
-
-                bootstrapSelect.on('hide.bs.dropdown', function () {
-                    dropDownMenu.removeClass('animation-fade-in');
-                    dropDownMenu.addClass('animation-fade-out');
-                });
-
-                bootstrapSelect.on('hidden.bs.dropdown', function () {
-                    var _this = $(this);
-                    $(_this).addClass('open');
-                    setTimeout(function() {
-                        $(_this).removeClass('open');
-                    }, 100);
-                });
-
-            }
-        }
     });
 
     mod.directive('layoutExpandable', function () {
@@ -94,17 +121,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-    mod.directive('toolTip', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw tooltip");
-                el.tooltip();
-            }
-        }
-    });
 
     mod.directive('bookmark', function () {
         return {
@@ -136,40 +152,8 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-    mod.directive('video', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw video");
-                //  Fit videos width and height
-                el.fitVids();
-            }
-        }
-    });
 
-
-    mod.directive('imagePopup', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw image-popup");
-                el.magnificPopup({
-                    type:'image',
-                    removalDelay: 300,
-                    mainClass: 'mfp-fade',
-                    overflowY: 'scroll'
-                });
-
-            }
-        }
-    });
-
-
-    mod.directive('page', function (custom) {
+    mod.directive('page', function () {
         return {
             // Restrict it to be an attribute in this case
             restrict: 'A',
@@ -178,8 +162,7 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                 var $ = angular.element;
                 console.log("draw page");
 
-
-                //custom.equalHeight('.equal-height');
+                //equalHeight('.equal-height');
 
                 $('.nav > li > ul li > ul').css('left', $('.nav > li > ul').width());
 
@@ -199,111 +182,11 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
                     }
                 });
 
-                custom.setNavigationPosition();
+                setNavigationPosition();
 
                 if (el.hasClass('navigation-fixed-bottom')){
                     $('#page-content').css('padding-top',$('.navigation').height());
                 }
-
-
-            }
-        }
-    });
-
-
-    mod.directive('masonry', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw masonry");
-                var container = el;
-                $.bridget( 'masonry', Masonry );
-
-                imagesLoaded(container, function() {
-                    container.masonry({
-                        gutter: 15,
-                        itemSelector: '.masonry'
-                    });
-                });
-                if ($(window).width() > 991) {
-                    $('.masonry').hover(function() {
-                            $('.masonry').each(function () {
-                                $('.masonry').addClass('masonry-hide-other');
-                                $(this).removeClass('masonry-show');
-                            });
-                            $(this).addClass('masonry-show');
-                        }, function() {
-                            $('.masonry').each(function () {
-                                $('.masonry').removeClass('masonry-hide-other');
-                            });
-                        }
-                    );
-
-                    var config = {
-                        after: '0s',
-                        enter: 'bottom',
-                        move: '20px',
-                        over: '.5s',
-                        easing: 'ease-out',
-                        viewportFactor: 0.33,
-                        reset: false,
-                        init: true
-                    };
-                    $(window).scrollReveal = new scrollReveal(config);
-                }
-            }
-        }
-    });
-
-    mod.directive('priceInput', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw price inputs");
-                if(el.length > 0) {
-                    el.slider({
-                        from: 1000,
-                        to: 299000,
-                        step: 1000,
-                        round: 1,
-                        format: { format: '$ ###,###', locale: 'en' }
-                    });
-                }
-            }
-        }
-    });
-
-    mod.directive('select', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'E',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw selects");
-                el.selectpicker();
-                el.change(function() {
-                    if ($(this).val() != '') {
-                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
-                    }else {
-                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
-                    }
-                });
-            }
-        }
-    });
-
-    mod.directive('input', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'E',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw checkboxes");
-                el.iCheck();
             }
         }
     });
@@ -514,131 +397,34 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-    mod.directive('owlCarousel', function($timeout, custom) {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw owl carousel");
-                function setCarouselWidth() {
-                    $('.carousel-full-width').css('width', $(window).width());
-                }
-
-                // Disable click when dragging
-                function disableClick() {
-                    $('.owl-carousel .property').css('pointer-events', 'none');
-                }
-
-                // Enable click after dragging
-                function enableClick() {
-                    $('.owl-carousel .property').css('pointer-events', 'auto');
-                }
-
+    mod.directive('autocomplete', function ($timeout) {
+        return function (scope, element, attrs) {
+            element.prop('method', 'post');
+            if (attrs.ngSubmit) {
                 $timeout(function () {
-                    if ($('.owl-carousel').length > 0) {
-                        if ($('.carousel-full-width').length > 0) {
-                            setCarouselWidth();
-                        }
-                        $(".featured-properties-carousel").owlCarousel({
-                            items: 5,
-                            itemsDesktop: [1700, 4],
-                            responsiveBaseWidth: ".featured-properties-carousel",
-                            pagination: false,
-                            startDragging: disableClick,
-                            beforeMove: enableClick
+                    element
+                        .unbind('submit')
+                        .bind('submit', function (event) {
+                            event.preventDefault();
+                            element
+                                .find('input, textarea, select')
+                                .trigger('input')
+                                .trigger('change')
+                                .trigger('keydown');
+                            scope.$apply(attrs.ngSubmit);
                         });
-                        $(".testimonials-carousel").owlCarousel({
-                            items: 1,
-                            responsiveBaseWidth: ".testimonial",
-                            pagination: true
-                        });
-                        $(".property-carousel").owlCarousel({
-                            items: 1,
-                            responsiveBaseWidth: ".property-slide",
-                            pagination: false,
-                            autoHeight: true,
-                            navigation: true,
-                            navigationText: ["", ""],
-                            startDragging: disableClick,
-                            beforeMove: enableClick
-                        });
-                        $(".homepage-slider").owlCarousel({
-                            autoPlay: 10000,
-                            navigation: true,
-                            mouseDrag: false,
-                            items: 1,
-                            responsiveBaseWidth: ".slide",
-                            pagination: false,
-                            transitionStyle: 'fade',
-                            navigationText: ["", ""],
-                            afterInit: sliderLoaded,
-                            afterAction: animateDescription,
-                            startDragging: animateDescription
-                        });
-                    }
-                }, 500);
-
-                function sliderLoaded(){
-                    $('#slider').removeClass('loading');
-                    document.getElementById("loading-icon").remove();
-                    custom.centerSlider();
-                }
-                function animateDescription(){
-                    var $description = $(".slide .overlay .info");
-                    $description.addClass('animate-description-out');
-                    $description.removeClass('animate-description-in');
-                    setTimeout(function() {
-                        $description.addClass('animate-description-in');
-                    }, 400);
-                }
+                });
             }
-        }
+        };
     });
 
-    mod.directive('propertyRating', function() {
+    mod.directive('disableAnimation', function($animate){
         return {
-            restrict: 'AE',
-            link: function() {
-                function showRatingForm(){
-                    $('.rating-form').css('height', $('.rating-form form').height() + 85 + 'px');
-                }
-
-                var ratingOverall = $('.rating-overall');
-                if (ratingOverall.length > 0) {
-                    ratingOverall.raty({
-                        path: '/images',
-                        readOnly: true,
-                        score: function() {
-                            return $(this).attr('data-score');
-                        }
-                    });
-                }
-                var ratingIndividual = $('.rating-individual');
-                if (ratingIndividual.length > 0) {
-                    ratingIndividual.raty({
-                        path: '/images',
-                        readOnly: true,
-                        score: function() {
-                            return $(this).attr('data-score');
-                        }
-                    });
-                }
-                var ratingUser = $('.rating-user');
-                if (ratingUser.length > 0) {
-                    $('.rating-user .inner').raty({
-                        path: '/images',
-                        starOff : 'big-star-off.png',
-                        starOn  : 'big-star-on.png',
-                        width: 150,
-                        //target : '#hint',
-                        targetType : 'number',
-                        targetFormat : 'Rating: {score}',
-                        click: function(score, evt) {
-                            showRatingForm();
-                        }
-                    });
-                }
+            restrict: 'A',
+            link: function($scope, $element, $attrs){
+                $attrs.$observe('disableAnimation', function(value){
+                    $animate.enabled(!value, $element);
+                });
             }
         }
     });
