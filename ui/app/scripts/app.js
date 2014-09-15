@@ -1,11 +1,15 @@
-define(['angular', 'template', 'about', 'general', 'i18n']/*deps*/, function (angular)/*invoke*/ {
-  'use strict';
+define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n']/*deps*/, function (angular)/*invoke*/ {
+    'use strict';
 
-  return angular
-    .module('app',
-      ['flattern.template',
-       'flattern.about',
-       'flattern.general',
-       'flattern.i18n'
-  ]);
+    return angular
+        .module('app',
+        [
+            'flattern.home',
+            'flattern.user',
+            'flattern.house',
+            'flattern.company',
+            'flattern.template',
+            'flattern.general',
+            'flattern.i18n'
+        ]);
 });

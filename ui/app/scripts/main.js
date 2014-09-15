@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-    packages: ['common', 'about', 'template', 'general', 'i18n'],
+    packages: ['common', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'],
     paths: {
         'angular': '../components/angular/angular',
         'angular-route': '../components/angular-route/angular-route',
@@ -19,7 +19,6 @@ require.config({
         'jquery': '../components/jquery/dist/jquery',
         'bootstrap': '../components/bootstrap/dist/js/bootstrap',
         'bootstrap-select': '../components/bootstrap-select/dist/js/bootstrap-select',
-        //template dependencies
         'jsRoutes': '../jsRoutes',
         'galleria': '../components/galleria/src/galleria',
         'underscore': '../components/underscore/underscore',

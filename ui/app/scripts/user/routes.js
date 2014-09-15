@@ -4,95 +4,40 @@
 define(['angular', './controllers', 'common'], function(angular, controllers) {
     'use strict';
     var mod = angular.module('user.routes', ['flattern.common']);
-    mod.config(['$stateProvider','USER_ROLES',
-        function($stateProvider, USER_ROLES)  {
+    mod.config(['$stateProvider',
+        function($stateProvider)  {
             $stateProvider
-                .state('user', {
-                    abstract: true,
-                    parent: 'settings',
-                    url: '/user/edit',
-                    data: {
-                        authorizedRoles: [USER_ROLES.editor]
-                    },
-                    views: {
-                        'left': {
-                            templateUrl: 'views/user/left.html',
-                            controller: controllers.LeftCtrl
-
-                        },
-                        'content': {
-                            templateUrl: 'views/user/content.html',
-                            controller: controllers.ContentCtrl
-                        }
-                    }
-
+                .state('agent-detail', {
+                    parent: 'main',
+                    url: '/agent-detail',
+                    templateUrl: 'views/user/agent-detail.html'
                 })
-
-                .state('user.general', {
-                    url: '',
-                    templateUrl: 'views/user/sections/general.html',
-                    controller: controllers.GeneralCtrl
+                .state('agents-listing', {
+                    parent: 'main',
+                    url: '/agents-listing',
+                    templateUrl: 'views/user/agents-listing.html'
                 })
-                .state('user.about', {
-                    url: '/about',
-                    templateUrl: 'views/user/sections/about.html',
-                    controller: controllers.AboutCtrl
+                .state('timeline', {
+                    parent: 'main',
+                    url: '/timeline',
+                    templateUrl: 'views/user/timeline.html'
                 })
-                .state('user.houses', {
-                    url: '/houses',
-                    templateUrl: 'views/user/sections/houses.html',
-                    controller: controllers.HousesCtrl
-
+                .state('bookmarked', {
+                    parent: 'main',
+                    url: '/bookmarked',
+                    templateUrl: 'views/user/bookmarked.html'
                 })
-                .state('user-show', {
-                    abstract: true,
-                    parent: 'registered',
-                    url: '/user',
-                    data: {
-                        authorizedRoles: [USER_ROLES.editor]
-                    },
-                    views: {
-                        '': {
-                            templateUrl: 'views/user/content-show.html'
-                        }
-                    }
-
+                .state('profile', {
+                    parent: 'main',
+                    url: '/profile',
+                    templateUrl: 'views/user/profile.html'
                 })
-                .state('user-show.index', {
-                    url: '/:id',
-                    templateUrl: 'views/user/show.html',
-                    controller: controllers.ShowCtrl
-                });
-
-                /*.state('user.address', {
-                    url: '/address',
-                    templateUrl: 'views/user/sections/address.html',
-                    controller: controllers.AddressCtrl
+                .state('my-properties', {
+                    parent: 'main',
+                    url: '/my-properties',
+                    templateUrl: 'views/user/my-properties.html'
                 })
-                .state('user.desc', {
-                    url: '/desc',
-                    templateUrl: 'views/user/sections/description.html'
-                })
-                .state('user.amenities', {
-                    url: '/amenities',
-                    templateUrl: 'views/user/sections/amenities.html',
-                    controller: controllers.AmenitiesCtrl
-                })
-                .state('user.photos', {
-                    url: '/photos',
-                    templateUrl: 'views/user/sections/photos.html',
-                    controller: controllers.PhotosCtrl
-
-                });*/
-
-
-
         }]);
-    mod.constant('USER_ROLES', {
-        all   : '*',
-        admin : 'admin',
-        editor: 'editor',
-        guest : 'guest'
-    });
+
     return mod;
 });

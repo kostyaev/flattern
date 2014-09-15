@@ -14,42 +14,6 @@ define(["angular"], function(angular) {
         };
     }]);
 
-    mod.directive('selecterPlug', function() {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, element, attrs) {
-                $(element).selecter(scope.$eval(attrs.selecterPlug));
-            }
-        };
-    });
-
-    mod.directive('pickerPlug', function($timeout) {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'A',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, element, attrs) {
-                $timeout(function () {
-                    $(element).picker(scope.$eval(attrs.pickerPlug))
-                });
-            }
-        };
-    });
-
-    mod.directive('dropzone', function($stateParams) {
-        return function(scope, element, attrs) {
-            element.dropzone({
-                url: '/house/' + $stateParams.id + '/upload',
-                maxFilesize: 15000,
-                paramName: "photo",
-                maxThumbnailFilesize: 10,
-                dictDefaultMessage: "Загрузите фотографии вашего жилья"
-            });
-        }
-    });
-
     mod.directive('ngGalleria', function ($timeout) {
         return {
             restrict: 'E',
@@ -75,9 +39,7 @@ define(["angular"], function(angular) {
         };
     });
 
-
-
-    mod.directive('formAutofillFix', function ($timeout) {
+    mod.directive('autocomplete', function ($timeout) {
         return function (scope, element, attrs) {
             element.prop('method', 'post');
             if (attrs.ngSubmit) {

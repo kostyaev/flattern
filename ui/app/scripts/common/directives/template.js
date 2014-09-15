@@ -68,8 +68,6 @@ define(['angular', 'imagesloaded', 'masonry', 'bridget', '../services/helper'], 
         }
     });
 
-
-
     mod.directive('layoutExpandable', function () {
         return {
             // Restrict it to be an attribute in this case
