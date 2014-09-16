@@ -1,24 +1,21 @@
 package service.dao
 
 import dto.house.{HouseHelper, HouseThumbnail}
+import service._
 import models._
 import service.filters.HouseFilter
-import utils.DgDriver.simple._
 import utils.equal
-import scala.languageFeature.implicitConversions
-import scala.slick.lifted.TableQuery
+object HouseDao extends SquerylDao[House, Long] {
 
-object HouseDao extends SlickDao[House, Long] {
+  def table = Database.houseTable
+  def housePhotoTable = Database.housePhotoTable
+  def addressTable = Database.addressTable
 
-  def query = TableQuery[Houses]
-  def photos = TableQuery[HousePhotos]
-  def addresses = TableQuery[Addresses]
-
-  def findOptionByFilter(filter: HouseFilter)(implicit session: FlatternSession): Option[House] = {
+  def findOptionByFilter(filter: HouseFilter): Option[House] = {
     findByFilter(filter).firstOption
   }
 
-  def findByFilterWithLimit(filter: HouseFilter, limit: Int, offset: Int)(implicit session: FlatternSession) = {
+  def findByFilterWithLimit(filter: HouseFilter, limit: Int, offset: Int) = {
     findByFilter(filter).drop(offset).take(limit)
   }
 

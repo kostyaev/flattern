@@ -5,11 +5,12 @@ package models
 import org.squeryl.dsl._
 import service._
 import SquerylEntryPoint._
+import dao.Identifiable
 
 case class OAuth1CredentialSet( id: Long,
                                 account_id: Long,
                                 token: String,
-                                secret: String) {
+                                secret: String) extends Identifiable[Long] {
   lazy val account: ManyToOne[Account] = Database.accountToOAuth1Info.right(this)
 }
 

@@ -1,17 +1,8 @@
 package service.dao
 
-import scala.slick.lifted.TableQuery
+import service._
 import models._
-import scala.languageFeature.implicitConversions
-import utils.DgDriver.simple._
 
-object RoomDao extends SlickDao[Room, Long] {
-
-  def query = TableQuery[Rooms]
-
-  def extractId(room: Room): Option[Long] = room.id
-
-  def withId(room: Room, id: Long): Room = room.copy(id = Option(id))
-
-  def queryById(id: Long) = query.filter(_.id === id)
+object RoomDao extends SquerylDao[Room, Long] {
+  def table = Database.roomTable
 }

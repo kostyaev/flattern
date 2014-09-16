@@ -4,9 +4,7 @@ import dto.house.HouseEnums.Amenity.Amenity
 import dto.house.HouseEnums.HouseType.HouseType
 import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.LocalDate
-import service.WithDefaultSession
-import service.dao.IdentifiableTable
-import utils.DgDriver.simple._
+import service.dao.Identifiable
 
 case class House( id          : Long,
                   account_id  : Long,
@@ -26,5 +24,5 @@ case class House( id          : Long,
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
                   published : Option[Boolean]   = None
-)
+) extends Identifiable[Long]
 

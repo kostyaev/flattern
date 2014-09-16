@@ -1,10 +1,8 @@
 package models
 
-import utils.DgDriver.simple._
-import service.dao.IdentifiableTable
-import service.WithDefaultSession
+import service.dao.Identifiable
 
 case class Seat( id: Long,
                  room_id : Long,
                  user_id : Long
-)
+) extends Identifiable[Long]

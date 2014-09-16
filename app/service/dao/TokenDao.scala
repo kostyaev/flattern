@@ -30,6 +30,6 @@ object TokenDao {
   }
 
   def findByUUID(uuid: String): Option[SecureSocialToken] = inTransaction {
-    SecureSocialToken.findByUUIDQ(uuid).headOption
+    TokenDao.findByUUIDQ(uuid).headOption
   }
 }

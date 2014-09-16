@@ -1,6 +1,7 @@
 package models
 
-case class LandingEmail( email: String,
-                         ip   : String,
-                         id   : Option[Long] = None
-)
+import service.dao.Identifiable
+case class LandingEmail( id   : Long,
+                         email: String,
+                         ip   : String
+) extends Identifiable[Long]

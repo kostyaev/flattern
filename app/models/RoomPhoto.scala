@@ -1,9 +1,7 @@
 package models
 
-import utils.DgDriver.simple._
-import service.dao.IdentifiableTable
-import service.WithDefaultSession
+import service.dao.Identifiable
 
 case class RoomPhoto( id      : Long,
                       room_id : Long
-)
+) extends Identifiable[Long]
