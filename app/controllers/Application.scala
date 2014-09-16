@@ -17,7 +17,7 @@ object Application extends Controller with SecureSocial {
     Ok(
       Routes.javascriptRouter(varName)(
         routes.javascript.Test.test,
-        routes.javascript.HouseCtrl.getConstants,
+        /*routes.javascript.HouseCtrl.getConstants,
         routes.javascript.HouseCtrl.createHouse,
         routes.javascript.HouseCtrl.getGeneral,
         routes.javascript.HouseCtrl.saveGeneral,
@@ -35,7 +35,7 @@ object Application extends Controller with SecureSocial {
         routes.javascript.UserCtrl.getAbout,
         routes.javascript.UserCtrl.saveAbout,
         routes.javascript.UserCtrl.getHouses,
-        routes.javascript.UserCtrl.getUserById,
+        routes.javascript.UserCtrl.getUserById,*/
         routes.javascript.LandingCtrl.send
         // TODO Add your routes here
       )
@@ -46,7 +46,7 @@ object Application extends Controller with SecureSocial {
     val user = AccountDao.findByIdentityId
     Ok(Json.toJson(Map(
       "success"   -> "true",
-      "id"        -> user.uid.get.toString,
+      "id"        -> user.id.toString,
       "fullName"  -> user.fullName.toString,
       "avatarUrl" -> user.avatarUrl.getOrElse("")
     )))

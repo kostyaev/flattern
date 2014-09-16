@@ -1,3 +1,4 @@
+/*
 package beans
 
 import java.io.File
@@ -18,17 +19,13 @@ import scala.language.reflectiveCalls
 
 object HouseBean extends WithDefaultSession {
 
-  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
-
   val houseDAO = HouseDao
   val housePhotoDAO = HousePhotoDao
   val countryDAO = CountryDao
   val cityDAO = CityDao
   val addressDao = AddressDao
 
-
-  def updateHouseInfo(houseInfo: HouseInfo, house: House)
-                 (implicit session: FlatternSession): House = {
+  def updateHouseInfo(houseInfo: HouseInfo, house: House): House = {
     val updatedModel = houseInfo match {
       case dto: HouseGeneral => house.copy(
         houseType = dto.houseType,
@@ -134,3 +131,4 @@ object HouseBean extends WithDefaultSession {
   }
 
 }
+*/

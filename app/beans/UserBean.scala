@@ -1,3 +1,4 @@
+/*
 package beans
 
 import java.io.File
@@ -95,7 +96,7 @@ object UserBean extends WithDefaultSession {
       wdistrict = userAbout.wdistrict,
       privacy   = userAbout.privacy
     )
-    UserDao.save(u)
+    u.update
 
     (account, u)
   }
@@ -104,3 +105,4 @@ object UserBean extends WithDefaultSession {
     UserDao.findByAccount(account).firstOption.getOrElse(User())
 
 }
+*/

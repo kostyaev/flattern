@@ -1,6 +1,6 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 import org.joda.time.LocalDate
 import dto.user.UserEnums.Privacy.Privacy
 import dto.user.UserEnums.SexType.SexType
@@ -17,4 +17,6 @@ case class User( id         : Long,
                  wprice     : Option[Double]        = None,
                  wcountry   : Option[String]        = None,
                  wdistrict  : Option[String]        = None
-) extends Identifiable[Long]
+) extends KeyedEntity[Long] {
+  def accountId = account_id
+}

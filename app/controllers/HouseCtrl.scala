@@ -1,3 +1,4 @@
+/*
 package controllers
 
 import beans.{HouseBean, UserBean}
@@ -211,3 +212,4 @@ object HouseCtrl extends Controller with SecureSocial with WithDefaultSession {
 
 
 }
+*/

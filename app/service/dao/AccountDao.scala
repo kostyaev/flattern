@@ -6,13 +6,14 @@ import org.squeryl.Query
 import securesocial.core.{Identity, IdentityId}
 import play.Logger
 import models._
+import securesocial.core.SecuredRequest
 
 
-object AccountDao {
-  import Database.accountTable
+object AccountDao extends SquerylDao[Account, Long] {
+  def table =  Database.accountTable
 
   def insert(account: Account): Account = inTransaction {
-    accountTable.insert(account)
+    table.insert(account)
   }
 
   def findByEmailSocialProvider(email: String, socialProvider: String): Option[Account] =
@@ -25,6 +26,8 @@ object AccountDao {
   def findByIdentityId(uid: IdentityId): Option[Account] = inTransaction {
     findByIdentityIdQ(uid).toList.headOption
   }
+
+  def findByIdentityId[T](implicit request: SecuredRequest[T]): Account = findByIdentityId(request.user.identityId).get
 
   def fromIdentity(i: Identity): Account = {
     val a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
@@ -67,21 +70,21 @@ object AccountDao {
     removeQ(account)
   }
 
-  private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(accountTable) {
+  private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(table) {
     Logger.info("Constructing query for email " + email + ", social provider: " + sp)
     a => where(a.email_address === email and a.auth_method === sp).select(a)
   }
 
-  private def findByAccountIdQ(id: Long): Query[Account] = from(accountTable) {
+  private def findByAccountIdQ(id: Long): Query[Account] = from(table) {
     account => where(account.id === id).select(account)
   }
 
-  private def findByIdentityIdQ(uid: IdentityId): Query[Account] = from(accountTable) {
+  private def findByIdentityIdQ(uid: IdentityId): Query[Account] = from(table) {
     account => where(account.user_id === uid.userId and
       account.provider_id === uid.providerId).select(account)
   }
 
   private def removeQ(account: Account) = {
-    accountTable.deleteWhere(a => account.user_id === a.user_id)
+    table.deleteWhere(a => account.user_id === a.user_id)
   }
 }

@@ -1,6 +1,6 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 
 case class Address( id          : Long,
                     city        : Option[String] = None,
@@ -10,5 +10,5 @@ case class Address( id          : Long,
                     housing     : Option[String] = None,
                     floor       : Option[Int]    = None,
                     apt         : Option[Int]    = None
-) extends Identifiable[Long]
+) extends KeyedEntity[Long]
 

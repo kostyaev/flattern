@@ -1,22 +1,20 @@
 package beans
 
 import models.LandingEmail
-import service.WithDefaultSession
 import service.dao.LandingEmailDao
 import play.api.mvc.Request
 import play.api.libs.json.JsValue
 import dto.landing.LandingForm
+import service._
+import SquerylEntryPoint._
 
 import scala.language.reflectiveCalls
 
-object OtherBean extends WithDefaultSession {
+object OtherBean {
 
-  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
-
-  def saveEmail(ip: String, email: String): Unit = withTransaction { implicit session =>
+  def saveEmail(ip: String, email: String): Unit = inTransaction {
     if(LandingEmailDao.queryByIp(ip).length == 0 && LandingEmailDao.queryByEmail(email).length == 0)
-      LandingEmailDao.add(LandingEmail(email, ip))
-
+      LandingEmailDao.create(LandingEmail(0, email, ip))
   }
 
   def saveEmail(request: Request[JsValue], landingForm: LandingForm): Unit = {

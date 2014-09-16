@@ -18,7 +18,7 @@ object Database extends Schema {
   val houseTable = table[House]("house")
   val housePhotoTable = table[HousePhoto]("house_photo")
   val landingEmailTable = table[LandingEmail]("landing_email")
-  val roomTable = table[LandingEmail]("room")
+  val roomTable = table[Room]("room")
   val roomPhotoTable = table[RoomPhoto]("room_photo")
   val stateTable = table[State]("state")
   val userTable = table[User]("user")

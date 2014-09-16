@@ -18,7 +18,7 @@ case class HouseAddress(id: Option[Long], countryCode: Option[String], city: Opt
                         building: Option[String] = None, housing: Option[String] = None,
                         apt: Option[Int] = None) extends HouseInfo {
   def getModel = Address(
-    id = id,
+    id = id.getOrElse(0),
     city = city,
     country = countryCode,
     street = street,

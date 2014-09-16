@@ -1,3 +1,4 @@
+/*
 package controllers
 
 import service.dao.AccountDao
@@ -149,3 +150,4 @@ object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
     }.getOrElse { BadRequest("Failed") }
   }
 }
+*/

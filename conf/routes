@@ -6,46 +6,46 @@ GET         /test                          controllers.Test.test
 
 # home page
 
-GET         /houses/                       controllers.HouseCtrl.getHouses
+# GET         /houses/                       controllers.HouseCtrl.getHouses
 
 # landing
 
 POST        /landing/send                  controllers.LandingCtrl.send
 
 # house
-POST        /house/create                  controllers.HouseCtrl.createHouse
+# POST        /house/create                  controllers.HouseCtrl.createHouse
 
-GET         /house/constants               controllers.HouseCtrl.getConstants
+# GET         /house/constants               controllers.HouseCtrl.getConstants
 
-GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)
-POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id: Long)
+# GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)
+# POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id: Long)
 
-GET         /house/:id/address             controllers.HouseCtrl.getAddress(id: Long)
-POST        /house/:id/address             controllers.HouseCtrl.saveAddress(id: Long)
+# GET         /house/:id/address             controllers.HouseCtrl.getAddress(id: Long)
+# POST        /house/:id/address             controllers.HouseCtrl.saveAddress(id: Long)
 
-GET         /house/:id/desc                controllers.HouseCtrl.getDesc(id: Long)
-POST        /house/:id/desc                controllers.HouseCtrl.saveDesc(id: Long)
+# GET         /house/:id/desc                controllers.HouseCtrl.getDesc(id: Long)
+# POST        /house/:id/desc                controllers.HouseCtrl.saveDesc(id: Long)
 
-GET         /house/:id/amenities           controllers.HouseCtrl.getAmenities(id: Long)
-POST        /house/:id/amenities           controllers.HouseCtrl.saveAmenities(id: Long)
+# GET         /house/:id/amenities           controllers.HouseCtrl.getAmenities(id: Long)
+# POST        /house/:id/amenities           controllers.HouseCtrl.saveAmenities(id: Long)
 
-POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
+# POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
 
 # user
 
-GET         /user/search/:page             controllers.UserCtrl.getUsers(page: Int)
+# GET         /user/search/:page             controllers.UserCtrl.getUsers(page: Int)
 
-GET         /user/constants                controllers.UserCtrl.getConstants
+# GET         /user/constants                controllers.UserCtrl.getConstants
 
-GET         /user/edit/general             controllers.UserCtrl.getGeneral
-POST        /user/edit/general             controllers.UserCtrl.saveGeneral
+# GET         /user/edit/general             controllers.UserCtrl.getGeneral
+# POST        /user/edit/general             controllers.UserCtrl.saveGeneral
 
-GET         /user/edit/about               controllers.UserCtrl.getAbout
-POST        /user/edit/about               controllers.UserCtrl.saveAbout
+# GET         /user/edit/about               controllers.UserCtrl.getAbout
+# POST        /user/edit/about               controllers.UserCtrl.saveAbout
 
-GET         /user/edit/houses              controllers.UserCtrl.getHouses
+# GET         /user/edit/houses              controllers.UserCtrl.getHouses
 
-GET         /user/:id                      controllers.UserCtrl.getUserById(id: Long)
+# GET         /user/:id                      controllers.UserCtrl.getUserById(id: Long)
 
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()

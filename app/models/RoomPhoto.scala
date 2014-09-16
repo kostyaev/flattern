@@ -1,7 +1,7 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 
 case class RoomPhoto( id      : Long,
                       room_id : Long
-) extends Identifiable[Long]
+) extends KeyedEntity[Long]

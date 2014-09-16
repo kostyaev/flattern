@@ -4,7 +4,7 @@ import dto.house.HouseEnums.Amenity.Amenity
 import dto.house.HouseEnums.HouseType.HouseType
 import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.LocalDate
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 
 case class House( id          : Long,
                   account_id  : Long,
@@ -24,5 +24,14 @@ case class House( id          : Long,
                   views       : Int               = 0,
                   date        : Option[LocalDate] = Option(LocalDate.now()),
                   published : Option[Boolean]   = None
-) extends Identifiable[Long]
+) extends KeyedEntity[Long] {
+  def houseType  = house_type
+  def rentType   = rent_type
+  def addressId  = address_id
+  def allSlots   = all_slots
+  def freeSlots  = free_slots
+  def busySlots  = busy_slots
+  def numOfRooms = num_of_rooms
+  def photoId    = photo_id
+}
 

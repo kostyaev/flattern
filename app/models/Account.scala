@@ -2,7 +2,7 @@ package models
 
 import service._
 import SquerylEntryPoint._
-import dao.Identifiable
+import org.squeryl.KeyedEntity
 import org.squeryl.dsl._
 import securesocial.core.{AuthenticationMethod}
 import securesocial.core.{OAuth1Info, OAuth2Info, PasswordInfo}
@@ -15,7 +15,8 @@ case class Account( id: Long,
                     firstname: String,
                     lastname: String,
                     fullname: String,
-                    email_address: Option[String]) extends securesocial.core.Identity with Identifiable[Long] {
+                    email_address: Option[String]
+) extends securesocial.core.Identity with KeyedEntity[Long] {
 
   lazy val oauth1CredentialSets: OneToMany[OAuth1CredentialSet] =
     Database.accountToOAuth1Info.left(this)

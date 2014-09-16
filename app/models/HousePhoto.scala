@@ -1,8 +1,9 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
+
 case class HousePhoto( id         : Long,
                        house_id   : Long,
                        title      : Option[String] = None,
                        description: Option[String] = None
-) extends Identifiable[Long]
+) extends KeyedEntity[Long]

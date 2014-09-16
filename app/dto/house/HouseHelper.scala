@@ -14,7 +14,7 @@ object HouseHelper {
 
   def getHouseAddress(address: Address): HouseAddress =
     HouseAddress(
-      address.id,
+      Some(address.id),
       address.country,
       address.city,
       address.street,
@@ -31,7 +31,7 @@ object HouseHelper {
 
   def getHouseThumbnail(house: House, address: Address): HouseThumbnail =
     HouseThumbnail(
-      house.id.get,
+      house.id,
       house.title,
       getHouseAddress(address),
       house.price,

@@ -1,8 +1,8 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 
 case class Seat( id: Long,
                  room_id : Long,
                  user_id : Long
-) extends Identifiable[Long]
+) extends KeyedEntity[Long]

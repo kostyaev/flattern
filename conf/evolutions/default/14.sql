@@ -18,9 +18,9 @@ alter table account drop column if exists hasher;
 alter table account drop column if exists password;
 alter table account drop column if exists salt;
 
-create sequence account_id_seq;
+-- create sequence account_id_seq;
 alter sequence account_id_seq owned by account.id;
-drop sequence users_id;
+-- drop sequence users_id;
 
 create index account_identity_id on account (user_id, provider_id);
 

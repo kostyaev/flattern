@@ -1,9 +1,9 @@
 package models
 
-import service.dao.Identifiable
+import org.squeryl.KeyedEntity
 
 case class City( id      : Int,
-                 names   : Map[String, String],
+                 //names   : Map[String, String],
                  code    : Option[String] = None,
                  state_id: Int
-) extends Identifiable[Int]
+) extends KeyedEntity[Int]
