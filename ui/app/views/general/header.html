@@ -1,186 +1,110 @@
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <div class="btn-toolbar pull-right">
-                <div class="btn-group">
-                    <a href="#/houses/create" target="_self" class="btn btn-success navbar-btn btn-sm"><span class="glyphicon glyphicon-home"></span>
-                        Сдать жилье</a>
+<div class="navigation">
+    <div class="secondary-navigation">
+        <div class="container">
+            <div class="contact">
+                <figure><strong>Phone:</strong>+1 810-991-3842</figure>
+                <figure><strong>Email:</strong>zoner@example.com</figure>
+            </div>
+            <div class="user-area">
+                <a ui-sref="create-agency" class="promoted">Create Agency</a>
+                <a ui-sref="create-account" class="promoted"><strong>Register</strong></a>
+                <a ui-sref="sign-in">Sign In</a>
+                <div class="language-bar">
+                    <a ui-sref="#" class="active"><img src="/images/flags/gb.png"></a>
+                    <a ui-sref="#"><img src="/images/flags/de.png"></a>
+                    <a ui-sref="#"><img src="/images/flags/es.png"></a>
                 </div>
             </div>
-
-            <div class="navbar-buttons navbar-header pull-right flattern-menu" role="navigation">
-                <ul class="nav ace-nav">
-                    <li class="light-blue left">
-                        <a data-toggle="dropdown" class="dropdown-toggle">
-                            <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-                            <span class="badge badge-info">8</span>
-                        </a>
-
-                        <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-                            <li class="dropdown-header">
-                                <i class="ace-icon fa fa-exclamation-triangle"></i>
-                                8 Notifications
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                New Comments
-                                            </span>
-                                        <span class="pull-right badge badge-info">+12</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Bob just signed up as an editor ...
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                New Orders
-                                            </span>
-                                        <span class="pull-right badge badge-success">+8</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                Followers
-                                            </span>
-                                        <span class="pull-right badge badge-info">+11</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="dropdown-footer">
-                                <a href="#">
-                                    Уведомления
-                                    <i class="ace-icon fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="light-blue">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                            <span class="badge badge-info">5</span>
-                        </a>
-
-                        <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                            <li class="dropdown-header">
-                                <i class="ace-icon fa fa-envelope-o"></i>
-                                5 Messages
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                New Comments
-                                            </span>
-                                        <span class="pull-right badge badge-info">+12</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Bob just signed up as an editor ...
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                New Orders
-                                            </span>
-                                        <span class="pull-right badge badge-success">+8</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <div class="clearfix">
-                                            <span class="pull-left">
-                                                Followers
-                                            </span>
-                                        <span class="pull-right badge badge-info">+11</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="dropdown-footer">
-                                <a href="#">
-                                    Уведомления
-                                    <i class="ace-icon fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="light-blue right">
-                        <a data-toggle="dropdown" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="../images/users/thumbnails/{{ userSession.avatarUrl }}" alt="Jason's Photo">
-                                <span class="user-info">
-                                    <small>Добро пожаловать,</small>
-                                    {{userSession.fullName}}
-                                </span>
-
-                            <i class="ace-icon fa fa-caret-down"></i>
-                        </a>
-
-                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#/user/edit">
-                                    <i class="ace-icon fa fa-cog"></i>
-                                    Настройки
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#/user/ {{ userSession.id }}">
-                                    <i class="ace-icon fa fa-user"></i>
-                                   Профиль
-                                </a>
-                            </li>
-
-                            <li class="divider"></li>
-
-                            <li>
-                                <a href="/logout">
-                                    <i class="ace-icon fa fa-power-off"></i>
-                                    Выйти
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
-</nav>
+    <div class="container">
+        <header class="navbar" id="top" role="banner">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand nav" id="brand">
+                    <a ui-sref="index-advanced-horizontal-search"><img src="/images/logo.png" alt="brand"></a>
+                </div>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li class="active has-child"><a ui-sref="#">Homepage</a>
+                        <ul class="child-navigation">
+                            <li><a ui-sref="index-google-map-fullscreen">Google Map Full Screen</a></li>
+                            <li><a ui-sref="index-google-map-fixed-height">Google Map Fixed Height</a></li>
+                            <li><a ui-sref="index-google-map-fixed-navigation">Google Map Fixed Navigation</a></li>
+                            <li><a ui-sref="index-osm">OpenStreetMap Full Screen</a></li>
+                            <li><a ui-sref="index-osm-fixed-height">OpenStreetMap Fixed Height</a></li>
+                            <li><a ui-sref="index-osm-fixed-navigation">OpenStreetMap Fixed Navigation</a></li>
+                            <li><a ui-sref="index-slider">Slider Homepage</a></li>
+                            <li><a ui-sref="index-slider-search-box">Slider with Search Box</a></li>
+                            <li><a ui-sref="index-horizontal-search-floated">Horizontal Search Floated</a></li>
+                            <li><a ui-sref="index-advanced-horizontal-search">Horizontal Advanced Search</a></li>
+                            <li><a ui-sref="index-slider-horizontal-search-box">Horizontal Slider Search</a></li>
+                            <li><a ui-sref="index-slider-horizontal-search-box-floated">Horizontal Slider Floated Search</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-child"><a ui-sref="#">Properties</a>
+                        <ul class="child-navigation">
+                            <li><a ui-sref="property-detail">Property Detail</a></li>
+                            <li><a ui-sref="properties-listing">Masonry Listing</a></li>
+                            <li><a ui-sref="properties-listing-grid">Grid Listing</a></li>
+                            <li><a ui-sref="properties-listing-lines">Lines Listing</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-child"><a ui-sref="#">Pages</a>
+                        <ul class="child-navigation">
+                            <li><a ui-sref="about-us">About Us</a></li>
+                            <li><a ui-sref="agent-detail">Agent Detail</a></li>
+                            <li><a ui-sref="invoice-print">Invoice</a></li>
+                            <li><a ui-sref="profile">Profile</a></li>
+                            <li><a ui-sref="my-properties">My Properties</a></li>
+                            <li><a ui-sref="bookmarked">Bookmarked Properties</a></li>
+                            <li><a ui-sref="create-account">Create Account</a></li>
+                            <li><a ui-sref="create-agency">Create Agency</a></li>
+                            <li><a ui-sref="sign-in">Sign In</a></li>
+                            <li class="has-child"><a ui-sref="#">Error Pages</a>
+                                <ul class="child-navigation">
+                                    <li><a ui-sref="403">403</a></li>
+                                    <li><a ui-sref="404">404</a></li>
+                                    <li><a ui-sref="500">500</a></li>
+                                </ul>
+                            </li>
+                            <li><a ui-sref="faq">FAQ</a></li>
+                            <li><a ui-sref="left-sidebar">Left Sidebar</a></li>
+                            <li><a ui-sref="right-sidebar">Right Sidebar</a></li>
+                            <li><a ui-sref="sticky-footer">Sticky Footer</a></li>
+                            <li><a ui-sref="pricing">Pricing</a></li>
+                            <li><a ui-sref="shortcodes">Shortcodes</a></li>
+                            <li><a ui-sref="timeline">Timeline</a></li>
+                            <li><a ui-sref="terms-conditions">Terms & Conditions</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-child"><a ui-sref="#">Agents & Agencies</a>
+                        <ul class="child-navigation">
+                            <li><a ui-sref="agents-listing">Agents Listing</a></li>
+                            <li><a ui-sref="agent-detail">Agent Detail</a></li>
+                            <li><a ui-sref="agencies-listing">Agencies Listing</a></li>
+                            <li><a ui-sref="agency-detail">Agency Detail</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="submit">Submit</a></li>
+                    <li class="has-child"><a ui-sref="#">Blog</a>
+                        <ul class="child-navigation">
+                            <li><a ui-sref="blog">Blog Listing</a></li>
+                            <li><a ui-sref="blog-detail">Blog Post Detail</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="contact">Contact</a></li>
+                </ul>
+            </nav><!-- /.navbar collapse-->
+            <div class="add-your-property">
+                <a ui-sref="submit" class="btn btn-default"><i class="fa fa-plus"></i><span class="text">Add Your Property</span></a>
+            </div>
+        </header><!-- /.navbar -->
+    </div><!-- /.container -->
+</div><!-- /.navigation -->

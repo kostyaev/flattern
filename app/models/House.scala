@@ -22,8 +22,10 @@ case class House( id          : Long,
                   photo_id    : Option[Long]      = None,
                   amenities   : List[Amenity]     = List(),
                   views       : Int               = 0,
-                  //date        : Option[LocalDate] = Option(LocalDate.now()),
-                  published : Option[Boolean]   = None
+                  //date      : Option[LocalDate] = Option(LocalDate.now()),
+                  published   : Option[Boolean]   = None,
+                  lat         : Option[Double]    = None,
+                  lng         : Option[Double]    = None
 ) extends KeyedEntity[Long] {
   def houseType  = house_type
   def rentType   = rent_type
@@ -33,5 +35,5 @@ case class House( id          : Long,
   def busySlots  = busy_slots
   def numOfRooms = num_of_rooms
   def photoId    = photo_id
+  def isPublished = published
 }
-

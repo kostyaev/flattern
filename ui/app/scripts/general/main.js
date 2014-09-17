@@ -5,7 +5,6 @@
 define(['angular', './routes', './controllers'], function(angular, routes, controllers) {
     'use strict';
 
-    var mod = angular.module('flattern.general', ['ui.router', 'general.routes']);
-    mod.controller("MainCtrl", controllers.MainCtrl);
+    var mod = angular.module('flattern.general', ['ui.router', 'general.routes', 'duScroll']);
     return mod;
 });

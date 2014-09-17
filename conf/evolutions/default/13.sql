@@ -7,6 +7,8 @@ alter table house drop column house_type;
 alter table house drop column rent_type;
 alter table house add column house_type int;
 alter table house add column rent_type int;
+alter table house add column lat numeric(10,4) null;
+alter table house add column lng numeric(10,4) null;
 
 alter table house drop column if exists photo;
 alter table house add column photo_id bigint;
@@ -24,6 +26,8 @@ alter table house drop column house_type;
 alter table house drop column rent_type;
 alter table house add column house_type varchar(150);
 alter table house add column rent_type varchar(150);
+alter table house drop column lat;
+alter table house drop column lng;
 
 alter table house drop column if exists photo_id;
 alter table house add column photo bigint;

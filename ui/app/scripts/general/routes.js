@@ -7,27 +7,66 @@ define(['angular', './controllers'], function(angular, controllers) {
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('registered', {
+                .state('main', {
                     abstract: true,
                     views: {
                         '': {
-                            template: '<div ui-view></div>'
+                            templateUrl: 'views/general/main.html'
                         },
-                        'header': {
+                        'header@main': {
                             templateUrl: 'views/general/header.html'
                         },
-                        'footer': {
+                        'footer@main': {
                             templateUrl: 'views/general/footer.html'
                         }
                     }
-
                 })
-                .state('settings', {
-                    parent: 'registered',
-                    abstract: true,
-                    templateUrl: 'views/general/settings.html'
 
-                });
+                .state('main-scroll-fixed-top', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll-fixed-top.html'
+                        },
+                        'header@main-scroll-fixed-top': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll-fixed-top': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
+                .state('main-scroll-fixed-bottom', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll-fixed-bottom.html'
+                        },
+                        'header@main-scroll-fixed-bottom': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll-fixed-bottom': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
+                .state('main-scroll', {
+                    abstract: true,
+                    views: {
+                        '': {
+                            templateUrl: 'views/general/main-scroll.html'
+                        },
+                        'header@main-scroll': {
+                            templateUrl: 'views/general/header.html'
+                        },
+                        'footer@main-scroll': {
+                            templateUrl: 'views/general/footer.html'
+                        }
+                    }
+                })
+
 
         }]);
     return mod;

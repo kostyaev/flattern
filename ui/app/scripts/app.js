@@ -1,15 +1,15 @@
-define(['angular', 'home', 'about', 'general', 'i18n', 'auth', 'house', 'user', 'landing']/*deps*/, function (angular)/*invoke*/ {
-  'use strict';
+define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'], function (angular) {
+    'use strict';
 
-  return angular
-    .module('app',
-      ['flattern.home',
-       'flattern.about',
-       'flattern.general',
-       'flattern.i18n',
-       'flattern.auth',
-       'flattern.house',
-       'flattern.user',
-       'flattern.landing'
-  ]);
+    return angular
+        .module('app',
+        [
+            'flattern.home',
+            'flattern.user',
+            'flattern.house',
+            'flattern.company',
+            'flattern.template',
+            'flattern.general',
+            'flattern.i18n'
+        ]);
 });

@@ -1,0 +1,142 @@
+<content class="page-sub-page page-create-agency page-account">
+<!-- Page Content -->
+<div id="page-content">
+    <!-- Breadcrumb -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Create Agency</li>
+        </ol>
+    </div>
+    <!-- end Breadcrumb -->
+
+    <div class="container">
+        <header><h1>Create Agency Profile</h1></header>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-md-offset-2">
+                <form role="form" id="form-create-agency" method="post" action="">
+                    <section>
+                        <div class="form-group">
+                            <label for="form-create-agency-title">Agency Title:</label>
+                            <input type="text" class="form-control" id="form-create-agency-title" required>
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                            <label for="form-create-agency-description">Description</label>
+                            <textarea class="form-control" id="form-create-agency-description" rows="4" required></textarea>
+                        </div><!-- /.form-group -->
+                    </section>
+                    <h3>Contact Information</h3>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <section id="address">
+                                <div class="form-group">
+                                    <label for="form-create-agency-address-1">Address Line 1:</label>
+                                    <input type="text" class="form-control" id="form-create-agency-address-1" required>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <label for="form-create-agency-address-2">Address Line 2:</label>
+                                    <input type="text" class="form-control" id="form-create-agency-address-2" required>
+                                </div><!-- /.form-group -->
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8">
+                                        <div class="form-group">
+                                            <label for="form-create-agency-city">City:</label>
+                                            <input type="text" class="form-control" id="form-create-agency-city" required>
+                                        </div><!-- /.form-group -->
+                                    </div><!-- /.col-md-8 -->
+                                    <div class="col-md-4 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="form-create-agency-zip">ZIP:</label>
+                                            <input type="text" class="form-control" id="form-create-agency-zip" required>
+                                        </div><!-- /.form-group -->
+                                    </div><!-- /.col-md-4 -->
+                                </div><!-- /.row -->
+                            </section><!-- /#address -->
+                        </div><!-- /.col-md-6 -->
+                        <div class="col-md-6 col-sm-6">
+                            <section id="contacts">
+                                <div class="form-group">
+                                    <label for="form-create-agency-email">Email:</label>
+                                    <input type="email" class="form-control" id="form-create-agency-email" required>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <label for="form-create-agency-phone">Phone:</label>
+                                    <input type="tel" class="form-control" id="form-create-agency-phone">
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <label for="form-create-agency-website">Website:</label>
+                                    <input type="text" class="form-control" id="form-create-agency-website">
+                                </div><!-- /.form-group -->
+                            </section><!-- /#address -->
+                        </div><!-- /.col-md-6 -->
+                    </div><!-- /.row -->
+                    <section id="select-package">
+                        <header><h3>Select a Package<i class="fa fa-question-circle tool-tip" tool-tip  data-toggle="tooltip" data-placement="right" title="You can change a package later in 'Agency Profile' section"></i></h3></header>
+                        <div class="table-responsive submit-pricing">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Package:</th>
+                                    <th class="title">Free</th>
+                                    <th class="title">Silver</th>
+                                    <th class="title">Gold</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="prices">
+                                    <td></td>
+                                    <td>$0</td>
+                                    <td>$20</td>
+                                    <td>$40</td>
+                                </tr>
+                                <tr>
+                                    <td>Property Submit Limit</td>
+                                    <td>1</td>
+                                    <td>20</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Agent Profiles</td>
+                                    <td>1</td>
+                                    <td>10</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Agency Profiles</td>
+                                    <td class="not-available"><i class="fa fa-times"></i></td>
+                                    <td>5</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Featured Properties</td>
+                                    <td class="not-available"><i class="fa fa-times"></i></td>
+                                    <td class="available"><i class="fa fa-check"></i></td>
+                                    <td class="available"><i class="fa fa-check"></i></td>
+                                </tr>
+                                <tr class="buttons">
+                                    <td></td>
+                                    <td class="package-selected" data-package="free"><button type="button" class="btn btn-default small">Select</button></td>
+                                    <td data-package="silver"><button type="button" class="btn btn-default small">Select</button></td>
+                                    <td data-package="gold"><button type="button" class="btn btn-default small">Select</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.submit-pricing -->
+                    </section><!-- /#select-package -->
+                    <section id="submit">
+                        <div class="form-group center">
+                            <button type="submit" class="btn btn-default large" id="account-submit">Create Agency</button>
+                        </div><!-- /.form-group -->
+                    </section>
+                </form>
+                <hr>
+                <section class="center">
+                    <figure class="note">By clicking the “Create Agency” button you agree with our <a href="terms-conditions.html">Terms and conditions</a></figure>
+                </section>
+            </div><!-- /.col-md-8 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+<!-- end Page Content -->
+</content>
+

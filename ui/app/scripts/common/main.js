@@ -1,10 +1,12 @@
 /**
  * Common functionality.
  */
-define(['angular', './services/helper', './services/playRoutes', './filters', './directives/example'],
-  function(angular) {
-      'use strict';
+define(['angular', './services/helper', './services/playRoutes', './filters',
+        './directives/custom', './directives/otherPlugins','./directives/amdPlugins'],
+    function(angular) {
+        'use strict';
 
-    return angular.module('flattern.common', ['common.helper', 'common.playRoutes', 'common.filters',
-      'common.directives.example']);
-});
+        return angular.module('flattern.common', [
+            'common.helper', 'common.playRoutes', 'common.filters',
+            'custom', 'otherPlugins','amdPlugins']);
+    });
