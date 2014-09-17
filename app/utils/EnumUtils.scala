@@ -27,8 +27,8 @@ object EnumUtils {
 
 abstract class DBEnum extends Enumeration {
 
-  import utils.DgDriver.simple._
-  implicit val enumMapper = MappedColumnType.base[Value, Int](_.id, this.apply)
-  implicit val enumListMapper = MappedColumnType.base[List[Value], List[Int]](_.map(v => v.id), _.map(this.apply))
+  // import utils.DgDriver.simple._
+  // implicit val enumMapper = MappedColumnType.base[Value, Int](_.id, this.apply)
+  // implicit val enumListMapper = MappedColumnType.base[List[Value], List[Int]](_.map(v => v.id), _.map(this.apply))
 
 }
