@@ -5,35 +5,38 @@ import dto.house.HouseEnums.HouseType.HouseType
 import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.DateTime
 import org.squeryl.KeyedEntity
+import org.squeryl.annotations.Column
 
-case class House( id          : Long,
-                  account_id  : Long,
-                  house_type  : Option[HouseType] = None,
-                  rent_type   : Option[RentType]  = None,
-                  address_id  : Option[Long]      = None,
-                  all_slots   : Option[Int]       = None,
-                  free_slots  : Option[Int]       = None,
-                  busy_slots  : Option[Int]       = None,
-                  num_of_rooms: Option[Int]       = None,
-                  area        : Option[Double]    = None,
-                  price       : Option[Long]      = None,
-                  title       : Option[String]    = None,
-                  description : Option[String]    = None,
-                  photo_id    : Option[Long]      = None,
-                  amenities   : List[Amenity]     = List(),
-                  views       : Int               = 0,
+case class House( id: Long,
+                  @Column("account_id")
+                  accountId: Long,
+                  @Column("house_type")
+                  houseType: Option[HouseType] = None,
+                  @Column("rent_type")
+                  rentType: Option[RentType]  = None,
+                  @Column("address_id")
+                  addressId: Option[Long] = None,
+                  @Column("all_slots")
+                  allSlots: Option[Int] = None,
+                  @Column("free_slots")
+                  freeSlots: Option[Int] = None,
+                  @Column("busy_slots")
+                  busySlots: Option[Int] = None,
+                  @Column("num_of_rooms")
+                  numOfRooms: Option[Int] = None,
+                  area        : Option[Double] = None,
+                  price       : Option[Long] = None,
+                  title       : Option[String] = None,
+                  description : Option[String] = None,
+                  @Column("photo_id")
+                  photoId    : Option[Long] = None,
+                  amenities   : List[Amenity] = List(),
+                  views       : Int = 0,
                   date        : Option[DateTime]  = Option(DateTime.now),
-                  published   : Option[Boolean]   = None,
-                  lat         : Option[Double]    = None,
-                  lng         : Option[Double]    = None
-) extends KeyedEntity[Long] {
-  def houseType  = house_type
-  def rentType   = rent_type
-  def addressId  = address_id
-  def allSlots   = all_slots
-  def freeSlots  = free_slots
-  def busySlots  = busy_slots
-  def numOfRooms = num_of_rooms
-  def photoId    = photo_id
-  def isPublished = published
+                  @Column("published")
+                  isPublished   : Option[Boolean]   = None,
+                  lat         : Option[Double] = None,
+                  lon         : Option[Double] = None
+                  ) extends KeyedEntity[Long] {
+
 }
