@@ -121,6 +121,7 @@ define(['angular'], function(angular) {
         }
     });
 
+    //FIXME
     mod.directive('input', function () {
         return {
             // Restrict it to be an attribute in this case
