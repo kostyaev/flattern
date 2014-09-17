@@ -3,7 +3,7 @@ package models
 import dto.house.HouseEnums.Amenity.Amenity
 import dto.house.HouseEnums.HouseType.HouseType
 import dto.house.HouseEnums.RentType.RentType
-import org.joda.time.LocalDate
+import org.joda.time.DateTime
 import org.squeryl.KeyedEntity
 
 case class House( id          : Long,
@@ -22,7 +22,7 @@ case class House( id          : Long,
                   photo_id    : Option[Long]      = None,
                   amenities   : List[Amenity]     = List(),
                   views       : Int               = 0,
-                  //date      : Option[LocalDate] = Option(LocalDate.now()),
+                  date        : Option[DateTime]  = Option(DateTime.now),
                   published   : Option[Boolean]   = None,
                   lat         : Option[Double]    = None,
                   lng         : Option[Double]    = None
