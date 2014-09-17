@@ -37,7 +37,7 @@ object HouseHelper {
       house.price,
       house.photoId,
       house.views,
-      house.date.get)
+      0)
 
 
 

@@ -26,7 +26,7 @@ object UserGeneral {
       firstName = user._1.firstName,
       lastName  = user._1.lastName,
       sex       = user._2.sex,
-      birthDate = user._2.birthday,
+      birthDate = None,
       email     = user._1.email.getOrElse(""),
       timezone  = user._2.timezone.getOrElse(0),
       password1 = Option(""),
@@ -53,7 +53,7 @@ object UserAbout {
       wprice    = user._2.wprice,
       wcountry  = user._2.wcountry,
       wdistrict = user._2.wdistrict,
-      privacy   = user._2.privacy
+      privacy   = None
     )
 
   def fill(a: Account, u: User): UserAbout = fill((a, u))

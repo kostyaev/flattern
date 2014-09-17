@@ -18,7 +18,8 @@ object UserThumbnail {
       fullName = account.fullName,
       sex = user.sex.getOrElse(0).toString,
       avatarUrl = account.avatarUrl.getOrElse(""),
-      birthday = user.birthday match {
+      birthday = ""
+      /*birthday = user.birthday match {
         case None     => ""
         case Some(bd) => Try {
           DateTimeFormat.forPattern("yyyy-MM-dd").print(bd)
@@ -26,7 +27,7 @@ object UserThumbnail {
           case Failure(e) => ""
           case Success(e) => e
         }
-      }
+      }*/
     )
 
   def fill(p: (Account, User)): UserThumbnail = fill(p._1, p._2)

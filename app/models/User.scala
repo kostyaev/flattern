@@ -7,8 +7,8 @@ import dto.user.UserEnums.SexType.SexType
 
 case class User( id         : Long,
                  account_id : Option[Long]          = None,
-                 privacy    : Option[List[Privacy]] = None,
-                 birthday   : Option[LocalDate]     = None,
+                 //privacy    : Option[List[Privacy]] = None,
+                 //birthday   : Option[LocalDate]     = None,
                  timezone   : Option[Int]           = None,
                  sex        : Option[SexType]       = None,
                  wishes     : Option[String]        = None,

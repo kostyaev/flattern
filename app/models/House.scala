@@ -22,7 +22,7 @@ case class House( id          : Long,
                   photo_id    : Option[Long]      = None,
                   amenities   : List[Amenity]     = List(),
                   views       : Int               = 0,
-                  date        : Option[LocalDate] = Option(LocalDate.now()),
+                  //date        : Option[LocalDate] = Option(LocalDate.now()),
                   published : Option[Boolean]   = None
 ) extends KeyedEntity[Long] {
   def houseType  = house_type
