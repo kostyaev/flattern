@@ -9,10 +9,6 @@ import service.SquerylEntryPoint._
 
 object Global extends GlobalSettings {
 
-  def getId(o: OAuth1CredentialSet) = o.id
-  def isPersisted(o: OAuth1CredentialSet) = o.id > 0
-  def idPropertyName = "id"
-
   def getSession(adapter:DatabaseAdapter, app: Application) =
     Session.create(DB.getConnection()(app), adapter)
 
