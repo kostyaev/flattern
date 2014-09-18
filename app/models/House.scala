@@ -6,6 +6,8 @@ import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.DateTime
 import org.squeryl.KeyedEntity
 import org.squeryl.annotations.Column
+import org.squeryl.dsl.OneToMany
+import service.Database
 
 case class House( id: Long,
                   @Column("account_id")
@@ -38,5 +40,9 @@ case class House( id: Long,
                   lat         : Option[Double] = None,
                   lon         : Option[Double] = None
                   ) extends KeyedEntity[Long] {
+
+  lazy val photos: OneToMany[HousePhoto] = Database.houseToPhoto.left(this)
+
+
 
 }

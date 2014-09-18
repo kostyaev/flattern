@@ -1,11 +1,18 @@
-import org.squeryl.adapters.{MySQLInnoDBAdapter, H2Adapter, PostgreSqlAdapter}
+import models.OAuth1CredentialSet
+import org.squeryl.adapters.{H2Adapter, MySQLInnoDBAdapter, PostgreSqlAdapter}
 import org.squeryl.internals.DatabaseAdapter
 import org.squeryl.{Session, SessionFactory}
 import play.api.db.DB
-import play.api.mvc.WithFilters
-import play.api.{Application, GlobalSettings}
+import play.api.{Application, GlobalSettings, Logger}
+import service.Database
+import service.SquerylEntryPoint._
 
 object Global extends GlobalSettings {
+
+  def getId(o: OAuth1CredentialSet) = o.id
+  def isPersisted(o: OAuth1CredentialSet) = o.id > 0
+  def idPropertyName = "id"
+
   def getSession(adapter:DatabaseAdapter, app: Application) =
     Session.create(DB.getConnection()(app), adapter)
 
@@ -23,5 +30,10 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     initSqueryl(app)
+    Logger.info("refreshing schema")
+    inTransaction {
+      Database.drop
+      Database.create
+    }
   }
 }

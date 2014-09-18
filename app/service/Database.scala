@@ -1,9 +1,9 @@
 package service
 
 
+import models._
 import org.squeryl.Schema
 import service.SquerylEntryPoint._
-import models._
 
 object Database extends Schema {
 
@@ -30,25 +30,7 @@ object Database extends Schema {
   val accountToPasswordInfo = oneToManyRelation(accountTable, passwordInfoTable).
     via((account, passwordInfo) => account.id === passwordInfo.account_id)
 
-  // Tables
-  on(accountTable) { x => declare {
-    x.id is(autoIncremented("account_id_seq"), primaryKey)
-  }}
+  val houseToPhoto = oneToManyRelation(houseTable, housePhotoTable).via((house, photo) => house.id === photo.houseId)
 
-  on(oauth1InfoTable) { x => declare {
-    x.id is(autoIncremented("oauth1_credential_sets_id_seq"), primaryKey)
-  }}
-
-  on(oauth2InfoTable) { x => declare {
-    x.id is(autoIncremented("oauth2_credential_sets_id_seq"), primaryKey)
-  }}
-
-  on(passwordInfoTable) { x => declare {
-    x.id is(autoIncremented("password_credential_sets_id_seq"), primaryKey)
-  }}
-
-  on(secureSocialTokenTable) { x => declare {
-    x.uuid is(primaryKey)
-  }}
 
 }
