@@ -1,4 +1,4 @@
-define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'], function (angular) {
+define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n', 'auth'], function (angular) {
     'use strict';
 
     return angular
@@ -10,6 +10,7 @@ define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i
             'flattern.company',
             'flattern.template',
             'flattern.general',
-            'flattern.i18n'
+            'flattern.i18n',
+            'flattern.auth'
         ]);
 });

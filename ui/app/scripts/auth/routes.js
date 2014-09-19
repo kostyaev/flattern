@@ -8,6 +8,22 @@ define(['angular', './controllers'], function(angular, controllers) {
     mod.config(['$stateProvider', 'USER_ROLES',
         function($stateProvider, USER_ROLES)  {
             $stateProvider
+                .state('sign-in', {
+                    parent: 'main',
+                    url: '/sign-in',
+                    controller:controllers.LoginCtrl,
+                    views: {
+                        '' : {
+                            templateUrl: 'views/auth/sign-in.html'
+                        },
+                        'footer' : {
+                            templateUrl: 'views/general/footer-min.html'
+                        }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.guest]
+                    }
+                })
                 .state('login', {
                     url: '/login',
                     templateUrl: 'views/auth/login.html',
