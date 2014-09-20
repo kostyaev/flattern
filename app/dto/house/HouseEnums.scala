@@ -12,7 +12,10 @@ object HouseEnums {
 
   object HouseType extends DBEnum {
     type HouseType = Value
-    val APT, HOUSE, DORM, VILLA = Value
+    val APT = Value(0, "apt")
+    val HOUSE = Value(1, "house")
+    val DORM = Value(2, "dorm")
+    val VILLA = Value(3, "villa")
   }
 
   object Amenity extends DBEnum {

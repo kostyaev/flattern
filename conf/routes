@@ -15,7 +15,8 @@ POST        /landing/send                  controllers.LandingCtrl.send
 # house
 # POST        /house/create                  controllers.HouseCtrl.createHouse
 
-# GET         /house/constants               controllers.HouseCtrl.getConstants
+GET         /house/constants               controllers.HouseCtrl.getConstants
+POST        /house/constants               controllers.HouseCtrl.sendConstants
 
 # GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)
 # POST        /house/:id/general             controllers.HouseCtrl.saveGeneral(id: Long)

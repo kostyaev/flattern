@@ -35,7 +35,6 @@ object HouseHelper {
       house.title,
       getHouseAddress(address),
       house.price,
-      house.photoId,
       house.views,
       0)
 
