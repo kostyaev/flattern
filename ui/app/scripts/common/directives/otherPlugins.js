@@ -121,15 +121,28 @@ define(['angular'], function(angular) {
         }
     });
 
-    //FIXME
-    mod.directive('input', function () {
+//    //FIXME
+//    mod.directive('input', function () {
+//        return {
+//            // Restrict it to be an attribute in this case
+//            restrict: 'E',
+//            // responsible for registering DOM listeners as well as updating the DOM
+//            link: function(scope, el, attrs) {
+//                console.log("draw checkboxes");
+//                el.iCheck();
+//            }
+//        }
+//    });
+//
+    mod.directive('fileInput', function () {
         return {
             // Restrict it to be an attribute in this case
-            restrict: 'E',
+            restrict: 'A',
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
-                console.log("draw checkboxes");
-                el.iCheck();
+                console.log('draw fileinput');
+                console.log(scope.$eval(attrs.fileInput));
+                el.fileinput(scope.$eval(attrs.fileInput));
             }
         }
     });

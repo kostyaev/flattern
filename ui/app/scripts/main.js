@@ -44,7 +44,8 @@ require.config({
         'jquery-raty': '../components/jquery-raty/lib/jquery.raty',
         'magnific-popup': '../components/magnific-popup/dist/jquery.magnific-popup',
         'fitvids': '../components/fitvids/jquery.fitvids',
-        'angular-scroll': '../components/angular-scroll/angular-scroll'
+        'angular-scroll': '../components/angular-scroll/angular-scroll',
+        'fileinput': '../components/bootstrap-fileinput/js/fileinput.min'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -91,7 +92,8 @@ require.config({
         'scroll-reveal': [],
         'magnific-popup': ['jquery'],
         'fitvids': ['jquery'],
-        'angular-scroll': ['angular']
+        'angular-scroll': ['angular'],
+        'fileinput': ['jquery', 'bootstrap']
     },
     priority: [
         'angular'
@@ -143,7 +145,8 @@ require([
         'jquery-raty',
         'magnific-popup',
         'fitvids',
-        'angular-scroll'
+        'angular-scroll',
+        'fileinput'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';
