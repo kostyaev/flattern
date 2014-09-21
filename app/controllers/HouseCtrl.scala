@@ -1,12 +1,14 @@
 
 package controllers
 
+import beans.HouseBean
 import com.github.tototoshi.play2.json4s.jackson._
 import dto.Empty
+import dto.house.HouseEnums.{Amenity, HouseType, RentType}
 import dto.house._
-import dto.house.HouseEnums.{RentType, Amenity, HouseType}
 import models.{House, Page}
-import org.json4s.ext.{JodaTimeSerializers, EnumSerializer}
+import org.json4s.ext.{EnumNameSerializer, JodaTimeSerializers}
+import play.api.Logger
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
@@ -15,7 +17,7 @@ import utils.EnumUtils
 
 import scala.util.{Failure, Success, Try}
 
-object HouseCtrl extends Controller with SecureSocial with Json4s {
+object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s {
 
   //Enums
   implicit val houseTypeFormat = EnumUtils.enumFormat(HouseType)
@@ -36,7 +38,7 @@ object HouseCtrl extends Controller with SecureSocial with Json4s {
 
   import org.json4s._
 
-  implicit val formats = DefaultFormats + FieldSerializer[House]() ++ JodaTimeSerializers.all + new EnumSerializer(HouseType)
+  implicit val formats = DefaultFormats + FieldSerializer[House]() ++ JodaTimeSerializers.all + new EnumNameSerializer(HouseType) + new EnumNameSerializer(Amenity)
 
   implicit def pageFormat[T : Format]: Format[Page[T]] = (
     (__ \ "items").format[List[T]] ~
@@ -46,17 +48,25 @@ object HouseCtrl extends Controller with SecureSocial with Json4s {
     )(Page.apply, unlift(Page.unapply))
 
 
-
-
   def getConstants = Action {
-    Ok(Extraction.decompose(House(1, 2, houseType = Option(HouseType.DORM))))
+    Ok(Extraction.decompose(HouseConstants())).as("application/json")
   }
 
-  def sendConstants = Action(json) { implicit request =>
+  def getHouse(id: Long) = DBAction {
+      HouseBean.getHouse(id) match {
+        case Some(house) => Ok(Extraction.decompose(house)).as("application/json")
+        case None => BadRequest("NOT FOUND")
+      }
+  }
+
+  def saveHouse = DBAction(json) { implicit request =>
+    Logger.info("saving house")
     Try {
       request.body.extract[House]
     } match {
-      case Success(house) => Ok(house.toString)
+      case Success(house) =>
+        Logger.info(house.toString)
+        Ok(HouseBean.saveHouse(house).id.toString)
       case Failure(msg) => BadRequest(msg.getMessage)
     }
   }

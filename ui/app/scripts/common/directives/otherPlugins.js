@@ -122,10 +122,10 @@ define(['angular'], function(angular) {
     });
 
 //    //FIXME
-//    mod.directive('input', function () {
+//    mod.directive('icheck', function () {
 //        return {
 //            // Restrict it to be an attribute in this case
-//            restrict: 'E',
+//            restrict: 'A',
 //            // responsible for registering DOM listeners as well as updating the DOM
 //            link: function(scope, el, attrs) {
 //                console.log("draw checkboxes");
@@ -133,7 +133,31 @@ define(['angular'], function(angular) {
 //            }
 //        }
 //    });
-//
+
+    mod.directive('iCheck', function($timeout, $parse) {
+        return {
+            link: function($scope, element, $attrs) {
+                return $timeout(function() {
+                    var ngModelGetter, value;
+                    ngModelGetter = $parse($attrs['ngModel']);
+                    value = $parse($attrs['ngValue'])($scope);
+                    return $(element).iCheck().on('ifChanged', function(event) {
+                        if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
+                            $scope.$apply(function() {
+                                return ngModelGetter.assign($scope, event.target.checked);
+                            });
+                        }
+                        if ($(element).attr('type') === 'radio' && $attrs['ngModel']) {
+                            return $scope.$apply(function() {
+                                return ngModelGetter.assign($scope, value);
+                            });
+                        }
+                    });
+                });
+            }
+        };
+    });
+
     mod.directive('fileInput', function () {
         return {
             // Restrict it to be an attribute in this case
@@ -141,7 +165,6 @@ define(['angular'], function(angular) {
             // responsible for registering DOM listeners as well as updating the DOM
             link: function(scope, el, attrs) {
                 console.log('draw fileinput');
-                console.log(scope.$eval(attrs.fileInput));
                 el.fileinput(scope.$eval(attrs.fileInput));
             }
         }

@@ -7,11 +7,33 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('property-detail', {
+                .state('property', {
                     parent: 'main',
-                    url: '/property-detail',
+                    url: '/property',
+                    template: '<div ui-view></div>',
+                    controller: controllers.HouseCtrl
+                })
+
+
+                .state('submit', {
+                    parent: 'property',
+                    url: '/submit',
+                    templateUrl: 'views/house/submit.html',
+                    controller: controllers.CreateCtrl
+                })
+                .state('property-edit', {
+                    parent: 'property',
+                    url: '/:id/edit',
+                    templateUrl: 'views/house/submit.html',
+                    controller: controllers.EditCtrl
+                })
+                .state('property-detail', {
+                    parent: 'property',
+                    url: '/:id/detail',
                     templateUrl: 'views/house/property-detail.html'
                 })
+
+
                 .state('properties-listing', {
                     parent: 'main',
                     url: '/properties-listing',
@@ -27,11 +49,7 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     url: '/properties-listing-lines',
                     templateUrl: 'views/house/properties-listing-lines.html'
                 })
-                .state('submit', {
-                    parent: 'main',
-                    url: '/submit',
-                    templateUrl: 'views/house/submit.html'
-                })
+
 
 
         }]);

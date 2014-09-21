@@ -1,6 +1,5 @@
 package models
 
-import dto.house.HouseEnums.Amenity.Amenity
 import dto.house.HouseEnums.HouseType.HouseType
 import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.DateTime
@@ -20,12 +19,12 @@ case class House( id: Long,
                   @Column("rent_type")
                   rentType: Option[RentType]  = None,
                   area: Option[Double] = None,
-                  amenities: List[Amenity] = List(),
                   @Column("address_id")
                   addressId: Option[Long] = None,
                   @Column("num_of_rooms")
                   numOfRooms: Option[Int] = None,
-                  views: Int = 0,
+                  amenities: Option[Array[String]] = Some(Array()),
+                  views: Option[Int] = Some(0),
                   date: Option[DateTime]  = Option(DateTime.now),
                   @Column("published")
                   isPublished: Option[Boolean]   = None

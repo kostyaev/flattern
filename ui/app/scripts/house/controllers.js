@@ -4,7 +4,85 @@
 define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
-    var LeftCtrl = function ($scope) {
+    var HouseCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
+        $translatePartialLoader.addPart('house');
+        $translate.refresh();
+
+        $scope.getConstants = houseService.getConstants()
+            .then(function(response) {
+                console.log("constants received");
+                console.log(response);
+                return response.data;
+            });
+    };
+
+    var CreateCtrl = function ($scope, houseService, filterFilter) {
+        $scope.house = {id: 0, accountId: 1};
+
+        $scope.getConstants.then(function(constants) {
+            console.log(constants);
+            $scope.amenities = constants.amenities.map(function(amenity) {
+                return {name: amenity, selected: false}
+            });
+
+            console.log($scope.amenities);
+        });
+
+        $scope.selection = [];
+
+        $scope.$watch('amenities | filter:{selected:true}', function (data) {
+            $scope.selection = data;
+            console.log($scope.selection);
+        }, true);
+
+
+        $scope.saveHouse = function() {
+            $scope.house.amenities = $scope.selection.map(function(amenity) {
+                return amenity.name;
+            });
+            console.log($scope.house.amenities);
+            houseService.saveHouse($scope.house)
+                .success(function(response) {
+                    console.log("HOUSE IS SAVED");
+                })
+                .error(function (response) {
+                    console.log(response);
+                });
+        };
+
+
+    };
+
+    var EditCtrl = function ($scope, houseService, $stateParams) {
+        houseService.getHouse($stateParams.id).success(function (house) {
+            $scope.house = house;
+            $scope.getConstants.then(function(constants) {
+                $scope.amenities = constants.amenities.map(function (amenity) {
+                    var selected = $scope.house.amenities.indexOf(amenity) > -1;
+                    return {name: amenity, selected: selected}
+                });
+                $scope.selection = [];
+                // watch amenities for changes
+                $scope.$watch('amenities | filter:{selected:true}', function (data) {
+                    $scope.selection = data;
+                }, true);
+            });
+        });
+
+        $scope.save = function() {
+            $scope.house.amenities = $scope.selection.map(function(amenity) {
+                return amenity.name;
+            });
+
+            houseService.saveHouse($scope.house)
+                .success(function(response) {
+                    console.log("HOUSE IS UPDATED");
+                })
+                .error(function (response) {
+                    console.log(response);
+                });
+        }
+
 
     };
 
@@ -18,9 +96,6 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var CreateCtrl = function (houseService) {
-        houseService.createHouse();
-    };
 
     var GeneralCtrl = function ($scope, $stateParams, houseService, $state) {
         houseService.getGeneral($stateParams.id)
@@ -131,9 +206,10 @@ define(['angular', 'jquery'], function(angular, $) {
         }
     };
 
-    LeftCtrl.$inject = ['$scope'];
+    HouseCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
+    CreateCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
+    EditCtrl.$inject = ['$scope', 'houseService', '$stateParams'];
     ContentCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
-    CreateCtrl.$inject = ['houseService'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService', '$state'];
     AddressCtrl.$inject = ['$scope', '$stateParams', 'helper', '$translate', 'houseService', 'filterFilter'];
     DescCtrl.$inject = ['$scope', '$stateParams', 'houseService'];
@@ -141,9 +217,10 @@ define(['angular', 'jquery'], function(angular, $) {
     PhotosCtrl.$inject = ['$scope', '$stateParams'];
 
     return {
-        LeftCtrl: LeftCtrl,
-        ContentCtrl: ContentCtrl,
+        HouseCtrl: HouseCtrl,
         CreateCtrl: CreateCtrl,
+        EditCtrl: EditCtrl,
+        ContentCtrl: ContentCtrl,
         GeneralCtrl: GeneralCtrl,
         AddressCtrl: AddressCtrl,
         DescCtrl: DescCtrl,
