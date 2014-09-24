@@ -5,12 +5,6 @@
     "SAVE": "Сохранить",
     "CANCEL": "Отменить",
 
-    "GENERAL_INFO": "Основная информация",
-    "ADDRESS": "Адрес",
-    "DESC": "Описание",
-    "AMENITIES": "Удобства",
-    "PHOTOS": "Фотографии",
-
     "HOUSE_TYPE": "Тип жилья",
     "RENT_TYPE": "Тип аренды",
     "PRICE": "Цена",
@@ -18,15 +12,11 @@
     "HOUSE_TITLE": "Краткий заголовок",
     "HOUSE_DESC": "Описание",
 
-    "GENERAL_AMENITIES": "Основные удобства",
-    "ADDITIONAL_AMENITIES": "Дополнительно",
-
     "CITY": "Город",
     "COUNTRY": "Страна",
     "STREET": "Улица",
     "BUILDING": "Дом",
     "HOUSING": "Корпус",
-
 
 
     "APT": "Квартира",
@@ -37,7 +27,6 @@
     "ENTIRE_HOUSE": "Жилье целиком",
     "ENTIRE_ROOM": "Отдельная комната",
     "ROOM_PLACE": "Общая комната",
-
 
     "FRIDGE": "Холодильник",
     "TV": "Телевизор",
@@ -52,5 +41,9 @@
     "BALCONY": "Балкон",
     "PETS_ALLOWED": "Можно с животными",
     "FAMILY_ALLOWED": "Можно с семьей",
-    "SMOKING_ALLOWED": "Разрешено курить"
+    "SMOKING_ALLOWED": "Разрешено курить",
+
+    "PROPERTY_TYPE" : "Тип жилья",
+
+    "SELECT_ONE": "Выберите вариант"
 }

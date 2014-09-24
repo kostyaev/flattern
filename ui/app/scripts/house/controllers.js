@@ -4,21 +4,29 @@
 define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
+
     var HouseCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('house');
         $translate.refresh();
 
+        $scope.houseTypes = ['DORM', 'HOUSE'];
+
+        console.log("translate");
         $scope.getConstants = houseService.getConstants()
             .then(function(response) {
                 console.log("constants received");
                 console.log(response);
+                $scope.constants = response.data;
                 return response.data;
             });
+
+
     };
 
     var CreateCtrl = function ($scope, houseService, filterFilter) {
         $scope.house = {id: 0, accountId: 1};
 
+        console.log("create controller activated");
         $scope.getConstants.then(function(constants) {
             console.log(constants);
             $scope.amenities = constants.amenities.map(function(amenity) {
@@ -32,7 +40,6 @@ define(['angular', 'jquery'], function(angular, $) {
 
         $scope.$watch('amenities | filter:{selected:true}', function (data) {
             $scope.selection = data;
-            console.log($scope.selection);
         }, true);
 
 
@@ -40,7 +47,7 @@ define(['angular', 'jquery'], function(angular, $) {
             $scope.house.amenities = $scope.selection.map(function(amenity) {
                 return amenity.name;
             });
-            console.log($scope.house.amenities);
+            console.log($scope.house);
             houseService.saveHouse($scope.house)
                 .success(function(response) {
                     console.log("HOUSE IS SAVED");
@@ -73,7 +80,7 @@ define(['angular', 'jquery'], function(angular, $) {
             $scope.house.amenities = $scope.selection.map(function(amenity) {
                 return amenity.name;
             });
-
+            console.log($scope.house);
             houseService.saveHouse($scope.house)
                 .success(function(response) {
                     console.log("HOUSE IS UPDATED");

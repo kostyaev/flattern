@@ -102,37 +102,25 @@ define(['angular'], function(angular) {
         }
     });
 
-    mod.directive('select', function () {
-        return {
-            // Restrict it to be an attribute in this case
-            restrict: 'E',
-            // responsible for registering DOM listeners as well as updating the DOM
-            link: function(scope, el, attrs) {
-                console.log("draw selects");
-                el.selectpicker();
-                el.change(function() {
-                    if ($(this).val() != '') {
-                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
-                    }else {
-                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
-                    }
-                });
-            }
-        }
-    });
-
-//    //FIXME
-//    mod.directive('icheck', function () {
+//    mod.directive('select', ['$timeout', function(timeout) {
 //        return {
 //            // Restrict it to be an attribute in this case
-//            restrict: 'A',
+//            restrict: 'E',
 //            // responsible for registering DOM listeners as well as updating the DOM
 //            link: function(scope, el, attrs) {
-//                console.log("draw checkboxes");
-//                el.iCheck();
+//                //scope.$watch('enums', function() {
+//                console.log("draw selects");
+//                el.selectpicker();
+//                el.change(function () {
+//                    if ($(this).val() != '') {
+//                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
+//                    } else {
+//                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
+//                    }
+//                });
 //            }
 //        }
-//    });
+//    }]);
 
     mod.directive('iCheck', function($timeout, $parse) {
         return {

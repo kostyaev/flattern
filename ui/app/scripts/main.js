@@ -45,7 +45,8 @@ require.config({
         'magnific-popup': '../components/magnific-popup/dist/jquery.magnific-popup',
         'fitvids': '../components/fitvids/jquery.fitvids',
         'angular-scroll': '../components/angular-scroll/angular-scroll',
-        'fileinput': '../components/bootstrap-fileinput/js/fileinput.min'
+        'fileinput': '../components/bootstrap-fileinput/js/fileinput.min',
+        'nya-bootstrap-select': '../components/nya-bootstrap-select/src/nya-bootstrap-select'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -93,7 +94,8 @@ require.config({
         'magnific-popup': ['jquery'],
         'fitvids': ['jquery'],
         'angular-scroll': ['angular'],
-        'fileinput': ['jquery', 'bootstrap']
+        'fileinput': ['jquery', 'bootstrap'],
+        'nya-bootstrap-select': ['angular', 'bootstrap-select']
     },
     priority: [
         'angular'
@@ -146,7 +148,8 @@ require([
         'magnific-popup',
         'fitvids',
         'angular-scroll',
-        'fileinput'
+        'fileinput',
+        'nya-bootstrap-select'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

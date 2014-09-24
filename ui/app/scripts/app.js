@@ -10,6 +10,7 @@ define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i
             'flattern.company',
             'flattern.template',
             'flattern.general',
-            'flattern.i18n'
+            'flattern.i18n',
+            'nya.bootstrap.select'
         ]);
 });

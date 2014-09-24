@@ -3,7 +3,6 @@ package controllers
 
 import beans.HouseBean
 import com.github.tototoshi.play2.json4s.jackson._
-import dto.Empty
 import dto.house.HouseEnums.{Amenity, HouseType, RentType}
 import dto.house._
 import models.{House, Page}
@@ -13,32 +12,15 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 import securesocial.core.SecureSocial
-import utils.EnumUtils
 
 import scala.util.{Failure, Success, Try}
 
 object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s {
 
-  //Enums
-  implicit val houseTypeFormat = EnumUtils.enumFormat(HouseType)
-  implicit val rentTypeFormat = EnumUtils.enumFormat(RentType)
-  implicit val amenityFormat = EnumUtils.enumFormat(Amenity)
-//
-//  //Case classes
-  implicit val houseGeneralFormat = Json.format[House]
-  implicit val houseGeneralEmptyFormat = Json.format[Empty]
-  implicit val houseAddressFormat = Json.format[HouseAddress]
-  implicit val houseDescFormat = Json.format[HouseDesc]
-  implicit val houseConstantsFormat = Json.format[HouseConstants]
-  implicit val houseAmenitiesFormat = Json.format[HouseAmenities]
-  implicit val houseThumbnailFormat = Json.format[HouseThumbnail]
-//
-//
-//  implicit val houseFormat = Json.format[House]
-
   import org.json4s._
 
-  implicit val formats = DefaultFormats + FieldSerializer[House]() ++ JodaTimeSerializers.all + new EnumNameSerializer(HouseType) + new EnumNameSerializer(Amenity)
+  implicit val formats = DefaultFormats + FieldSerializer[House]() ++ JodaTimeSerializers.all +
+                         new EnumNameSerializer(HouseType) + new EnumNameSerializer(RentType) + new EnumNameSerializer(Amenity)
 
   implicit def pageFormat[T : Format]: Format[Page[T]] = (
     (__ \ "items").format[List[T]] ~
