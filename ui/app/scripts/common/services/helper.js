@@ -163,11 +163,10 @@ define(['angular'], function(angular) {
                 $('#longitude').val( this.position.lng() );
             });
 
-            // TODO: Autocomplete
-            //var input = /** @type {HTMLInputElement} */( document.getElementById('address-map') );
-            //var autocomplete = new google.maps.places.Autocomplete(input);
-            //autocomplete.bindTo('bounds', map);
-            /*google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var input = /** @type {HTMLInputElement} */( document.getElementById('address-map') );
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     return;
@@ -183,14 +182,14 @@ define(['angular'], function(angular) {
                 $('#latitude').val( marker.getPosition().lat() );
                 $('#longitude').val( marker.getPosition().lng() );
                 var address = '';
-                *//*if (place.address_components) {
+                if (place.address_components) {
                     address = [
                         (place.address_components[0] && place.address_components[0].short_name || ''),
                         (place.address_components[1] && place.address_components[1].short_name || ''),
                         (place.address_components[2] && place.address_components[2].short_name || '')
                     ].join(' ');
-                }*//*
-            });*/
+                }
+            });
 
             //google.maps.event.addDomListener(window, 'load', initSubmitMap(_latitude,_longitude));
 
@@ -208,6 +207,7 @@ define(['angular'], function(angular) {
         }
 
         $('.geo-location').on("click", function() {
+            console.log("geo location clicked");
             if (navigator.geolocation) {
                 $('#submit-map').addClass('fade-map');
                 navigator.geolocation.getCurrentPosition(successSubmit);

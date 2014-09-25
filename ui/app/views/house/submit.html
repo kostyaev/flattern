@@ -50,7 +50,7 @@
                                     <header><h2>Summary</h2></header>
                                     <div class="form-group">
                                         <label for="submit-location">Location</label>
-                                        <select name="type" id="submit-location">
+                                        <select nya-selectpicker ng-model="model" name="type" id="submit-location">
                                             <option value="1">New York</option>
                                             <option value="2">Los Angeles</option>
                                             <option value="3">Chicago</option>
@@ -70,10 +70,8 @@
                                         </div><!-- /.col-md-6 -->
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="submit-status">Status</label>
-                                                <select name="type" id="submit-status">
-                                                    <option value="1">Sale</option>
-                                                    <option value="2">Rent</option>
+                                                <label for="submit-rent-type" translate>RENT_TYPE</label>
+                                                <select nya-selectpicker ng-model="model" title="{{'SELECT_ONE' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
                                                 </select>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->

@@ -102,26 +102,6 @@ define(['angular'], function(angular) {
         }
     });
 
-//    mod.directive('select', ['$timeout', function(timeout) {
-//        return {
-//            // Restrict it to be an attribute in this case
-//            restrict: 'E',
-//            // responsible for registering DOM listeners as well as updating the DOM
-//            link: function(scope, el, attrs) {
-//                //scope.$watch('enums', function() {
-//                console.log("draw selects");
-//                el.selectpicker();
-//                el.change(function () {
-//                    if ($(this).val() != '') {
-//                        $('.form-search .bootstrap-select.open').addClass('selected-option-check');
-//                    } else {
-//                        $('.form-search  .bootstrap-select.open').removeClass('selected-option-check');
-//                    }
-//                });
-//            }
-//        }
-//    }]);
-
     mod.directive('iCheck', function($timeout, $parse) {
         return {
             link: function($scope, element, $attrs) {
