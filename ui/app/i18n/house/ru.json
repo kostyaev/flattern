@@ -1,19 +1,5 @@
 {
-    "TITLE": "Привет!!!",
-    "FOO FOO": "Это параграф",
 
-    "SAVE": "Сохранить",
-    "CANCEL": "Отменить",
-
-    "HOUSE_TYPE": "Тип жилья",
-    "RENT_TYPE": "Тип аренды",
-    "PRICE": "Цена",
-
-    "HOUSE_TITLE": "Краткий заголовок",
-    "HOUSE_DESC": "Описание",
-
-    "CITY": "Город",
-    "COUNTRY": "Страна",
     "STREET": "Улица",
     "BUILDING": "Дом",
     "HOUSING": "Корпус",
@@ -43,7 +29,30 @@
     "FAMILY_ALLOWED": "Можно с семьей",
     "SMOKING_ALLOWED": "Разрешено курить",
 
-    "PROPERTY_TYPE" : "Тип жилья",
+    "Property type" : "Тип жилья",
+    "Rent type" : "Тип аренды",
 
-    "SELECT_ONE": "Выберите вариант"
+    "Select one": "Выберите вариант",
+    "Describe your house": "Опишите ваше жилье",
+    "Basic info": "Основная информация",
+    "Title": "Заголовок",
+    "Price": "Цена",
+    "Description": "Описание",
+    "General info": "Общая информация",
+    "Rooms count": "Количество комнат",
+    "Area": "Площадь жилья",
+    "Get My Position": "Определить мое местоположение",
+    "Address": "Адрес",
+    "Gallery": "Галерея",
+    "Property Features": "Удобства",
+    "Add property": "Добавить жилье",
+    "Place on Map": "Отметьте адрес на карте",
+    "Basic info hint": "Дайте небольшое описание вашего жилья",
+    "Basic info hint description": "Заголовок и описание это первое, на что обратят внимание пользователи",
+    "General info hint": "Заполните необходимое поля и укажите местоположение жилья на карте",
+    "General info hint description": "Здесь должна быть подсказка"
+
+
+
+
 }

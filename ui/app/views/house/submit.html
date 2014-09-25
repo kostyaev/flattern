@@ -11,24 +11,25 @@
 <!-- end Breadcrumb -->
 
 <div class="container">
-<header><h1>Add Your Property</h1></header>
+<header><h1 translate>Describe your house</h1></header>
 <form role="form" id="form-submit" class="form-submit" ng-submit="saveHouse()">
+
 <div class="row">
     <div class="block">
         <div class="col-md-9 col-sm-9">
             <section id="submit-form">
                 <section id="basic-information">
-                    <header><h2>Basic Information</h2></header>
+                    <header><h2 translate>Basic info</h2></header>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="submit-title">Title</label>
+                                <label for="submit-title" translate>Title</label>
                                 <input type="text" class="form-control" ng-model="house.title" id="submit-title" name="title" required>
                             </div><!-- /.form-group -->
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="submit-price">Price</label>
+                                <label for="submit-price" translate>Price</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
                                     <input type="text" class="form-control" ng-model="house.price" id="submit-price" name="price" pattern="\d*" required>
@@ -37,32 +38,44 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="submit-description">Description</label>
+                        <label for="submit-description" translate>Description</label>
                         <textarea class="form-control" id="submit-description" rows="8" ng-model="house.description" name="submit-description" required></textarea>
                     </div><!-- /.form-group -->
                 </section><!-- /#basic-information -->
 
+            </section>
+        </div><!-- /.col-md-9 -->
+
+        <div class="col-md-3 col-sm-3">
+            <aside class="submit-step">
+                <figure class="step-number">1</figure>
+                <div class="description">
+                    <h4 translate>Basic info hint</h4>
+                    <p translate>Basic info hint description </p>
+                </div>
+            </aside><!-- /.submit-step -->
+        </div><!-- /.col-md-3 -->
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="block">
+        <div class="col-md-9 col-sm-9">
+            <section id="submit-form">
                 <section>
                     <div class="row">
                         <div class="block clearfix">
                             <div class="col-md-6 col-sm-6">
                                 <section id="summary">
-                                    <header><h2>Summary</h2></header>
-                                    <div class="form-group">
-                                        <label for="submit-location">Location</label>
-                                        <select nya-selectpicker ng-model="model" name="type" id="submit-location">
-                                            <option value="1">New York</option>
-                                            <option value="2">Los Angeles</option>
-                                            <option value="3">Chicago</option>
-                                            <option value="4">Houston</option>
-                                            <option value="5">Philadelphia</option>
-                                        </select>
-                                    </div>
+                                    <header><h2 translate>General info</h2></header>
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="submit-property-type" translate>PROPERTY_TYPE</label>
-                                                <select nya-selectpicker name="type" title="{{'SELECT_ONE' | translate}}" ng-options="item | translate for item in constants.houseTypes" ng-model="house.houseType" id="submit-property-type">
+                                                <label for="submit-property-type" translate>Property type</label>
+                                                <select nya-selectpicker name="type" title="{{'Select one' | translate}}" ng-options="item | translate for item in constants.houseTypes" ng-model="house.houseType" id="submit-property-type">
 
                                                 </select>
                                             </div><!-- /.form-group -->
@@ -70,8 +83,8 @@
                                         </div><!-- /.col-md-6 -->
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="submit-rent-type" translate>RENT_TYPE</label>
-                                                <select nya-selectpicker ng-model="model" title="{{'SELECT_ONE' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
+                                                <label for="submit-rent-type" translate>Rent type</label>
+                                                <select nya-selectpicker ng-model="model" title="{{'Select one' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
                                                 </select>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->
@@ -79,34 +92,21 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="submit-Beds">Beds</label>
-                                                <input type="text" class="form-control" id="submit-Beds" name="Beds" pattern="\d*" required>
+                                                <label for="submit-rooms-count" translate>Rooms count</label>
+                                                <input type="text" class="form-control" id="submit-rooms-count" name="rooms-count" pattern="\d*" required>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <label for="submit-Baths">Baths</label>
-                                                <input type="text" class="form-control" id="submit-Baths" name="Baths" pattern="\d*" required>
-                                            </div><!-- /.form-group -->
-                                        </div><!-- /.col-md-6 -->
-                                    </div><!-- /.row -->
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="form-group">
-                                                <label for="submit-area">Area</label>
+                                                <label for="submit-area" translate>Area</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" ng-model="house.area" id="submit-area" name="area" pattern="\d*" required>
                                                     <span class="input-group-addon">m<sup>2</sup></span>
                                                 </div>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->
-                                        <div class="col-md-6 col-sm-6">
-                                            <div class="form-group">
-                                                <label for="submit-garages">Garages</label>
-                                                <input type="text" class="form-control" id="submit-garages" name="garages" pattern="\d*" required>
-                                            </div><!-- /.form-group -->
-                                        </div><!-- /.col-md-6 -->
                                     </div><!-- /.row -->
+
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" i-check>Allow user rating <i class="fa fa-question-circle tool-tip" tool-tip data-toggle="tooltip" data-placement="right" title="Users can give you a stars rating which is displayed in property detail"></i>
@@ -116,15 +116,14 @@
                             </div><!-- /.col-md-6 -->
                             <div class="col-md-6 col-sm-6">
                                 <section id="place-on-map">
-                                    <header class="section-title">
-                                        <h2>Place on Map</h2>
-                                        <span class="link-arrow geo-location">Get My Position</span>
-                                    </header>
+                                    <h2 translate>Place on Map</h2>
+                                    <p class="link-arrow geo-location" translate>Get My Position</p>
+                                    <br/>
                                     <div class="form-group">
-                                        <label for="address-map">Address</label>
+                                        <label for="address-map" translate>Address</label>
                                         <input type="text" class="form-control" id="address-map" name="address">
                                     </div><!-- /.form-group -->
-                                    <label for="address-map">Or drag the marker to property position</label>
+                                    <label for="address-map" translate>Or drag the marker to property position</label>
                                     <div map-submit id="submit-map"></div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -141,22 +140,67 @@
                                 </section><!-- /#place-on-map -->
                             </div><!-- /.col-md-6 -->
                         </div><!-- /.block -->
+
                     </div><!-- /.row -->
                 </section>
+            </section>
+        </div>
 
+
+        <div class="col-md-3 col-sm-3">
+            <aside class="submit-step">
+                <figure class="step-number">2</figure>
+                <div class="description">
+                    <h4 translate>General info hint</h4>
+                    <p translate>General info hint description </p>
+                </div>
+            </aside><!-- /.submit-step -->
+        </div><!-- /.col-md-3 -->
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="block">
+        <div class="col-md-9 col-sm-9">
+            <section id="submit-form">
                 <section class="block" id="gallery">
-                    <header><h2>Gallery</h2></header>
+                    <header><h2 translate>Gallery</h2></header>
                     <div class="center">
                         <div class="form-group">
                             <input id="file-upload" type="file" file-input="{showUpload:false, showCaption:false, showRemove:false, browseClass:'btn btn-default', browseLabel:'Browse Images'}" class="file" multiple="true" accept="image/jpeg,image/png">
-                            <figure class="note"><strong>Hint:</strong> You can upload all images at once!</figure>
+                            <figure class="note"><strong translate>Hint:</strong> <span translate>You can upload all images at once! </span></figure>
                         </div>
                     </div>
                 </section>
+            </section>
+        </div>
+
+        <div class="col-md-3 col-sm-3">
+            <aside class="submit-step">
+                <figure class="step-number">3</figure>
+                <div class="description">
+                    <h4 translate>Gallery hint</h4>
+                    <p translate>Gallery hint description </p>
+                </div>
+            </aside><!-- /.submit-step -->
+        </div><!-- /.col-md-3 -->
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="block">
+        <div class="col-md-9 col-sm-9">
+            <section id="submit-form">
 
                 <section id="property-features" class="block">
                     <section>
-                        <header><h2>Property Features</h2></header>
+                        <header><h2 translate>Property Features</h2></header>
                         <ul class="submit-features">
                             <li for="{{amenity.name}}" ng-repeat="amenity in amenities">
                                 <div class="checkbox"><label><input type="checkbox" i-check id="{{amenity.name}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" i-check value="{{amenity.name}}">{{amenity.name | translate}}</label></div>
@@ -170,36 +214,28 @@
         </div><!-- /.col-md-9 -->
         <div class="col-md-3 col-sm-3">
             <aside class="submit-step">
-                <figure class="step-number">1</figure>
+                <figure class="step-number">4</figure>
                 <div class="description">
-                    <h4>Enter Information About Property</h4>
-                    <p>Type information about your property. Be descriptive.
-                    </p>
+                    <h4 translate>Amenities hint</h4>
+                    <p translate>Amenities hint description </p>
                 </div>
             </aside><!-- /.submit-step -->
         </div><!-- /.col-md-3 -->
     </div>
-</div><!-- /.row -->
+</div>
+
+
 <div class="row">
     <div class="block">
         <div class="col-md-9 col-sm-9">
             <div class="center">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default large">Proceed to Payment</button>
+                    <button type="submit" class="btn btn-default large" translate>Add property</button>
                 </div><!-- /.form-group -->
                 <figure class="note block">By clicking the “Proceed to Payment” or “Submit” button you agree with our <a href="terms-conditions.html">Terms and conditions</a></figure>
             </div>
         </div>
-        <div class="col-md-3 col-sm-3">
-            <aside class="submit-step">
-                <figure class="step-number">2</figure>
-                <div class="description">
-                    <h4>Review Information and Proceed to Payment</h4>
-                    <p>Carefully check entered information and than click button to submit them.
-                    </p>
-                </div>
-            </aside><!-- /.submit-step -->
-        </div><!-- /.col-md-3 -->
+
     </div>
 </div>
 </form><!-- /#form-submit -->

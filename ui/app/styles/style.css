@@ -2903,7 +2903,7 @@ ul.list-links li a:hover {
 
 .submit-step {
     padding-left: 50px;
-    padding-top: 10px;
+    padding-top: 100px;
     position: relative;
 }
 .submit-step .step-number {
@@ -2913,7 +2913,7 @@ ul.list-links li a:hover {
     left: 0;
     width: 35px;
     position: absolute;
-    top: 0;
+    top: 90px;
     text-align: center;
     line-height: 35px;
 }
