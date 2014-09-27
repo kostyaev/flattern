@@ -50,7 +50,9 @@
     "Basic info hint": "Дайте небольшое описание вашего жилья",
     "Basic info hint description": "Заголовок и описание это первое, на что обратят внимание пользователи",
     "General info hint": "Заполните необходимое поля и укажите местоположение жилья на карте",
-    "General info hint description": "Здесь должна быть подсказка"
+    "General info hint description": "Здесь должна быть подсказка",
+
+    "Browse Images" : "Выбрать фото"
 
 
 
