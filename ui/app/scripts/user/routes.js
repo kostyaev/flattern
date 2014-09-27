@@ -42,7 +42,8 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                 .state('my-properties', {
                     parent: 'user',
                     url: '/my-properties',
-                    templateUrl: 'views/user/my-properties.html'
+                    templateUrl: 'views/user/my-properties.html',
+                    controller: controllers.PropertiesCtrl
                 })
         }]);
 

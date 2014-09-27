@@ -4,12 +4,9 @@
 define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
-
     var HouseCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('house');
         $translate.refresh();
-
-        $scope.houseTypes = ['DORM', 'HOUSE'];
 
         console.log("translate");
         $scope.getConstants = houseService.getConstants()
@@ -23,7 +20,7 @@ define(['angular', 'jquery'], function(angular, $) {
 
     };
 
-    var CreateCtrl = function ($scope, houseService, filterFilter) {
+    var CreateCtrl = function ($scope, houseService) {
         $scope.house = {id: 0, accountId: 1};
 
         console.log("create controller activated");

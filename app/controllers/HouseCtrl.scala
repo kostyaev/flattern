@@ -5,11 +5,9 @@ import beans.HouseBean
 import com.github.tototoshi.play2.json4s.jackson._
 import dto.house.HouseEnums.{Amenity, HouseType, RentType}
 import dto.house._
-import models.{House, Page}
+import models.House
 import org.json4s.ext.{EnumNameSerializer, JodaTimeSerializers}
 import play.api.Logger
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 import securesocial.core.SecureSocial
 
@@ -21,14 +19,6 @@ object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s 
 
   implicit val formats = DefaultFormats + FieldSerializer[House]() ++ JodaTimeSerializers.all +
                          new EnumNameSerializer(HouseType) + new EnumNameSerializer(RentType) + new EnumNameSerializer(Amenity)
-
-  implicit def pageFormat[T : Format]: Format[Page[T]] = (
-    (__ \ "items").format[List[T]] ~
-      (__ \ "page").format[Int] ~
-      (__ \ "pageSize").format[Int] ~
-      (__ \ "total").format[Int]
-    )(Page.apply, unlift(Page.unapply))
-
 
   def getConstants = Action {
     Ok(Extraction.decompose(HouseConstants())).as("application/json")
@@ -52,6 +42,10 @@ object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s 
         Ok(HouseBean.saveHouse(house).id.toString)
       case Failure(msg) => BadRequest(msg.getMessage)
     }
+  }
+
+  def getProperties = DBAction {
+    Ok(Extraction.decompose(HouseBean.getHouses)).as("application/json")
   }
 
 //  def createHouse = SecuredAction(ajaxCall = true) { implicit request =>

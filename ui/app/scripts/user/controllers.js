@@ -9,12 +9,25 @@ define(['angular'], function(angular) {
         $translate.refresh();
     };
 
+    var PropertiesCtrl = function ($scope, userService) {
+        userService.getProperties()
+            .success(function(response) {
+                $scope.properties = response;
+            })
+            .error(function (response) {
+                console.log("can't get properties");
+                console.log(response);
+            });
+    };
 
     UserCtrl.$inject = ['$scope', 'userService', '$translate', '$translatePartialLoader'];
 
+    PropertiesCtrl.$inject = ['$scope', 'userService'];
+
 
     return {
-        UserCtrl: UserCtrl
+        UserCtrl: UserCtrl,
+        PropertiesCtrl: PropertiesCtrl
     };
 
 });

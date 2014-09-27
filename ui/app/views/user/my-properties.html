@@ -45,14 +45,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr ng-repeat="prop in properties">
                                         <td class="image">
                                             <a href="property-detail.html"><img alt="" src="/images/properties/property-04.jpg"></a>
                                         </td>
                                         <td><div class="inner">
                                             <a href="property-detail.html"><h2>987 Cantebury Drive</h2></a>
                                             <figure>Golden Valley, MN 55427</figure>
-                                            <div class="tag price">$ 38,000</div>
+                                            <div class="tag price">$ {{prop.price}}</div>
                                         </div>
                                         </td>
                                         <td>20.05.2014</td>

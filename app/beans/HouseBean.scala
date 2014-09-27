@@ -23,6 +23,10 @@ object HouseBean extends PrimitiveTypeMode {
     houseDAO.get(houseId)
   }
 
+  def getHouses: List[House] = {
+    houseDAO.findAll()
+  }
+
 //  def updateHouseInfo(houseInfo: HouseInfo, house: House): House = {
 //    val updatedModel = houseInfo match {
 //      case dto: HouseGeneral => house.copy(
