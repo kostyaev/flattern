@@ -8,12 +8,12 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
         function($stateProvider)  {
             $stateProvider
                 .state('property', {
+                    abstract: true,
                     parent: 'main',
                     url: '/property',
                     template: '<div ui-view></div>',
                     controller: controllers.HouseCtrl
                 })
-
 
                 .state('submit', {
                     parent: 'property',
@@ -33,7 +33,6 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     templateUrl: 'views/house/property-detail.html'
                 })
 
-
                 .state('properties-listing', {
                     parent: 'main',
                     url: '/properties-listing',
@@ -49,8 +48,6 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     url: '/properties-listing-lines',
                     templateUrl: 'views/house/properties-listing-lines.html'
                 })
-
-
 
         }]);
 

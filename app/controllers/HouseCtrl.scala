@@ -43,6 +43,7 @@ object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s 
 
   def saveHouse = DBAction(json) { implicit request =>
     Logger.info("saving house")
+    Logger.info(request.body.toString)
     Try {
       request.body.extract[House]
     } match {

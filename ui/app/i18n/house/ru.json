@@ -1,34 +1,4 @@
 {
-
-    "STREET": "Улица",
-    "BUILDING": "Дом",
-    "HOUSING": "Корпус",
-
-
-    "APT": "Квартира",
-    "HOUSE": "Дом",
-    "DORM": "Общежитие",
-    "VILLA": "Вилла",
-
-    "ENTIRE_HOUSE": "Жилье целиком",
-    "ENTIRE_ROOM": "Отдельная комната",
-    "ROOM_PLACE": "Общая комната",
-
-    "FRIDGE": "Холодильник",
-    "TV": "Телевизор",
-    "CONDITIONER": "Кондиционер" ,
-    "INTERNET": "Интернет",
-    "WASHER": "Стиральная машина" ,
-    "HEATING": "Отопление",
-    "KITCHEN_FURNITURE": "Кухонная мебель",
-    "LIVING_FURNITURE": "Жилая мебель",
-    "TUB": "Ванна",
-    "SHOWER": "Душ",
-    "BALCONY": "Балкон",
-    "PETS_ALLOWED": "Можно с животными",
-    "FAMILY_ALLOWED": "Можно с семьей",
-    "SMOKING_ALLOWED": "Разрешено курить",
-
     "Property type" : "Тип жилья",
     "Rent type" : "Тип аренды",
 

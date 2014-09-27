@@ -32,7 +32,7 @@
                                 <label for="submit-price" translate>Price</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" class="form-control" ng-model="house.price" id="submit-price" name="price" pattern="\d*" required>
+                                    <input type="number" class="form-control" ng-model="house.price" id="submit-price" name="price" pattern="\d*" required>
                                 </div>
                             </div><!-- /.form-group -->
                         </div>
@@ -76,7 +76,6 @@
                                             <div class="form-group">
                                                 <label for="submit-property-type" translate>Property type</label>
                                                 <select nya-selectpicker name="type" title="{{'Select one' | translate}}" ng-options="item | translate for item in constants.houseTypes" ng-model="house.houseType" id="submit-property-type">
-
                                                 </select>
                                             </div><!-- /.form-group -->
 
@@ -84,7 +83,7 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="submit-rent-type" translate>Rent type</label>
-                                                <select nya-selectpicker ng-model="model" title="{{'Select one' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
+                                                <select nya-selectpicker title="{{'Select one' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
                                                 </select>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->
@@ -93,14 +92,14 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="submit-rooms-count" translate>Rooms count</label>
-                                                <input type="text" class="form-control" id="submit-rooms-count" name="rooms-count" pattern="\d*" required>
+                                                <input type="number" class="form-control" id="submit-rooms-count" name="rooms-count" pattern="\d*" required>
                                             </div><!-- /.form-group -->
                                         </div><!-- /.col-md-6 -->
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="submit-area" translate>Area</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" ng-model="house.area" id="submit-area" name="area" pattern="\d*" required>
+                                                    <input type="number" class="form-control" ng-model="house.area" id="submit-area" name="area" pattern="\d*" required>
                                                     <span class="input-group-addon">m<sup>2</sup></span>
                                                 </div>
                                             </div><!-- /.form-group -->
