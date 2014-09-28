@@ -1,0 +1,36 @@
+<section id="profile">
+    <header><h1>Amenities</h1></header>
+    <div class="account-profile">
+            <form role="form" id="form-submit" class="form-submit" ng-submit="saveHouse()">
+
+                <div class="row">
+                        <div class="col-md-9 col-sm-9">
+                            <section id="submit-form">
+                                <section id="property-features" class="block">
+                                    <section>
+                                        <ul class="submit-features">
+                                            <li for="{{amenity.name}}" ng-repeat="amenity in amenities">
+                                                <div class="checkbox"><label><input type="checkbox" i-check id="{{amenity.name}}" name="selectedAmenities[]" ng-model="amenity.selected" type="checkbox" i-check value="{{amenity.name}}">{{amenity.name | translate}}</label></div>
+                                            </li>
+
+                                        </ul>
+                                    </section>
+                                </section>
+                                <hr>
+                            </section>
+                        </div><!-- /.col-md-9 -->
+                        <div class="col-md-3 col-sm-3">
+                            <aside class="submit-step">
+                                <figure class="step-number">3</figure>
+                                <div class="description">
+                                    <h4 translate>Amenities hint</h4>
+                                    <p translate>Amenities hint description </p>
+                                </div>
+                            </aside><!-- /.submit-step -->
+                        </div><!-- /.col-md-3 -->
+                </div>
+
+            </form><!-- /#form-submit -->
+
+    </div><!-- /.account-profile -->
+</section><!-- /#profile -->

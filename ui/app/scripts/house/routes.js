@@ -49,6 +49,76 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     templateUrl: 'views/house/properties-listing-lines.html'
                 })
 
+
+                .state('property.profile', {
+                    abstract: true,
+                    url: '/settings',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/profile.html'
+                        },
+                        'sidebar@property.profile' : {
+                            templateUrl: 'views/house/profile/sidebar.html'
+                        }
+                    }
+                })
+                .state('property.profile.general', {
+                    url: '/general',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/sections/general.html',
+                            controller: controllers.GeneralCtrl
+                        },
+                        'section' : {
+                            template: 'General information'
+                        }
+                    }
+                })
+                .state('property.profile.basic', {
+                    url: '/basic',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/sections/basic.html'
+                        },
+                        'section' : {
+                            template: 'Basic information'
+                        }
+                    }
+                })
+                .state('property.profile.address', {
+                    url: '/address',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/sections/address.html'
+                        },
+                        'section' : {
+                            template: 'Address'
+                        }
+                    }
+                })
+                .state('property.profile.amenities', {
+                    url: '/amenities',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/sections/amenities.html'
+                        },
+                        'section' : {
+                            template: 'Amenities'
+                        }
+                    }
+                })
+                .state('property.profile.photos', {
+                    url: '/photos',
+                    views: {
+                        '' : {
+                            templateUrl: 'views/house/profile/sections/photos.html'
+                        },
+                        'section' : {
+                            template: 'Photos'
+                        }
+                    }
+                })
+
         }]);
 
     return mod;

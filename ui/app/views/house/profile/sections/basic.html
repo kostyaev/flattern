@@ -1,0 +1,75 @@
+<section id="profile">
+    <header><h1>Basic information</h1></header>
+    <div class="account-profile">
+        <form role="form" id="form-submit" class="form-submit" ng-submit="saveHouse()">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+                    <section id="submit-form">
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <section id="summary">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="submit-property-type" translate>Property type</label>
+                                                    <select nya-selectpicker name="type" title="{{'Select one' | translate}}" ng-options="item | translate for item in constants.houseTypes" ng-model="house.houseType" id="submit-property-type">
+                                                    </select>
+                                                </div><!-- /.form-group -->
+
+                                            </div><!-- /.col-md-6 -->
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="submit-rent-type" translate>Rent type</label>
+                                                    <select nya-selectpicker title="{{'Select one' | translate}}" name="type" ng-options="item | translate for item in constants.rentTypes" ng-model="house.rentType" id="submit-rent-type">
+                                                    </select>
+                                                </div><!-- /.form-group -->
+                                            </div><!-- /.col-md-6 -->
+                                        </div><!-- /.row -->
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="submit-rooms-count" translate>Rooms count</label>
+                                                    <input type="number" class="form-control" id="submit-rooms-count" name="rooms-count" pattern="\d*" required>
+                                                </div><!-- /.form-group -->
+                                            </div><!-- /.col-md-6 -->
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="submit-area" translate>Area</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" ng-model="house.area" id="submit-area" name="area" pattern="\d*" required>
+                                                        <span class="input-group-addon">m<sup>2</sup></span>
+                                                    </div>
+                                                </div><!-- /.form-group -->
+                                            </div><!-- /.col-md-6 -->
+                                        </div><!-- /.row -->
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" i-check>Allow user rating <i class="fa fa-question-circle tool-tip" tool-tip data-toggle="tooltip" data-placement="right" title="Users can give you a stars rating which is displayed in property detail"></i>
+                                            </label>
+                                        </div>
+                                    </section><!-- /#summary -->
+                                </div><!-- /.col-md-6 -->
+
+                            </div><!-- /.row -->
+                        </section>
+                    </section>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <aside class="submit-step">
+                        <figure class="step-number">2</figure>
+                        <div class="description">
+                            <h4 translate>General info hint</h4>
+                            <p translate>General info hint description </p>
+                        </div>
+                    </aside><!-- /.submit-step -->
+                </div><!-- /.col-md-3 -->
+            </div>
+
+
+        </form><!-- /#form-submit -->
+
+    </div><!-- /.account-profile -->
+</section><!-- /#profile -->
