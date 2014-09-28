@@ -1,7 +1,5 @@
 package models
 
-import dto.house.HouseEnums.HouseType.HouseType
-import dto.house.HouseEnums.RentType.RentType
 import org.joda.time.DateTime
 import org.squeryl.KeyedEntity
 import org.squeryl.annotations.Column
@@ -15,9 +13,9 @@ case class House( id: Long,
                   description : Option[String] = None,
                   price       : Option[Long] = None,
                   @Column("house_type")
-                  houseType: Option[HouseType] = None,
+                  houseType: Option[String],
                   @Column("rent_type")
-                  rentType: Option[RentType]  = None,
+                  rentType: Option[String],
                   area: Option[Double] = None,
                   @Column("address_id")
                   addressId: Option[Long] = None,

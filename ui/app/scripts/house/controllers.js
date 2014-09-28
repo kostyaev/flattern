@@ -58,8 +58,11 @@ define(['angular', 'jquery'], function(angular, $) {
     };
 
     var EditCtrl = function ($scope, houseService, $stateParams) {
+        console.log("edit ctrl")
         houseService.getHouse($stateParams.id).success(function (house) {
             $scope.house = house;
+            console.log("house is: ");
+            console.log(house);
             $scope.getConstants.then(function(constants) {
                 $scope.amenities = constants.amenities.map(function (amenity) {
                     var selected = $scope.house.amenities.indexOf(amenity) > -1;

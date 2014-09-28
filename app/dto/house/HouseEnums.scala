@@ -1,7 +1,5 @@
 package dto.house
 
-import utils.DBEnum
-
 object HouseEnums {
 
   val houseTypes = HouseType.values.toList
@@ -10,15 +8,15 @@ object HouseEnums {
 
   val amenities = Amenity.values.toList
 
-  object HouseType extends DBEnum {
+  object HouseType extends Enumeration {
     type HouseType = Value
-    val APT,
-    HOUSE,
-    DORM,
-    VILLA = Value
+    val APT = Value(1, "APT")
+    val HOUSE = Value(2, "HOUSE")
+    val DORM = Value(3, "DORM")
+    val VILLA = Value(4, "VILLA")
   }
 
-  object Amenity extends DBEnum {
+  object Amenity extends Enumeration {
     type Amenity = Value
     val LIVING_FURNITURE,
     KITCHEN_FURNITURE,
@@ -36,7 +34,7 @@ object HouseEnums {
     SMOKING_ALLOWED = Value
   }
 
-  object RentType extends DBEnum {
+  object RentType extends Enumeration {
     type RentType = Value
     val ENTIRE_HOUSE,
     ENTIRE_ROOM,

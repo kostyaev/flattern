@@ -52,10 +52,11 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
 
                 .state('property.profile', {
                     abstract: true,
-                    url: '/settings',
+                    url: '/:id/edit',
                     views: {
                         '' : {
-                            templateUrl: 'views/house/profile/profile.html'
+                            templateUrl: 'views/house/profile/profile.html',
+                            controller: controllers.EditCtrl
                         },
                         'sidebar@property.profile' : {
                             templateUrl: 'views/house/profile/sidebar.html'

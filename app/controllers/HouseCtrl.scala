@@ -26,7 +26,11 @@ object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s 
 
   def getHouse(id: Long) = DBAction {
       HouseBean.getHouse(id) match {
-        case Some(house) => Ok(Extraction.decompose(house)).as("application/json")
+        case Some(house) =>
+          Logger.info("got house from db: " + house.toString)
+          //val rentType = house.rentType.get
+          //val houseType = house.houseType.get
+          Ok(Extraction.decompose(house)).as("application/json")
         case None => BadRequest("NOT FOUND")
       }
   }
