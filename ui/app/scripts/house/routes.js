@@ -21,12 +21,6 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     templateUrl: 'views/house/submit.html',
                     controller: controllers.CreateCtrl
                 })
-                .state('property-edit', {
-                    parent: 'property',
-                    url: '/:id/edit',
-                    templateUrl: 'views/house/submit.html',
-                    controller: controllers.EditCtrl
-                })
                 .state('property-detail', {
                     parent: 'property',
                     url: '/:id/detail',
@@ -64,7 +58,7 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     }
                 })
                 .state('property.profile.general', {
-                    url: '/general',
+                    url: '',
                     views: {
                         '' : {
                             templateUrl: 'views/house/profile/sections/general.html',
