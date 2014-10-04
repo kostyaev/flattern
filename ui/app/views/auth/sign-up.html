@@ -1,18 +1,25 @@
-<div id="landing">
-    <div class="header-image">
+<content class="page-sub-page page-sign-in page-account">
+    <!-- Page Content -->
+    <div id="page-content">
+        <!-- Breadcrumb -->
         <div class="container">
-            <div class="auth-unit">
-                <h3 class="text-brand"><span class="glyphicon glyphicon-chevron-up"></span> flattern<span class="sec-brand">.org</span></h3>
-                <div ng-show="form.errors.message" class="alert alert-danger">
-                    {{ form.errors.message }}
-                </div>
-                <div class="auth-unit-top">
-                    <h3>Регистрация</h3>
-                </div>
-                <div class="auth-unit-inner">
-                    <form ng-controller="SignUpCtrl" ng-submit="signUp()" class="form-container" ng-init="getEmail()" ng-class='{"has-error": form.errors.message != null}'>
-                        <div class="form-group" id="firstName_field" ng-class='{"has-error": form.errors.firstName != null}'>
-                            <label for="firstName">Имя</label>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Sign In</li>
+            </ol>
+        </div>
+        <!-- end Breadcrumb -->
+
+        <div class="container">
+            <header><h1>Sign In</h1></header>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                    <div ng-show="form.errors.message" class="alert alert-danger">
+                        {{ form.errors.message }}
+                    </div>
+                    <form ng-controller="SignUpCtrl" ng-submit="signUp()" role="form" id="form-create-account" method="post" action="" form-autofill-fix>
+                        <div class="form-group" ng-class='{"has-error": form.errors.firstName != null}'>
+                            <label for="firstName">First Name</label>
                             <input id="firstName"
                                    name="firstName"
                                    ng-model="form.firstName"
@@ -20,8 +27,8 @@
                                    required="true" class="form-control">
                             <label ng-show="form.errors.firstName" class="control-label animate-show" for="firstName">{{ form.errors.firstName[0] }}</label>
                         </div>
-                        <div class="form-group" id="lastName_field" ng-class='{"has-error": form.errors.lastName != null}'>
-                            <label for="lastName">Фамилия</label>
+                        <div class="form-group" ng-class='{"has-error": form.errors.lastName != null}'>
+                            <label for="lastName">Last Name</label>
                             <input id="lastName"
                                    name="lastName"
                                    ng-model="form.lastName"
@@ -29,8 +36,8 @@
                                    required="true" class="form-control">
                             <label ng-show="form.errors.lastName" class="control-label animate-show" for="lastName">{{ form.errors.lastName[0] }}</label>
                         </div>
-                        <div class="form-group" id="password_password1_field" ng-class='{"has-error": form.errors.password.password1 != null}'>
-                            <label for="password.password1">Пароль</label>
+                        <div class="form-group" ng-class='{"has-error": form.errors.password.password1 != null}'>
+                            <label for="password.password1">Password</label>
                             <input id="password.password1"
                                    name="password.password1"
                                    ng-model="form.password.password1"
@@ -38,8 +45,8 @@
                                    required="true" class="form-control">
                             <label ng-show="form.errors.password.password1" class="control-label animate-show" for="lastName">{{ form.errors.password.password1[0] }}</label>
                         </div>
-                        <div class="form-group" id="password_password2_field" ng-class='{"has-error": form.errors.password.password2 != null}'>
-                            <label for="password.password2">Подтверждение пароля</label>
+                        <div class="form-group" ng-class='{"has-error": form.errors.password.password2 != null}'>
+                            <label for="password.password2">Confirm Password</label>
                             <input id="password.password2"
                                    name="password.password2"
                                    ng-model="form.password.password2"
@@ -48,13 +55,16 @@
                             <label ng-show="form.errors.password.password2" class="control-label animate-show" for="lastName">{{ form.errors.password.password2[0] }}</label>
 
                         </div>
-                        <button id="message_trigger_ok" class="btn btn-block btn-success" type="submit">Создать аккаунт</button>
+                        <div class="form-group clearfix">
+                            <button type="submit" class="btn pull-right btn-default" id="account-submit">Sign to My Account</button>
+                        </div>
                     </form>
+                    <hr>
+                    <div class="center"><a href="#">I don't remember my password</a></div>
                 </div>
-                <br>
-                <a href="#/login" class="btn btn-primary btn-block btn-lg">Вход</a>
-            </div>
-        </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
     </div>
-    <!-- /header-image -->
-</div>
+    <!-- end Page Content -->
+
+</content>

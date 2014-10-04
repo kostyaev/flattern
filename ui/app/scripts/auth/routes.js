@@ -24,14 +24,6 @@ define(['angular', './controllers'], function(angular, controllers) {
                         authorizedRoles: [USER_ROLES.guest]
                     }
                 })
-                .state('login', {
-                    url: '/login',
-                    templateUrl: 'views/auth/login.html',
-                    controller:controllers.LoginCtrl,
-                    data: {
-                        authorizedRoles: [USER_ROLES.guest]
-                    }
-                })
                 .state('logout', {
                     url: '/logout',
                     templateUrl: 'views/auth/login.html',
@@ -66,7 +58,7 @@ define(['angular', './controllers'], function(angular, controllers) {
                 })
                 .state('signup-start', {
                     url: '/signup',
-                    templateUrl: 'views/auth/signup-start.html',
+                    templateUrl: 'views/auth/sign-up-start.html',
                     controller:controllers.SignUpCtrl,
                     data: {
                         authorizedRoles: [USER_ROLES.guest]
@@ -74,7 +66,7 @@ define(['angular', './controllers'], function(angular, controllers) {
                 })
                 .state('signup', {
                     url: '/signup/:token',
-                    templateUrl: 'views/auth/signup.html',
+                    templateUrl: 'views/auth/sign-up.html',
                     controller:controllers.SignUpCtrl,
                     data: {
                         authorizedRoles: [USER_ROLES.guest]
