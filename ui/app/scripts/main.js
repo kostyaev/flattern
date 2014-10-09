@@ -46,7 +46,9 @@ require.config({
         'fitvids': '../components/fitvids/jquery.fitvids',
         'angular-scroll': '../components/angular-scroll/angular-scroll',
         'fileinput': '../components/bootstrap-fileinput/js/fileinput.min',
-        'nya-bootstrap-select': '../components/nya-bootstrap-select/src/nya-bootstrap-select'
+        'nya-bootstrap-select': '../components/nya-bootstrap-select/src/nya-bootstrap-select',
+        'angular-deckgrid': '../components/angular-deckgrid/angular-deckgrid',
+        'angular-masonry-grid': '../components/angular-masonry-fly/angular-masonry'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -95,7 +97,8 @@ require.config({
         'fitvids': ['jquery'],
         'angular-scroll': ['angular'],
         'fileinput': ['jquery', 'bootstrap'],
-        'nya-bootstrap-select': ['angular', 'bootstrap-select']
+        'nya-bootstrap-select': ['angular', 'bootstrap-select'],
+        'angular-deckgrid': ['angular']
     },
     priority: [
         'angular'
@@ -149,7 +152,8 @@ require([
         'fitvids',
         'angular-scroll',
         'fileinput',
-        'nya-bootstrap-select'
+        'nya-bootstrap-select',
+        'angular-deckgrid'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

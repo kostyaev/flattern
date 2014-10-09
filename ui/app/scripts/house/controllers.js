@@ -17,6 +17,18 @@ define(['angular', 'jquery'], function(angular, $) {
                 return response.data;
             });
 
+        $scope.images = [
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"},
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"},
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"}
+        ];
+
 
     };
 

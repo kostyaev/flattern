@@ -11,6 +11,7 @@ define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i
             'flattern.template',
             'flattern.general',
             'flattern.i18n',
-            'nya.bootstrap.select'
+            'nya.bootstrap.select',
+            'akoenig.deckgrid'
         ]);
 });
