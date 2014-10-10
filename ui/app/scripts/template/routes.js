@@ -75,18 +75,6 @@ define(['angular', './controllers'], function(angular, controllers) {
                     url: '/shortcodes',
                     templateUrl: 'views/template/shortcodes.html'
                 })
-                .state('sign-in', {
-                    parent: 'main',
-                    url: '/sign-in',
-                    views: {
-                        '' : {
-                            templateUrl: 'views/template/sign-in.html'
-                        },
-                        'footer' : {
-                            templateUrl: 'views/general/footer-min.html'
-                        }
-                    }
-                })
                 .state('sticky-footer', {
                     parent: 'main',
                     url: '/sticky-footer',

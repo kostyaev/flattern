@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-    packages: ['common', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'],
+    packages: ['common', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n', 'auth'],
     paths: {
         'angular': '../components/angular/angular',
         'angular-route': '../components/angular-route/angular-route',

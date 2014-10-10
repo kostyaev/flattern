@@ -3,12 +3,16 @@ package models
 
 import org.squeryl.KeyedEntity
 import org.joda.time.DateTime
+import org.squeryl.annotations._
 
 case class SecureSocialToken( uuid: String,
                               email: String,
-                              creation_time: DateTime,
-                              expiration_time: DateTime,
-                              is_signup: Boolean
+                              @Column("creation_time")
+                              creationTime: DateTime,
+                              @Column("expiration_time")
+                              expirationTime: DateTime,
+                              @Column("is_signup")
+                              isSignup: Boolean
 ) extends KeyedEntity[String] {
   def id: String = uuid
 }

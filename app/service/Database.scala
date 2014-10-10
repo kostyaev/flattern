@@ -24,11 +24,13 @@ object Database extends Schema {
   val userTable = table[User]("user")
 
   val accountToOAuth1Info = oneToManyRelation(accountTable, oauth1InfoTable).
-    via((account, oauth1info) => account.id === oauth1info.account_id)
+    via((account, oauth1info) => account.id === oauth1info.accountId)
   val accountToOAuth2Info = oneToManyRelation(accountTable, oauth2InfoTable).
-    via((account, oauth2Info) => account.id === oauth2Info.account_id)
+    via((account, oauth2Info) => account.id === oauth2Info.accountId)
   val accountToPasswordInfo = oneToManyRelation(accountTable, passwordInfoTable).
-    via((account, passwordInfo) => account.id === passwordInfo.account_id)
+    via((account, passwordInfo) => account.id === passwordInfo.accountId)
+ /* val accountToUser = oneToManyRelation(accountTable, userTable).
+    via((account, user) => account.userId === user.id)*/
 
   val houseToPhoto = oneToManyRelation(houseTable, housePhotoTable).via((house, photo) => house.id === photo.houseId)
 

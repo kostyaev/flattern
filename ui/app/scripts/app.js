@@ -1,4 +1,4 @@
-define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n'], function (angular) {
+define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i18n', 'auth'], function (angular) {
     'use strict';
 
     return angular
@@ -11,6 +11,7 @@ define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i
             'flattern.template',
             'flattern.general',
             'flattern.i18n',
+            'flattern.auth',
             'nya.bootstrap.select',
             'akoenig.deckgrid',
             'angularFileUpload'

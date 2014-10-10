@@ -8,10 +8,18 @@ define(['angular', './controllers'], function(angular, controllers) {
     mod.config(['$stateProvider', 'USER_ROLES',
         function($stateProvider, USER_ROLES)  {
             $stateProvider
-                .state('login', {
-                    url: '/login',
-                    templateUrl: 'views/auth/login.html',
+                .state('sign-in', {
+                    parent: 'main',
+                    url: '/sign-in',
                     controller:controllers.LoginCtrl,
+                    views: {
+                        '' : {
+                            templateUrl: 'views/auth/sign-in.html'
+                        },
+                        'footer' : {
+                            templateUrl: 'views/general/footer-min.html'
+                        }
+                    },
                     data: {
                         authorizedRoles: [USER_ROLES.guest]
                     }
@@ -50,7 +58,7 @@ define(['angular', './controllers'], function(angular, controllers) {
                 })
                 .state('signup-start', {
                     url: '/signup',
-                    templateUrl: 'views/auth/signup-start.html',
+                    templateUrl: 'views/auth/sign-up-start.html',
                     controller:controllers.SignUpCtrl,
                     data: {
                         authorizedRoles: [USER_ROLES.guest]
@@ -58,7 +66,7 @@ define(['angular', './controllers'], function(angular, controllers) {
                 })
                 .state('signup', {
                     url: '/signup/:token',
-                    templateUrl: 'views/auth/signup.html',
+                    templateUrl: 'views/auth/sign-up.html',
                     controller:controllers.SignUpCtrl,
                     data: {
                         authorizedRoles: [USER_ROLES.guest]

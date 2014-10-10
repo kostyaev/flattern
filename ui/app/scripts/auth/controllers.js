@@ -15,13 +15,16 @@ define(['angular'], function(angular) {
 
     var SignUpCtrl = function ($scope, authServices, $state, $stateParams) {
         $scope.form = $scope.form || {};
+        $scope.$parent.form = $scope.$parent.form || {};
+        $scope.$parent.form.errors = $scope.$parent.form.errors || {};
+
         $scope.sendEmail = function () {
             authServices.sendEmail($scope.form)
                 .success(function () {
                     $scope.form.errors.infomessage =
                         'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту';
 
-                    $state.go('login');
+                    $state.go('sign-in');
                 })
                 .error(function (response) {
                     $scope.form.errors = response;
@@ -31,7 +34,7 @@ define(['angular'], function(angular) {
         $scope.signUp = function () {
             authServices.signUp($scope.form, $stateParams.token)
                 .success(function () {
-                    $state.go('login');
+                    $state.go('sign-in');
                 })
                 .error(function (response) {
                     $scope.form.errors = response;
@@ -44,6 +47,7 @@ define(['angular'], function(angular) {
 
     var LoginCtrl = function ($scope, $rootScope, authServices, $state, authService, AUTH_EVENTS, USER_ROLES, Session) {
         $scope.form = $scope.form || {};
+        $scope.$parent.form = $scope.$parent.form || {};
         $scope.login = function () {
             authServices.login($scope.form)
                 .success(function (response) {
@@ -52,7 +56,7 @@ define(['angular'], function(angular) {
                 })
                 .error(function (response) {
                     authService.loginCancelled();
-                    $scope.form.errors = response;
+                    $scope.$parent.form.errors = response;
                 });
         };
 
@@ -60,11 +64,11 @@ define(['angular'], function(angular) {
             authServices.logout()
                 .success(function () {
                     authService.loginCancelled();
-                    $state.go('login');
+                    $state.go('sign-in');
                 })
                 .error(function (response) {
                     authService.loginCancelled();
-                    $state.go('login');
+                    $state.go('sign-in');
                 })
         };
     };
@@ -77,14 +81,14 @@ define(['angular'], function(angular) {
                     errors: { infomessage: 'Вы усепшно вышли из системы'}
                 };
                 authService.loginCancelled();
-                $state.go('login');
+                $state.go('sign-in');
             })
             .error(function (response) {
                 $scope.form = {
                     errors: { message: 'Произошла ошибка при выполнении операции, обратитесь в техническую поддержку'}
                 };
                 authService.loginCancelled();
-                $state.go('login');
+                $state.go('sign-in');
             });
     };
     LogoutCtrl.$inject = ['$scope', '$rootScope', 'authServices', '$state', 'authService', 'AUTH_EVENTS', 'USER_ROLES', 'Session'];
@@ -99,7 +103,7 @@ define(['angular'], function(angular) {
                     $rootScope.$broadcast(AUTH_EVENTS.loginMessage, {
                         infomessage: 'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту'
                     });
-                    $state.go('login');
+                    $state.go('sign-in');
                 })
                 .error(function (response) {
                     $scope.form.errors = response;
@@ -114,7 +118,7 @@ define(['angular'], function(angular) {
                         $scope.form.errors = { message: "23123123" };
                         //$rootScope.$broadcast(AUTH_EVENTS.loginMessage, { message: "lul" } )
                     } else {
-                        $state.go('login');
+                        $state.go('sign-in');
                     }
                 })
                 .error(function (response) {
@@ -122,9 +126,6 @@ define(['angular'], function(angular) {
                     $scope.form.errors = response;
                     if (response['password'])
                         $scope.form.errors['message'] = response['password.password1'];
-
-
-
                 })
         };
 

@@ -31,7 +31,7 @@ define(['angular', './routes', './controllers', './services', '../common/service
 
 
     // uncomment to enble auth
-    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session, custom) {
+    mod.run(function ($rootScope, $state, $location, AUTH_EVENTS, USER_ROLES, authService, authServices, Session, layoutHelper) {
         $rootScope.userSession = Session.session;
         var history = [];
         $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -43,7 +43,7 @@ define(['angular', './routes', './controllers', './services', '../common/service
                     $rootScope.$scope.form = {
                         errors: { message: 'У вас недостаточно прав для просмотра данной страницы'}
                     };
-                    $state.go('login');
+                    $state.go('sign-in');
                 } else {
                     Session.create('', '', USER_ROLES.guest);
                     if (!authServices.isAuthorized(authorizedRoles)) {
@@ -59,7 +59,7 @@ define(['angular', './routes', './controllers', './services', '../common/service
                                 response.currentScope.form = {
                                     errors: { message: 'Для просмотра данной страницы необходимо авторизоваться'}
                                 };
-                                $state.go('login');
+                                $state.go('sign-in');
                             });
                     }
                 }
@@ -68,27 +68,27 @@ define(['angular', './routes', './controllers', './services', '../common/service
 
         $rootScope.$on('$stateChangeSuccess', function () {
             console.log('here')
-            custom.onStateChange();
+            layoutHelper.onStateChange();
         });
 
         $rootScope.$on(AUTH_EVENTS.loginRequired, function(response) {
             Session.create('', '', USER_ROLES.guest);
-            if($location.$$path !== '/login') {
+            if($location.$$path !== '/sign-in') {
                 response.currentScope.form = {
                     errors: { message: 'Для просмотра данной страницы необходимо авторизоваться'}
                 };
             }
-            $state.go('login');
+            $state.go('sign-in');
         });
 
         $rootScope.$on(AUTH_EVENTS.loginCancelled, function(response) {
             Session.create('', '', USER_ROLES.guest);
-            if($location.$$path !== '/login') {
+            if($location.$$path !== '/sign-in') {
                 response.currentScope.form = {
                     errors: { message: 'Для просмотра данной страницы необходимо авторизоваться'}
                 };
             }
-            $state.go('login');
+            $state.go('sign-in');
         });
 
         $rootScope.$on(AUTH_EVENTS.loginMessage, function(event, msg) {

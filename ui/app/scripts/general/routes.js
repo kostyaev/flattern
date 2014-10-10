@@ -4,8 +4,8 @@
 define(['angular', './controllers'], function(angular, controllers) {
     'use strict';
     var mod = angular.module('general.routes', []);
-    mod.config(['$stateProvider',
-        function($stateProvider)  {
+    mod.config(['$stateProvider', 'USER_ROLES',
+        function($stateProvider, USER_ROLES)  {
             $stateProvider
                 .state('main', {
                     abstract: true,
@@ -20,6 +20,9 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'footer@main': {
                             templateUrl: 'views/general/footer.html'
                         }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                     }
                 })
 
@@ -37,6 +40,9 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'footer@main-scroll-fixed-top': {
                             templateUrl: 'views/general/footer.html'
                         }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                     }
                 })
 
@@ -54,6 +60,9 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'footer@main-scroll-fixed-bottom': {
                             templateUrl: 'views/general/footer.html'
                         }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                     }
                 })
 
@@ -71,10 +80,19 @@ define(['angular', './controllers'], function(angular, controllers) {
                         'footer@main-scroll': {
                             templateUrl: 'views/general/footer.html'
                         }
+                    },
+                    data: {
+                        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                     }
                 })
-
-
         }]);
+
+    mod.constant('USER_ROLES', {
+        all   : '*',
+        admin : 'admin',
+        editor: 'editor',
+        guest : 'guest'
+    });
+
     return mod;
 });

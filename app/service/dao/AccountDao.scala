@@ -55,7 +55,7 @@ object AccountDao extends SquerylDao[Account, Long] {
     i.passwordInfo match {
       case Some(sspwi) => {
         Logger.info("Saving password info.")
-        Logger.info("Data: " + a.user_id + ", " + sspwi.hasher + ", " + sspwi.password + ", " +
+        Logger.info("Data: " + a.userId + ", " + sspwi.hasher + ", " + sspwi.password + ", " +
           sspwi.salt + ", ")
         val pwi = PasswordCredentialSet(0, a.id, sspwi.hasher, sspwi.password, sspwi.salt)
         PasswordCredentialSet.insert(pwi)
@@ -72,7 +72,7 @@ object AccountDao extends SquerylDao[Account, Long] {
 
   private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(table) {
     Logger.info("Constructing query for email " + email + ", social provider: " + sp)
-    a => where(a.email_address === email and a.auth_method === sp).select(a)
+    a => where(a.email === email and a.auth_method === sp).select(a)
   }
 
   private def findByAccountIdQ(id: Long): Query[Account] = from(table) {
@@ -80,11 +80,11 @@ object AccountDao extends SquerylDao[Account, Long] {
   }
 
   private def findByIdentityIdQ(uid: IdentityId): Query[Account] = from(table) {
-    account => where(account.user_id === uid.userId and
-      account.provider_id === uid.providerId).select(account)
+    account => where(account.userId === uid.userId and
+      account.providerId === uid.providerId).select(account)
   }
 
   private def removeQ(account: Account) = {
-    table.deleteWhere(a => account.user_id === a.user_id)
+    table.deleteWhere(a => account.userId === a.userId)
   }
 }

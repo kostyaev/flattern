@@ -5,9 +5,12 @@ import org.squeryl.dsl._
 import service._
 import SquerylEntryPoint._
 import org.squeryl.KeyedEntity
+import org.squeryl.annotations._
+import models.Account
 
 case class PasswordCredentialSet( id: Long,
-                                  account_id: Long,
+                                  @Column("account_id")
+                                  accountId: Long,
                                   hasher: String,
                                   password: String,
                                   salt: Option[String] = None

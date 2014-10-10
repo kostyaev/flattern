@@ -6,9 +6,12 @@ import org.squeryl.dsl._
 import service._
 import SquerylEntryPoint._
 import org.squeryl.KeyedEntity
+import org.squeryl.annotations._
+import models.Account
 
 case class OAuth1CredentialSet( id: Long,
-                                account_id: Long,
+                                @Column("account_id")
+                                accountId: Long,
                                 token: String,
                                 secret: String
 ) extends KeyedEntity[Long] {

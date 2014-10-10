@@ -1,0 +1,53 @@
+<content class="page-sub-page page-sign-in page-account">
+    <!-- Page Content -->
+    <div id="page-content">
+        <!-- Breadcrumb -->
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Sign In</li>
+            </ol>
+        </div>
+        <!-- end Breadcrumb -->
+
+        <div class="container">
+            <header><h1>Sign In</h1></header>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                    <div ng-show="form.errors.message" class="alert alert-danger animate-show">
+                        {{ form.errors.message }}
+                    </div>
+                    <div ng-show="form.errors.infomessage" class="alert alert-info animate-show">
+                        {{ form.errors.infomessage }}
+                    </div>
+                    <form ng-controller="LoginCtrl" ng-submit="login()" role="form" id="form-create-account" method="post" action="" form-autofill-fix>
+                        <div class="form-group" ng-class='{"has-error": form.errors.username != null}'>
+                            <label for="email">Email:</label>
+                            <input type="email"
+                                   class="form-control"
+                                   ng-model="form.username"
+                                   id="email" required>
+                            <label ng-show="form.errors.username" class="control-label animate-show" for="email">{{ form.errors.username[0] }}</label>
+                        </div><!-- /.form-group -->
+                        <div class="form-group" ng-class='{"has-error": form.errors.password != null}'>
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control"
+                                   id="password"
+                                   name="password"
+                                   ng-model="form.password"
+                                   required>
+                            <label ng-show="form.errors.password" class="control-label animate-show" for="password">{{ form.errors.password[0] }}</label>
+                        </div><!-- /.form-group -->
+                        <div class="form-group clearfix">
+                            <button type="submit" class="btn pull-right btn-default" id="account-submit">Sign to My Account</button>
+                        </div><!-- /.form-group -->
+                    </form>
+                    <hr>
+                    <div class="center"><a href="#">I don't remember my password</a></div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>
+    <!-- end Page Content -->
+
+</content>
