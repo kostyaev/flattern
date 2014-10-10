@@ -4,40 +4,121 @@
 define(['angular', 'jquery'], function(angular, $) {
     'use strict';
 
-    var LeftCtrl = function ($scope) {
-
-    };
-
-    var ContentCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
+    var HouseCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('house');
         $translate.refresh();
 
-        houseService.getConstants().success(function (data) {
-            $scope.constants = data;
-        });
-
-    };
-
-    var CreateCtrl = function (houseService) {
-        houseService.createHouse();
-    };
-
-    var GeneralCtrl = function ($scope, $stateParams, houseService, $state) {
-        houseService.getGeneral($stateParams.id)
-            .success(function (data) {
-                $scope.house = data;
-            })
-            .error(function (data) {
-                //$state.go('registered.home.houses');
-                $state.transitionTo('registered.home.houses');
-                //$location.path('/houses').replace();
+        console.log("translate");
+        $scope.getConstants = houseService.getConstants()
+            .then(function(response) {
+                console.log("constants received");
+                console.log(response);
+                $scope.constants = response.data;
+                return response.data;
             });
 
+        $scope.images = [
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"},
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"},
+            {id: 'p1', 'title': 'A nice day!', src: "http://lorempixel.com/300/400/"},
+            {id: 'p2', 'title': 'Puh!', src: "http://lorempixel.com/300/400/sports"},
+            {id: 'p3', 'title': 'What a club!', src: "http://lorempixel.com/300/400/nightlife"}
+        ];
 
 
-        $scope.save = function(generalInfo) {
-            houseService.saveGeneral($stateParams.id, generalInfo);
+    };
+
+    var CreateCtrl = function ($scope, houseService) {
+        $scope.house = {id: 0, accountId: 1};
+
+        console.log("create controller activated");
+        $scope.getConstants.then(function(constants) {
+            console.log(constants);
+            $scope.amenities = constants.amenities.map(function(amenity) {
+                return {name: amenity, selected: false}
+            });
+
+            console.log($scope.amenities);
+        });
+
+        $scope.selection = [];
+
+        $scope.$watch('amenities | filter:{selected:true}', function (data) {
+            $scope.selection = data;
+        }, true);
+
+
+        $scope.saveHouse = function() {
+            $scope.house.amenities = $scope.selection.map(function(amenity) {
+                return amenity.name;
+            });
+            console.log($scope.house);
+            houseService.saveHouse($scope.house)
+                .success(function(response) {
+                    console.log("HOUSE IS SAVED");
+                })
+                .error(function (response) {
+                    console.log(response);
+                });
+        };
+
+
+    };
+
+    var EditCtrl = function ($scope, houseService, $stateParams) {
+        console.log("edit ctrl")
+        houseService.getHouse($stateParams.id).success(function (house) {
+            $scope.house = house;
+            console.log("house is: ");
+            console.log(house);
+            $scope.getConstants.then(function(constants) {
+                $scope.amenities = constants.amenities.map(function (amenity) {
+                    var selected = $scope.house.amenities.indexOf(amenity) > -1;
+                    return {name: amenity, selected: selected}
+                });
+                $scope.selection = [];
+                // watch amenities for changes
+                $scope.$watch('amenities | filter:{selected:true}', function (data) {
+                    $scope.selection = data;
+                }, true);
+            });
+        });
+
+        $scope.save = function() {
+            $scope.house.amenities = $scope.selection.map(function(amenity) {
+                return amenity.name;
+            });
+            console.log($scope.house);
+            houseService.saveHouse($scope.house)
+                .success(function(response) {
+                    console.log("HOUSE IS UPDATED");
+                })
+                .error(function (response) {
+                    console.log(response);
+                });
         }
+
+
+    };
+
+
+    var ContentCtrl = function ($scope, houseService, $translate, $translatePartialLoader) {
+            $translatePartialLoader.addPart('house');
+            $translate.refresh();
+
+            houseService.getConstants().success(function (data) {
+                $scope.constants = data;
+            });
+
+        };
+
+
+    var GeneralCtrl = function ($scope, $stateParams, houseService, $state) {
+
 
     };
 
@@ -131,9 +212,10 @@ define(['angular', 'jquery'], function(angular, $) {
         }
     };
 
-    LeftCtrl.$inject = ['$scope'];
+    HouseCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
+    CreateCtrl.$inject = ['$scope', 'houseService', 'filterFilter'];
+    EditCtrl.$inject = ['$scope', 'houseService', '$stateParams'];
     ContentCtrl.$inject = ['$scope', 'houseService', '$translate', '$translatePartialLoader'];
-    CreateCtrl.$inject = ['houseService'];
     GeneralCtrl.$inject = ['$scope', '$stateParams', 'houseService', '$state'];
     AddressCtrl.$inject = ['$scope', '$stateParams', 'helper', '$translate', 'houseService', 'filterFilter'];
     DescCtrl.$inject = ['$scope', '$stateParams', 'houseService'];
@@ -141,9 +223,10 @@ define(['angular', 'jquery'], function(angular, $) {
     PhotosCtrl.$inject = ['$scope', '$stateParams'];
 
     return {
-        LeftCtrl: LeftCtrl,
-        ContentCtrl: ContentCtrl,
+        HouseCtrl: HouseCtrl,
         CreateCtrl: CreateCtrl,
+        EditCtrl: EditCtrl,
+        ContentCtrl: ContentCtrl,
         GeneralCtrl: GeneralCtrl,
         AddressCtrl: AddressCtrl,
         DescCtrl: DescCtrl,

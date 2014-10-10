@@ -27,31 +27,31 @@
                                         <div class="advanced-search">
                                             <header><h3>Property Features</h3></header>
                                             <ul class="submit-features">
-                                                <li><div class="checkbox"><label><input type="checkbox">Air conditioning</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Bedding</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Heating</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Internet</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Microwave</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Smoking allowed</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Use of pool</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Toaster</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Coffee pot</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Cable TV</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Parquet</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Roof terrace</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Terrace</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Balcony</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Iron</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Hi-Fi</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Beach</label></div></li>
-                                                <li><div class="checkbox"><label><input type="checkbox">Garage</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Air conditioning</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Bedding</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Heating</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Internet</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Microwave</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Smoking allowed</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Use of pool</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Toaster</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Coffee pot</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Cable TV</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Parquet</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Roof terrace</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Terrace</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Balcony</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Iron</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Hi-Fi</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Beach</label></div></li>
+                                                <li><div class="checkbox"><label><input type="checkbox" i-check>Garage</label></div></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-sale-country">
+                                                <select nya-selectpicker ng-model="model" name="form-sale-country">
                                                     <option value="">Country</option>
                                                     <option value="1">France</option>
                                                     <option value="2">Great Britain</option>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-sale-city">
+                                                <select nya-selectpicker ng-model="model" name="form-sale-city">
                                                     <option value="">City</option>
                                                     <option value="1">New York</option>
                                                     <option value="2">Los Angeles</option>
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-sale-district">
+                                                <select nya-selectpicker ng-model="model" name="form-sale-district">
                                                     <option value="">District</option>
                                                     <option value="1">Manhattan</option>
                                                     <option value="2">The Bronx</option>
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-sale-property-type">
+                                                <select nya-selectpicker ng-model="model" name="form-sale-property-type">
                                                     <option value="">Property Type</option>
                                                     <option value="1">Apartment</option>
                                                     <option value="2">Condominium</option>
@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-sale-price">
+                                                <select nya-selectpicker ng-model="model" name="form-sale-price">
                                                     <option value="">Price</option>
                                                     <option value="1">$10,000 +</option>
                                                     <option value="2">$50,000 +</option>
@@ -121,7 +121,7 @@
                                     <div class="row">
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-rent-city">
+                                                <select nya-selectpicker ng-model="model" name="form-rent-city">
                                                     <option value="">City</option>
                                                     <option value="1">New York</option>
                                                     <option value="2">Los Angeles</option>
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-rent-district">
+                                                <select nya-selectpicker ng-model="model" name="form-rent-district">
                                                     <option value="">District</option>
                                                     <option value="1">Manhattan</option>
                                                     <option value="2">The Bronx</option>
@@ -145,7 +145,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-rent-property-type">
+                                                <select nya-selectpicker ng-model="model" name="form-rent-property-type">
                                                     <option value="">Property Type</option>
                                                     <option value="1">Apartment</option>
                                                     <option value="2">Condominium</option>
@@ -157,7 +157,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-rent-payment">
+                                                <select nya-selectpicker ng-model="model" name="form-rent-payment">
                                                     <option value="">Payment</option>
                                                     <option value="1">Monthly</option>
                                                     <option value="2">Quarterly</option>
@@ -167,7 +167,7 @@
                                         </div>
                                         <div class="col-md-2 col-sm-4">
                                             <div class="form-group">
-                                                <select name="form-rent-price">
+                                                <select nya-selectpicker ng-model="model" name="form-rent-price">
                                                     <option value="">Price</option>
                                                     <option value="1">$100 +</option>
                                                     <option value="2">$500 +</option>

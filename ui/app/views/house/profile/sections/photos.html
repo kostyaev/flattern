@@ -1,0 +1,59 @@
+<section id="photos">
+    <header><h1>Photos</h1></header>
+
+    <form role="form" id="form-submit" class="form-submit" ng-submit="saveHouse()">
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <section id="submit-form">
+                    <div class="center">
+                        <div class="form-group">
+                            <input id="file-upload" type="file" file-input="{showUpload:true, showCaption:false, showRemove:false, browseClass:'btn btn-default', browseLabel:'Browse Images'}" class="file" multiple="true" accept="image/jpeg,image/png">
+                            <figure class="note"><strong translate>Hint:</strong> <span translate>You can upload all images at once! </span></figure>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <aside class="submit-step">
+                    <figure class="step-number">?</figure>
+                    <div class="description">
+                        <h4 translate>Gallery hint</h4>
+                        <p translate>Gallery hint description </p>
+                    </div>
+                </aside><!-- /.submit-step -->
+            </div><!-- /.col-md-3 -->
+        </div>
+    </form><!-- /#form-submit -->
+
+
+
+    <div class="row">
+        <div deckgrid class="deckgrid" source="images">
+            <div class="photo">
+                <a href="" data-ng-click="card.showIndex = !card.showIndex">
+                    <div class="photo-index" data-ng-if="card.showIndex">
+                        <p>The $index of the card is</p>
+
+                        <p class="balloon-wrapper">
+                            <span class="balloon">{{card.$index}}</span>
+                        </p>
+                    </div>
+
+                    <div class="photo-wrapper">
+                        <img src="" data-ng-src="{{card.src}}" >
+                    </div>
+
+
+                    <div class="photo-description">
+                        <h3>{{card.name}}</h3>
+                        <p>Nice photo, eh.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+</section><!-- /#profile -->

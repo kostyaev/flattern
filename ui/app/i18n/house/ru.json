@@ -1,33 +1,4 @@
 {
-    "TITLE": "Привет!!!",
-    "FOO FOO": "Это параграф",
-
-    "SAVE": "Сохранить",
-    "CANCEL": "Отменить",
-
-    "GENERAL_INFO": "Основная информация",
-    "ADDRESS": "Адрес",
-    "DESC": "Описание",
-    "AMENITIES": "Удобства",
-    "PHOTOS": "Фотографии",
-
-    "HOUSE_TYPE": "Тип жилья",
-    "RENT_TYPE": "Тип аренды",
-    "PRICE": "Цена",
-
-    "HOUSE_TITLE": "Краткий заголовок",
-    "HOUSE_DESC": "Описание",
-
-    "GENERAL_AMENITIES": "Основные удобства",
-    "ADDITIONAL_AMENITIES": "Дополнительно",
-
-    "CITY": "Город",
-    "COUNTRY": "Страна",
-    "STREET": "Улица",
-    "BUILDING": "Дом",
-    "HOUSING": "Корпус",
-
-
 
     "APT": "Квартира",
     "HOUSE": "Дом",
@@ -37,7 +8,6 @@
     "ENTIRE_HOUSE": "Жилье целиком",
     "ENTIRE_ROOM": "Отдельная комната",
     "ROOM_PLACE": "Общая комната",
-
 
     "FRIDGE": "Холодильник",
     "TV": "Телевизор",
@@ -52,5 +22,34 @@
     "BALCONY": "Балкон",
     "PETS_ALLOWED": "Можно с животными",
     "FAMILY_ALLOWED": "Можно с семьей",
-    "SMOKING_ALLOWED": "Разрешено курить"
+    "SMOKING_ALLOWED": "Разрешено курить",
+
+    "Property type" : "Тип жилья",
+    "Rent type" : "Тип аренды",
+
+    "Select one": "Выберите вариант",
+    "Describe your house": "Опишите ваше жилье",
+    "Basic info": "Основная информация",
+    "Title": "Заголовок",
+    "Price": "Цена",
+    "Description": "Описание",
+    "General info": "Общая информация",
+    "Rooms count": "Количество комнат",
+    "Area": "Площадь жилья",
+    "Get My Position": "Определить мое местоположение",
+    "Address": "Адрес",
+    "Gallery": "Галерея",
+    "Property Features": "Удобства",
+    "Add property": "Добавить жилье",
+    "Place on Map": "Отметьте адрес на карте",
+    "Basic info hint": "Дайте небольшое описание вашего жилья",
+    "Basic info hint description": "Заголовок и описание это первое, на что обратят внимание пользователи",
+    "General info hint": "Заполните необходимое поля и укажите местоположение жилья на карте",
+    "General info hint description": "Здесь должна быть подсказка",
+
+    "Browse Images" : "Выбрать фото"
+
+
+
+
 }

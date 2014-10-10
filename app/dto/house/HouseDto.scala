@@ -36,7 +36,6 @@ case class HouseThumbnail(  id          : Long,
                             title       : Option[String] = None,
                             address     : HouseAddress,
                             price       : Option[Long]   = None,
-                            photoId     : Option[Long]   = None,
                             views       : Int            = 0,
                             daysAgo     : Int            = 0
                            )

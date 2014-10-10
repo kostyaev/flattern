@@ -16,8 +16,12 @@ object ApplicationBuild extends Build {
     "com.chuusai" % "shapeless" % "2.0.0" cross CrossVersion.full,
     "com.sksamuel.scrimage" %% "scrimage-core" % "1.4.1",
     "com.sksamuel.scrimage" %% "scrimage-canvas" % "1.4.1",
-    "com.sksamuel.scrimage" %% "scrimage-filters" % "1.4.1"
+    "com.sksamuel.scrimage" %% "scrimage-filters" % "1.4.1",
+    "com.github.tototoshi" %% "play-json4s-jackson" % "0.3.0",
+    "org.json4s" % "json4s-ext_2.10" % "3.2.10"
   )
+  //    "org.json4s" %% "json4s-jackson" % "3.2.10",
+  //    "org.json4s" % "json4s-ext_2.10" % "3.2.10"
 
   val appSettings = Yeoman.yeomanSettings ++ Yeoman.withTemplates
 
