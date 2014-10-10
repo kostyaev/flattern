@@ -22,6 +22,8 @@ POST        /house                         controllers.HouseCtrl.saveHouse
 
 GET         /my-properties                 controllers.HouseCtrl.getProperties
 
+POST        /upload                        controllers.HouseCtrl.uploadPhoto
+
 
 
 # GET         /house/:id/general             controllers.HouseCtrl.getGeneral(id: Long)

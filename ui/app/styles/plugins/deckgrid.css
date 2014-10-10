@@ -90,7 +90,7 @@
     }
 
     .deckgrid[deckgrid]::before {
-        content: '4 .column.size-1-4';
+        content: '3 .column.size-1-3';
     }
 }
 

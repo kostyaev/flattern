@@ -1,8 +1,14 @@
 
 package beans
 
+import java.io.File
+
+import com.sksamuel.scrimage.{Format, ScaleMethod, Image}
+import global.Paths
 import models._
 import org.squeryl.PrimitiveTypeMode
+import play.api.libs.Files.TemporaryFile
+import play.api.mvc.MultipartFormData
 import service.dao._
 
 import scala.language.reflectiveCalls
@@ -25,6 +31,21 @@ object HouseBean extends PrimitiveTypeMode {
 
   def getHouses: List[House] = {
     houseDAO.findAll()
+  }
+
+  def savePhoto(picture: MultipartFormData.FilePart[TemporaryFile])  = {
+    val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + 666 + ".jpg")
+    val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + 666 + ".jpg")
+    Image(picture.ref.file)
+      .cover(300, 200, ScaleMethod.FastScale)
+      .writer(Format.JPEG)
+      .write(thumbnail)
+
+    Image(picture.ref.file)
+      .bound(2000, 1500)
+      .writer(Format.JPEG)
+      .write(photo)
+
   }
 
 //  def updateHouseInfo(houseInfo: HouseInfo, house: House): House = {

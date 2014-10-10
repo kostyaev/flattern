@@ -106,7 +106,8 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                     url: '/photos',
                     views: {
                         '' : {
-                            templateUrl: 'views/house/profile/sections/photos.html'
+                            templateUrl: 'views/house/profile/sections/photos.html',
+                            controller: controllers.PhotosCtrl
                         },
                         'section' : {
                             template: 'Photos'

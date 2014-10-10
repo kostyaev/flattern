@@ -48,7 +48,9 @@ require.config({
         'fileinput': '../components/bootstrap-fileinput/js/fileinput.min',
         'nya-bootstrap-select': '../components/nya-bootstrap-select/src/nya-bootstrap-select',
         'angular-deckgrid': '../components/angular-deckgrid/angular-deckgrid',
-        'angular-masonry-grid': '../components/angular-masonry-fly/angular-masonry'
+        'angular-masonry-grid': '../components/angular-masonry-fly/angular-masonry',
+        'angular-file-upload-shim': '../components/ng-file-upload/angular-file-upload-shim',
+        'angular-file-upload': '../components/ng-file-upload/angular-file-upload'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -98,7 +100,9 @@ require.config({
         'angular-scroll': ['angular'],
         'fileinput': ['jquery', 'bootstrap'],
         'nya-bootstrap-select': ['angular', 'bootstrap-select'],
-        'angular-deckgrid': ['angular']
+        'angular-deckgrid': ['angular'],
+        'angular-file-upload-shim': [],
+        'angular-file-upload': ['angular', 'angular-file-upload-shim']
     },
     priority: [
         'angular'
@@ -153,7 +157,8 @@ require([
         'angular-scroll',
         'fileinput',
         'nya-bootstrap-select',
-        'angular-deckgrid'
+        'angular-deckgrid',
+        'angular-file-upload'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

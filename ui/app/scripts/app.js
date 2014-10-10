@@ -12,6 +12,7 @@ define(['angular', 'home', 'user', 'house', 'company', 'template', 'general', 'i
             'flattern.general',
             'flattern.i18n',
             'nya.bootstrap.select',
-            'akoenig.deckgrid'
+            'akoenig.deckgrid',
+            'angularFileUpload'
         ]);
 });
