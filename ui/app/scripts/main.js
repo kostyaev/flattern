@@ -44,7 +44,11 @@ require.config({
         'jquery-raty': '../components/jquery-raty/lib/jquery.raty',
         'magnific-popup': '../components/magnific-popup/dist/jquery.magnific-popup',
         'fitvids': '../components/fitvids/jquery.fitvids',
-        'angular-scroll': '../components/angular-scroll/angular-scroll'
+        'angular-scroll': '../components/angular-scroll/angular-scroll',
+        'fileinput': '../components/bootstrap-fileinput/js/fileinput.min',
+        'nya-bootstrap-select': '../components/nya-bootstrap-select/src/nya-bootstrap-select',
+        'angular-deckgrid': '../components/angular-deckgrid/angular-deckgrid',
+        'angular-masonry-grid': '../components/angular-masonry-fly/angular-masonry'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
@@ -91,7 +95,10 @@ require.config({
         'scroll-reveal': [],
         'magnific-popup': ['jquery'],
         'fitvids': ['jquery'],
-        'angular-scroll': ['angular']
+        'angular-scroll': ['angular'],
+        'fileinput': ['jquery', 'bootstrap'],
+        'nya-bootstrap-select': ['angular', 'bootstrap-select'],
+        'angular-deckgrid': ['angular']
     },
     priority: [
         'angular'
@@ -143,7 +150,10 @@ require([
         'jquery-raty',
         'magnific-popup',
         'fitvids',
-        'angular-scroll'
+        'angular-scroll',
+        'fileinput',
+        'nya-bootstrap-select',
+        'angular-deckgrid'
     ],
     function(angular, app, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
         'use strict';

@@ -18,18 +18,18 @@
                     <form role="form" id="form-create-account" method="post" action="">
                         <div class="radio" id="create-account-user" agent-switch>
                             <label>
-                                <input type="radio" id="account-type-user" name="account-type" required>Regular User
+                                <input type="radio" i-check id="account-type-user" name="account-type" required>Regular User
                             </label>
                         </div>
                         <div class="radio" id="agent-switch" data-agent-state="" agent-switch>
                             <label>
-                                <input type="radio" id="account-type-agent" name="account-type" required>Agent
+                                <input type="radio" i-check id="account-type-agent" name="account-type" required>Agent
                             </label>
                         </div>
                         <div id="agency" class="disabled" agent-state>
                             <div class="form-group">
                                 <label for="account-agency">Select your agency:</label>
-                                <select name="account-agency" id="account-agency">
+                                <select nya-selectpicker ng-model="model" name="account-agency" id="account-agency">
                                     <option value="">Agency</option>
                                     <option value="1">Estate+</option>
                                     <option value="2">Northfolk Eastate</option>
@@ -58,7 +58,7 @@
                         </div><!-- /.form-group -->
                         <div class="checkbox pull-left">
                             <label>
-                                <input type="checkbox" id="account-type-newsletter" name="account-newsletter">Receive Newsletter
+                                <input type="checkbox" i-check id="account-type-newsletter" name="account-newsletter">Receive Newsletter
                             </label>
                         </div>
                         <div class="form-group clearfix">

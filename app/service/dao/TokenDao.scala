@@ -19,7 +19,7 @@ object TokenDao extends SquerylDao[SecureSocialToken, String] {
   }
 
   def deleteExpired: Int = inTransaction {
-    table.deleteWhere(t => t.expiration_time < DateTime.now())
+    table.deleteWhere(t => t.expirationTime < DateTime.now())
   }
 
   def deleteByUUID(uuid: String): Int = inTransaction {

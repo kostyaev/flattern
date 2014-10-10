@@ -28,7 +28,7 @@ class AccountService(application: Application) extends UserServicePlugin(applica
 
   def findToken(uuid: String): Option[Token] = {
     TokenDao.findByUUID(uuid) match {
-      case Some(t) => Some(Token(t.uuid, t.email, t.creation_time, t.expiration_time, t.is_signup))
+      case Some(t) => Some(Token(t.uuid, t.email, t.creationTime, t.expirationTime, t.isSignup))
       case None => None
     }
   }

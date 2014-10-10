@@ -51,6 +51,8 @@ object SquerylEntryPoint extends org.squeryl.PrimitiveTypeMode {
     val deOptionizer = jodaTimeTEF
   }
    
-  implicit def jodaTimeToTE(s: DateTime) = jodaTimeTEF.create(s) 
+  implicit def jodaTimeToTE(s: DateTime) = jodaTimeTEF.create(s)
   implicit def optionJodaTimeToTE(s: Option[DateTime]) = optionJodaTimeTEF.create(s)
+
+
 }

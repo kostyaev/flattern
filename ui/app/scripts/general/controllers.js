@@ -5,23 +5,20 @@ define(['angular'], function(angular) {
     'use strict';
 
 
-    var MainCtrl = function ($scope) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+    var HeaderCtrl = function ($scope, $translate, $translatePartialLoader) {
+        $translatePartialLoader.addPart('general');
+        $translate.refresh();
     };
 
     var FooterCtrl = function ($scope) {
 
     };
 
-    MainCtrl.$inject = ['$scope'];
+    HeaderCtrl .$inject = ['$scope', '$translate', '$translatePartialLoader'];
     FooterCtrl.$inject = ['$scope'];
 
     return {
-        MainCtrl: MainCtrl,
+        HeaderCtrl : HeaderCtrl,
         FooterCtrl: FooterCtrl
     };
 

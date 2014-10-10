@@ -17,25 +17,10 @@ object Application extends Controller with SecureSocial {
     Ok(
       Routes.javascriptRouter(varName)(
         routes.javascript.Test.test,
-        /*routes.javascript.HouseCtrl.getConstants,
-        routes.javascript.HouseCtrl.createHouse,
-        routes.javascript.HouseCtrl.getGeneral,
-        routes.javascript.HouseCtrl.saveGeneral,
-        routes.javascript.HouseCtrl.getAddress,
-        routes.javascript.HouseCtrl.saveAddress,
-        routes.javascript.HouseCtrl.getDesc,
-        routes.javascript.HouseCtrl.saveDesc,
-        routes.javascript.HouseCtrl.getAmenities,
-        routes.javascript.HouseCtrl.saveAmenities,
-        routes.javascript.HouseCtrl.getHouses,
-        routes.javascript.UserCtrl.getUsers,
-        routes.javascript.UserCtrl.getConstants,
-        routes.javascript.UserCtrl.getGeneral,
-        routes.javascript.UserCtrl.saveGeneral,
-        routes.javascript.UserCtrl.getAbout,
-        routes.javascript.UserCtrl.saveAbout,
-        routes.javascript.UserCtrl.getHouses,
-        routes.javascript.UserCtrl.getUserById,*/
+        routes.javascript.HouseCtrl.getHouse,
+        routes.javascript.HouseCtrl.saveHouse,
+        routes.javascript.HouseCtrl.getConstants,
+        routes.javascript.HouseCtrl.getProperties,
         routes.javascript.LandingCtrl.send
         // TODO Add your routes here
       )

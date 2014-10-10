@@ -138,6 +138,18 @@ define(['angular'], function(angular) {
         var mapStyles = [{featureType:'water',elementType:'all',stylers:[{hue:'#d7ebef'},{saturation:-5},{lightness:54},{visibility:'on'}]},{featureType:'landscape',elementType:'all',stylers:[{hue:'#eceae6'},{saturation:-49},{lightness:22},{visibility:'on'}]},{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]},{featureType:'poi.medical',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-80},{lightness:-2},{visibility:'on'}]},{featureType:'poi.school',elementType:'all',stylers:[{hue:'#c8c6c3'},{saturation:-91},{lightness:-7},{visibility:'on'}]},{featureType:'landscape.natural',elementType:'all',stylers:[{hue:'#c8c6c3'},{saturation:-71},{lightness:-18},{visibility:'on'}]},{featureType:'road.highway',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-92},{lightness:60},{visibility:'on'}]},{featureType:'poi',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]},{featureType:'road.arterial',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-92},{lightness:37},{visibility:'on'}]},{featureType:'transit',elementType:'geometry',stylers:[{hue:'#c8c6c3'},{saturation:4},{lightness:10},{visibility:'on'}]}];
 
         var initSubmitMap = function (_latitude,_longitude){
+            console.log("init submit map");
+
+            $('.geo-location').on("click", function() {
+                console.log("geo location clicked");
+                if (navigator.geolocation) {
+                    $('#submit-map').addClass('fade-map');
+                    navigator.geolocation.getCurrentPosition(successSubmit);
+                } else {
+                    error('Geo Location is not supported');
+                }
+            });
+
             var mapCenter = new google.maps.LatLng(_latitude,_longitude);
             var mapOptions = {
                 zoom: 15,
@@ -163,11 +175,10 @@ define(['angular'], function(angular) {
                 $('#longitude').val( this.position.lng() );
             });
 
-            // TODO: Autocomplete
-            //var input = /** @type {HTMLInputElement} */( document.getElementById('address-map') );
-            //var autocomplete = new google.maps.places.Autocomplete(input);
-            //autocomplete.bindTo('bounds', map);
-            /*google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var input = /** @type {HTMLInputElement} */( document.getElementById('address-map') );
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     return;
@@ -183,14 +194,14 @@ define(['angular'], function(angular) {
                 $('#latitude').val( marker.getPosition().lat() );
                 $('#longitude').val( marker.getPosition().lng() );
                 var address = '';
-                *//*if (place.address_components) {
+                if (place.address_components) {
                     address = [
                         (place.address_components[0] && place.address_components[0].short_name || ''),
                         (place.address_components[1] && place.address_components[1].short_name || ''),
                         (place.address_components[2] && place.address_components[2].short_name || '')
                     ].join(' ');
-                }*//*
-            });*/
+                }
+            });
 
             //google.maps.event.addDomListener(window, 'load', initSubmitMap(_latitude,_longitude));
 
@@ -206,15 +217,16 @@ define(['angular'], function(angular) {
             $('#latitude').val( position.coords.latitude );
             $('#longitude').val( position.coords.longitude );
         }
-
-        $('.geo-location').on("click", function() {
-            if (navigator.geolocation) {
-                $('#submit-map').addClass('fade-map');
-                navigator.geolocation.getCurrentPosition(successSubmit);
-            } else {
-                error('Geo Location is not supported');
-            }
-        });
+//
+//        $('.geo-location').on("click", function() {
+//            console.log("geo location clicked");
+//            if (navigator.geolocation) {
+//                $('#submit-map').addClass('fade-map');
+//                navigator.geolocation.getCurrentPosition(successSubmit);
+//            } else {
+//                error('Geo Location is not supported');
+//            }
+//        });
 
         ///
 

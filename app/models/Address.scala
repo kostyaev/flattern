@@ -9,6 +9,8 @@ case class Address( id          : Long,
                     building    : Option[String] = None,
                     housing     : Option[String] = None,
                     floor       : Option[Int]    = None,
-                    apt         : Option[Int]    = None
+                    apt         : Option[Int]    = None,
+                    lat         : Option[Double] = None,
+                    lon         : Option[Double] = None
 ) extends KeyedEntity[Long]
 

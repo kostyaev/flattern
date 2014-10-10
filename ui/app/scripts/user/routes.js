@@ -7,35 +7,43 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
     mod.config(['$stateProvider',
         function($stateProvider)  {
             $stateProvider
-                .state('agent-detail', {
+                .state('user', {
+                    abstract: true,
                     parent: 'main',
+                    template: '<div ui-view></div>',
+                    controller: controllers.UserCtrl
+                })
+                
+                .state('agent-detail', {
+                    parent: 'user',
                     url: '/agent-detail',
                     templateUrl: 'views/user/agent-detail.html'
                 })
                 .state('agents-listing', {
-                    parent: 'main',
+                    parent: 'user',
                     url: '/agents-listing',
                     templateUrl: 'views/user/agents-listing.html'
                 })
                 .state('timeline', {
-                    parent: 'main',
+                    parent: 'user',
                     url: '/timeline',
                     templateUrl: 'views/user/timeline.html'
                 })
                 .state('bookmarked', {
-                    parent: 'main',
+                    parent: 'user',
                     url: '/bookmarked',
                     templateUrl: 'views/user/bookmarked.html'
                 })
                 .state('profile', {
-                    parent: 'main',
+                    parent: 'user',
                     url: '/profile',
                     templateUrl: 'views/user/profile.html'
                 })
                 .state('my-properties', {
-                    parent: 'main',
+                    parent: 'user',
                     url: '/my-properties',
-                    templateUrl: 'views/user/my-properties.html'
+                    templateUrl: 'views/user/my-properties.html',
+                    controller: controllers.PropertiesCtrl
                 })
         }]);
 

@@ -32,28 +32,17 @@
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li class="active has-child"><a ui-sref="#">Homepage</a>
+                    <li class="active"><a ui-sref="index-advanced-horizontal-search" translate>HOMEPAGE</a></li>
+
+                    <li class="has-child"><a ui-sref="#" translate>PROPERTIES</a>
                         <ul class="child-navigation">
-                            <li><a ui-sref="index-google-map-fullscreen">Google Map Full Screen</a></li>
-                            <li><a ui-sref="index-google-map-fixed-height">Google Map Fixed Height</a></li>
-                            <li><a ui-sref="index-google-map-fixed-navigation">Google Map Fixed Navigation</a></li>
-                            <li><a ui-sref="index-osm">OpenStreetMap Full Screen</a></li>
-                            <li><a ui-sref="index-osm-fixed-height">OpenStreetMap Fixed Height</a></li>
-                            <li><a ui-sref="index-osm-fixed-navigation">OpenStreetMap Fixed Navigation</a></li>
-                            <li><a ui-sref="index-slider">Slider Homepage</a></li>
-                            <li><a ui-sref="index-slider-search-box">Slider with Search Box</a></li>
-                            <li><a ui-sref="index-horizontal-search-floated">Horizontal Search Floated</a></li>
-                            <li><a ui-sref="index-advanced-horizontal-search">Horizontal Advanced Search</a></li>
-                            <li><a ui-sref="index-slider-horizontal-search-box">Horizontal Slider Search</a></li>
-                            <li><a ui-sref="index-slider-horizontal-search-box-floated">Horizontal Slider Floated Search</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-child"><a ui-sref="#">Properties</a>
-                        <ul class="child-navigation">
-                            <li><a ui-sref="property-detail">Property Detail</a></li>
-                            <li><a ui-sref="properties-listing">Masonry Listing</a></li>
-                            <li><a ui-sref="properties-listing-grid">Grid Listing</a></li>
-                            <li><a ui-sref="properties-listing-lines">Lines Listing</a></li>
+                            <li><a ui-sref="properties-listing-grid" translate>HOUSES_LISTING</a></li>
+                            <li><a ui-sref="submit" translate>ADD_HOUSE</a></li>
+                            <li><a ui-sref="my-properties" translate>MY_PROPERTIES</a></li>
+                            <li><a ui-sref="bookmarked" translate>BOOKMARKED</a></li>
+                            <!--<li><a ui-sref="property-detail">Property Detail</a></li>-->
+                            <!--<li><a ui-sref="properties-listing">Masonry Listing</a></li>-->
+                            <!--<li><a ui-sref="properties-listing-lines">Lines Listing</a></li>-->
                         </ul>
                     </li>
                     <li class="has-child"><a ui-sref="#">Pages</a>
@@ -92,7 +81,6 @@
                             <li><a ui-sref="agency-detail">Agency Detail</a></li>
                         </ul>
                     </li>
-                    <li><a ui-sref="submit">Submit</a></li>
                     <li class="has-child"><a ui-sref="#">Blog</a>
                         <ul class="child-navigation">
                             <li><a ui-sref="blog">Blog Listing</a></li>

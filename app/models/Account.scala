@@ -6,16 +6,28 @@ import org.squeryl.KeyedEntity
 import org.squeryl.dsl._
 import securesocial.core.{AuthenticationMethod}
 import securesocial.core.{OAuth1Info, OAuth2Info, PasswordInfo}
+import org.squeryl.annotations._
+import securesocial.core.OAuth2Info
+import securesocial.core.OAuth1Info
+import securesocial.core.PasswordInfo
+import scala.Some
 
 case class Account( id: Long,
-                    user_id: String,
+                    @Column("user_id")
+                    userId: String,
                     auth_method: String,
-                    provider_id: String,
-                    avatar_url: Option[String],
-                    firstname: String,
-                    lastname: String,
-                    fullname: String,
-                    email_address: Option[String]
+                    @Column("provider_id")
+                    providerId: String,
+                    @Column("avatar_url")
+                    avatarUrl: Option[String],
+                    @Column("firstname")
+                    firstName: String,
+                    @Column("lastname")
+                    lastName: String,
+                    @Column("fullname")
+                    fullName: String,
+                    @Column("email_address")
+                    email: Option[String]
 ) extends securesocial.core.Identity with KeyedEntity[Long] {
 
   lazy val oauth1CredentialSets: OneToMany[OAuth1CredentialSet] =
@@ -24,18 +36,14 @@ case class Account( id: Long,
     Database.accountToOAuth2Info.left(this)
   lazy val passwordCredentialSets: OneToMany[PasswordCredentialSet] =
     Database.accountToPasswordInfo.left(this)
+ /* lazy val userSets: OneToMany[User] =
+    Database.accountToUser.left(this)*/
 
   /*
    * SecureSocial Identity trait implementation
    */
 
   def authMethod: AuthenticationMethod = AuthenticationMethod(auth_method)
-  def avatarUrl: Option[String] = avatar_url
-  def email: Option[String] = email_address
-  def firstName: String = firstname
-  def fullName: String = fullname
-  def lastName: String = lastname
-  def userId: String = user_id
 
   def oAuth1Info: Option[OAuth1Info] = inTransaction {
     oauth1CredentialSets headOption match {
@@ -46,7 +54,7 @@ case class Account( id: Long,
 
   def oAuth2Info: Option[OAuth2Info] = inTransaction {
     oauth2CredentialSets headOption match {
-      case Some(cs) => Some(OAuth2Info(cs.access_token, cs.token_type, cs.expires_in, cs.refresh_token))
+      case Some(cs) => Some(OAuth2Info(cs.accessToken, cs.tokenType, cs.expiresIn, cs.refreshToken))
       case None => None
     }
   }
@@ -60,5 +68,12 @@ case class Account( id: Long,
     }
   }
 
-  def identityId: securesocial.core.IdentityId = securesocial.core.IdentityId(user_id, provider_id)
+  /*def user: Option[User] = inTransaction {
+    userSets headOption match {
+      case None => None
+      case user => user
+    }
+  }*/
+
+  def identityId: securesocial.core.IdentityId = securesocial.core.IdentityId(userId, providerId)
 }

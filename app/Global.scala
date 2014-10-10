@@ -1,4 +1,3 @@
-import models.OAuth1CredentialSet
 import org.squeryl.adapters.{H2Adapter, MySQLInnoDBAdapter, PostgreSqlAdapter}
 import org.squeryl.internals.DatabaseAdapter
 import org.squeryl.{Session, SessionFactory}
@@ -24,12 +23,17 @@ object Global extends GlobalSettings {
           "org.postgresql.Driver or com.mysql.jdbc.Driver")
     }
 
+//  def insertTestData() {
+//    AccountDao.insert(Account(1, "test@test.ru",))
+//  }
+
   override def onStart(app: Application) {
     initSqueryl(app)
     Logger.info("refreshing schema")
     inTransaction {
       Database.drop
       Database.create
+      //insertTestData()
     }
   }
 }

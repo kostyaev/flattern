@@ -2903,9 +2903,18 @@ ul.list-links li a:hover {
 
 .submit-step {
     padding-left: 50px;
-    padding-top: 10px;
+    padding-top: 100px;
     position: relative;
 }
+
+section .submit-step {
+    padding-top: 0;
+}
+
+section .submit-step .step-number {
+    top: 0;
+}
+
 .submit-step .step-number {
     background-color: #1396e2;
     color: #fff;
@@ -2913,7 +2922,7 @@ ul.list-links li a:hover {
     left: 0;
     width: 35px;
     position: absolute;
-    top: 0;
+    top: 90px;
     text-align: center;
     line-height: 35px;
 }

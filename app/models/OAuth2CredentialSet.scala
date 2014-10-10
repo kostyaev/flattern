@@ -5,13 +5,20 @@ import org.squeryl.dsl._
 import service._
 import SquerylEntryPoint._
 import org.squeryl.KeyedEntity
+import org.squeryl.annotations._
+import models.Account
 
 case class OAuth2CredentialSet( id: Long,
-                                account_id: Long,
-                                access_token: String,
-                                token_type: Option[String] = None,
-                                expires_in: Option[Int] = None,
-                                refresh_token: Option[String] = None
+                                @Column("account_id")
+                                accountId: Long,
+                                @Column("access_token")
+                                accessToken: String,
+                                @Column("token_type")
+                                tokenType: Option[String] = None,
+                                @Column("expires_in")
+                                expiresIn: Option[Int] = None,
+                                @Column("refresh_token")
+                                refreshToken: Option[String] = None
 ) extends KeyedEntity[Long] {
   lazy val account: ManyToOne[Account] = Database.accountToOAuth2Info.right(this)
 }

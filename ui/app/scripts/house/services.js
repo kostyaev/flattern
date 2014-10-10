@@ -8,6 +8,13 @@ define(['angular', 'common'], function (angular) {
     mod.factory('houseService', ['$http', 'playRoutes', '$state', function ($http, playRoutes, $state) {
 
         return {
+            getHouse: function (id) {
+                return playRoutes.controllers.HouseCtrl.getHouse(id).get()
+            },
+            saveHouse: function (house) {
+                return playRoutes.controllers.HouseCtrl.saveHouse().post(house)
+            },
+
             getConstants: function () {
                 return playRoutes.controllers.HouseCtrl.getConstants().get()
             },
