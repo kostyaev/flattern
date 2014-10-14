@@ -26,9 +26,9 @@ object AccountDao extends SquerylDao[Account, Long] {
     findByIdentityIdQ(uid).toList.headOption
   }
 
-  def findByIdentityId[T](implicit request: SecuredRequest[T]): Account = inTransaction {
+  def findByIdentityId[T](implicit request: SecuredRequest[T]): Account =
     findByIdentityId(request.user.identityId).get
-  }
+  
 
   def fromIdentity(i: Identity): Account = {
     var a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
