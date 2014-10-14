@@ -6,7 +6,7 @@ import dto.user.UserEnums.Privacy.Privacy
 import dto.user.UserEnums.SexType.SexType
 import org.squeryl.annotations._
 
-case class User( id         : Long,
+case class User( id         : String,
                  @Column("account_id")
                  accountId : Option[Long]          = None,
                  //privacy    : Option[List[Privacy]] = None,
@@ -19,4 +19,4 @@ case class User( id         : Long,
                  wprice     : Option[Double]        = None,
                  wcountry   : Option[String]        = None,
                  wdistrict  : Option[String]        = None
-) extends KeyedEntity[Long]
+) extends KeyedEntity[String]
