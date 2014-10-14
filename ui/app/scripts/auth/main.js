@@ -6,10 +6,6 @@ define(['angular', './routes', './controllers', './services', '../common/service
     'use strict';
 
     var mod = angular.module('flattern.auth', ['ui.router', 'auth.routes', 'auth.services', 'ngAnimate', 'http-auth-interceptor']);
-    mod.controller('AuthCtrl', controllers.AuthCtrl);
-    mod.controller('LoginCtrl', controllers.LoginCtrl);
-    mod.controller('SignUpCtrl', controllers.SignUpCtrl);
-    mod.controller('PasswordCtrl', controllers.PasswordCtrl);
 
     mod.constant('AUTH_EVENTS', {
         loginConfirmed: 'event:auth-loginConfirmed',

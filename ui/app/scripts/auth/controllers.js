@@ -21,7 +21,7 @@ define(['angular'], function(angular) {
         $scope.sendEmail = function () {
             authServices.sendEmail($scope.form)
                 .success(function () {
-                    $scope.form.errors.infomessage =
+                    $scope.form.infomessage =
                         'Спасибо за регистрацию! Email с подробными инструкциями был выслан вам на почту';
 
                     $state.go('sign-in');
@@ -48,11 +48,17 @@ define(['angular'], function(angular) {
     var LoginCtrl = function ($scope, $rootScope, authServices, $state, authService, AUTH_EVENTS, USER_ROLES, Session) {
         $scope.form = $scope.form || {};
         $scope.$parent.form = $scope.$parent.form || {};
+
+        console.log("bootstrap login");
+        var fakeLogin = {username: "test@gmail.com", password: "12345678"};
+        authServices.login(fakeLogin);
+
         $scope.login = function () {
+            console.log($scope.form);
             authServices.login($scope.form)
                 .success(function (response) {
                     authService.loginConfirmed();
-                    $state.go('registered.home.houses');
+                    $state.go('index-advanced-horizontal-search');
                 })
                 .error(function (response) {
                     authService.loginCancelled();

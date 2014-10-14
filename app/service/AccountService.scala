@@ -1,16 +1,21 @@
 package service
 
-import play.api.{Logger, Application}
-import securesocial.core.{Identity, IdentityId, UserServicePlugin}
-import securesocial.core.providers.Token
-import service.dao._
 import models._
+import org.squeryl.PrimitiveTypeMode
+import play.api.{Application, Logger}
+import securesocial.core.providers.Token
+import securesocial.core.{Identity, IdentityId, UserServicePlugin}
+import service.dao._
+
 import scala.language.reflectiveCalls
 
 
-class AccountService(application: Application) extends UserServicePlugin(application) {
+class AccountService(application: Application) extends UserServicePlugin(application) with PrimitiveTypeMode{
 
-  def find(id: IdentityId) = AccountDao.findByIdentityId(id)
+  def find(id: IdentityId) =  {
+    Logger.info("searching for user")
+    AccountDao.findByIdentityId(id)
+  }
 
   // def save(user: Identity) = AccountDao.update(user)
   // Note: BUG -- this only creates a new user when save() is called, a correct implementation

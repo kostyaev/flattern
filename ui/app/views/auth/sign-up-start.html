@@ -17,7 +17,7 @@
                     <div ng-show="form.errors.message" class="alert alert-danger">
                         {{ form.errors.message }}
                     </div>
-                    <form ng-controller="SignUpCtrl" ng-submit="sendEmail()" role="form" id="form-create-account" method="post" action="" form-autofill-fix>
+                    <form ng-submit="sendEmail()" role="form" id="form-create-account" method="post" action="" form-autofill-fix>
                         <div class="form-group" ng-class='{"has-error": form.errors.email != null}'>
                             <label for="email">Email:</label>
                             <input type="email"

@@ -39,19 +39,22 @@ trait BaseCtrl extends Controller with PrimitiveTypeMode with SecureSocial {
                               block: SecuredRequest[A] => Future[SimpleResult]): Future[SimpleResult] =
       transaction {
         implicit val req = request
+        Logger.info("ok 1")
         val result = for (
-          authenticator <- SecureSocial.authenticatorFromRequest ;
+          authenticator <- SecureSocial.authenticatorFromRequest;
           user <- UserService.find(authenticator.identityId)
         ) yield {
+          Logger.info("ok 2")
           touch(authenticator)
+          Logger.info("ok 3")
           if ( authorize.isEmpty || authorize.get.isAuthorized(user)) {
+            Logger.info("ok 4")
             block(SecuredRequest(user, request))
           } else {
+            Logger.info("ok 5")
             Future.successful {
               if ( ajaxCall ) {
-                transaction {
-                  ajaxCallNotAuthorized(request)
-                }
+                ajaxCallNotAuthorized(request)
               } else {
                 Redirect(RoutesHelper.notAuthorized.absoluteURL(IdentityProvider.sslEnabled))
               }
