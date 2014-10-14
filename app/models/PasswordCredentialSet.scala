@@ -6,7 +6,7 @@ import service._
 import SquerylEntryPoint._
 import org.squeryl.KeyedEntity
 import org.squeryl.annotations._
-import models.Account
+import service.dao.SquerylDao
 
 case class PasswordCredentialSet( id: Long,
                                   @Column("account_id")
@@ -18,10 +18,16 @@ case class PasswordCredentialSet( id: Long,
   lazy val account: ManyToOne[Account] = Database.accountToPasswordInfo.right(this)
 }
 
-object PasswordCredentialSet {
-  import Database.passwordInfoTable
-  
+object PasswordCredentialSet extends SquerylDao[PasswordCredentialSet, Long] {
+  def table = Database.passwordInfoTable
+
   def insert(pwcs: PasswordCredentialSet): PasswordCredentialSet = inTransaction {
-    passwordInfoTable.insert(pwcs)
+    table.insert(pwcs)
+  }
+
+  def getByAccountId(id: Long) = inTransaction {
+    from(table) {
+      c => where(c.accountId === id).select(c)
+    }.toList.headOption
   }
 }

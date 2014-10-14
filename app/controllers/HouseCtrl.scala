@@ -13,7 +13,7 @@ import securesocial.core.SecureSocial
 
 import scala.util.{Failure, Success, Try}
 
-object HouseCtrl extends Controller with BaseCtrl with SecureSocial with Json4s {
+object HouseCtrl extends BaseCtrl with Json4s {
 
   import org.json4s._
 

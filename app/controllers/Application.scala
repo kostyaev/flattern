@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import service.dao.AccountDao
 
 
-object Application extends Controller with SecureSocial {
+object Application extends BaseCtrl {
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))

@@ -30,24 +30,39 @@ object AccountDao extends SquerylDao[Account, Long] {
   def findByIdentityId[T](implicit request: SecuredRequest[T]): Account = findByIdentityId(request.user.identityId).get
 
   def fromIdentity(i: Identity): Account = {
-    val a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
+    var a = Account(0, i.identityId.userId, i.authMethod.method, i.identityId.providerId, i.avatarUrl, i.firstName,
       i.lastName, i.fullName, i.email)
-    AccountDao.insert(a)  	// Get id to associate OAuth objects
+
+    findByIdentityId(i.identityId) match {
+      case Some(pa) => AccountDao.update(pa); a = pa
+      case None    => AccountDao.insert(a)
+    }
 
     // Save the three associated elements of Identity trait (oauth info, passwords)
     i.oAuth1Info match {
       case Some(ssoa1i) => {
-        val oa1 = OAuth1CredentialSet(0, a.id, ssoa1i.token, ssoa1i.secret)
-        OAuth1CredentialSet.insert(oa1)
+        OAuth1CredentialSet.getByAccountId(a.id) match {
+          case Some(c) => OAuth1CredentialSet.update(c.copy(token = ssoa1i.token, secret = ssoa1i.secret))
+          case None    => OAuth1CredentialSet.insert(OAuth1CredentialSet(0, a.id, ssoa1i.token, ssoa1i.secret))
+        }
       }
       case None => {}
     }
 
     i.oAuth2Info match {
       case Some(ssoa2i) => {
-        val oa2 = OAuth2CredentialSet(0, a.id, ssoa2i.accessToken, ssoa2i.tokenType,
-          ssoa2i.expiresIn, ssoa2i.refreshToken)
-        OAuth2CredentialSet.insert(oa2)
+        OAuth2CredentialSet.getByAccountId(a.id) match {
+          case Some(c) => OAuth2CredentialSet.update(
+            c.copy(
+              accessToken = ssoa2i.accessToken,
+              tokenType = ssoa2i.tokenType,
+              expiresIn = ssoa2i.expiresIn,
+              refreshToken = ssoa2i.refreshToken
+            )
+          )
+          case None => OAuth2CredentialSet.save(OAuth2CredentialSet(0, a.id, ssoa2i.accessToken, ssoa2i.tokenType,
+            ssoa2i.expiresIn, ssoa2i.refreshToken))
+        }
       }
       case None => {}
     }
@@ -57,8 +72,19 @@ object AccountDao extends SquerylDao[Account, Long] {
         Logger.info("Saving password info.")
         Logger.info("Data: " + a.userId + ", " + sspwi.hasher + ", " + sspwi.password + ", " +
           sspwi.salt + ", ")
-        val pwi = PasswordCredentialSet(0, a.id, sspwi.hasher, sspwi.password, sspwi.salt)
-        PasswordCredentialSet.insert(pwi)
+
+        PasswordCredentialSet.getByAccountId(a.id) match {
+          case Some(c) => PasswordCredentialSet.update(
+            c.copy(
+              hasher = sspwi.hasher,
+              password = sspwi.password,
+              salt = sspwi.salt
+            )
+          )
+          case None => PasswordCredentialSet.insert(
+            PasswordCredentialSet(0, a.id, sspwi.hasher, sspwi.password, sspwi.salt)
+          )
+        }
       }
       case None => {}
     }
@@ -72,7 +98,7 @@ object AccountDao extends SquerylDao[Account, Long] {
 
   private def findByEmailSocialProviderQ(email: String, sp: String): Query[Account] = from(table) {
     Logger.info("Constructing query for email " + email + ", social provider: " + sp)
-    a => where(a.email === email and a.auth_method === sp).select(a)
+    a => where(a.email === email and a.providerId === sp).select(a)
   }
 
   private def findByAccountIdQ(id: Long): Query[Account] = from(table) {

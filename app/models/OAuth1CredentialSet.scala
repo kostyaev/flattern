@@ -7,7 +7,7 @@ import service._
 import SquerylEntryPoint._
 import org.squeryl.KeyedEntity
 import org.squeryl.annotations._
-import models.Account
+import service.dao.SquerylDao
 
 case class OAuth1CredentialSet( id: Long,
                                 @Column("account_id")
@@ -18,10 +18,16 @@ case class OAuth1CredentialSet( id: Long,
   lazy val account: ManyToOne[Account] = Database.accountToOAuth1Info.right(this)
 }
 
-object OAuth1CredentialSet {
-  import Database.oauth1InfoTable
-  
+object OAuth1CredentialSet extends SquerylDao[OAuth1CredentialSet, Long] {
+  def table = Database.oauth1InfoTable
+
   def insert(oa1cs: OAuth1CredentialSet): OAuth1CredentialSet = inTransaction {
-    oauth1InfoTable.insert(oa1cs)
+    table.insert(oa1cs)
+  }
+
+  def getByAccountId(id: Long) = inTransaction {
+    from(table) {
+      c => where(c.accountId === id).select(c)
+    }.toList.headOption
   }
 }
