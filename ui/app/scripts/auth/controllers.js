@@ -49,7 +49,7 @@ define(['angular'], function(angular) {
         $scope.form = $scope.form || {};
         $scope.$parent.form = $scope.$parent.form || {};
 
-      
+
         $scope.login = function () {
             console.log($scope.form);
             authServices.login($scope.form)
