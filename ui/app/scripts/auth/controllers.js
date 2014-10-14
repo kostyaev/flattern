@@ -49,10 +49,7 @@ define(['angular'], function(angular) {
         $scope.form = $scope.form || {};
         $scope.$parent.form = $scope.$parent.form || {};
 
-        console.log("bootstrap login");
-        var fakeLogin = {username: "test@gmail.com", password: "12345678"};
-        authServices.login(fakeLogin);
-
+      
         $scope.login = function () {
             console.log($scope.form);
             authServices.login($scope.form)
