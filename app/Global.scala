@@ -5,6 +5,8 @@ import play.api.db.DB
 import play.api.{Application, GlobalSettings, Logger}
 import service.Database
 import service.SquerylEntryPoint._
+import models.{Account, PasswordCredentialSet}
+import service.dao.AccountDao
 
 object Global extends GlobalSettings {
 
@@ -23,9 +25,35 @@ object Global extends GlobalSettings {
           "org.postgresql.Driver or com.mysql.jdbc.Driver")
     }
 
-//  def insertTestData() {
-//    AccountDao.insert(Account(1, "test@test.ru",))
-//  }
+  def insertTestData() {
+    createTestUser()
+  }
+
+  def createTestUser() {
+    val a = Account(
+      id = 1,
+      userId = "daunnc@gmail.com",
+      auth_method = "userPassword",
+      providerId = "userpass",
+      avatarUrl = Some("http://www.gravatar.com/avatar/b255090c11cffb6bd48810e03502d487?d=404"),
+      firstName = "Лев",
+      lastName = "Троцкий",
+      fullName = "Лев Троцкий",
+      email = Some("daunnc@gmail.com")
+    )
+
+    val pcs = PasswordCredentialSet(
+      id = 1,
+      accountId = 1,
+      hasher = "bcrypt",
+      password = "$2a$10$J82QwmZKNfyxsn3Pwi3GV.7D72bBeh5Yu9e20E7NMCiFHBhwjurqK", // 12345678
+      salt = None
+    )
+
+    AccountDao.insert(a)
+    PasswordCredentialSet.insert(pcs)
+
+  }
 
   override def onStart(app: Application) {
     initSqueryl(app)
@@ -33,7 +61,7 @@ object Global extends GlobalSettings {
     inTransaction {
       Database.drop
       Database.create
-      //insertTestData()
+      insertTestData()
     }
   }
 }

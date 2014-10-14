@@ -10,12 +10,13 @@ import scala.language.reflectiveCalls
 
 class AccountService(application: Application) extends UserServicePlugin(application) {
 
-  def find(id: IdentityId) = AccountDao.findByIdentityId(id)
+  def find(id: IdentityId) = {
+    AccountDao.findByIdentityId(id)
+  }
 
-  // def save(user: Identity) = AccountDao.update(user)
-  // Note: BUG -- this only creates a new user when save() is called, a correct implementation
-  // would do an "upsert" operation by checking whether the user exists first
-  def save(ssUser: Identity): Identity = AccountDao.fromIdentity(ssUser)
+  def save(ssUser: Identity): Identity = {
+    AccountDao.fromIdentity(ssUser)
+  }
 
   def findByEmailAndProvider(email: String, providerId: String) = {
     AccountDao.findByEmailSocialProvider(email, providerId)
