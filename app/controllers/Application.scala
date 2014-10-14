@@ -28,13 +28,15 @@ object Application extends BaseCtrl {
   }
 
   def checkAuth = SecuredAction(ajaxCall = true) { implicit request =>
-    val user = AccountDao.findByIdentityId
-    Ok(Json.toJson(Map(
-      "success"   -> "true",
-      "id"        -> user.id.toString,
-      "fullName"  -> user.fullName.toString,
-      "avatarUrl" -> user.avatarUrl.getOrElse("")
-    )))
+      Logger.info(request.toString())
+      val user = AccountDao.findByIdentityId
+      Ok(Json.toJson(Map(
+        "success"   -> "true",
+        "id"        -> user.id.toString,
+        "fullName"  -> user.fullName.toString,
+        "avatarUrl" -> user.avatarUrl.getOrElse("")
+      )))
+
   }
 
 }

@@ -11,10 +11,10 @@ define(['angular', './controllers'], function(angular, controllers) {
                 .state('sign-in', {
                     parent: 'main',
                     url: '/sign-in',
-                    controller:controllers.LoginCtrl,
                     views: {
                         '' : {
-                            templateUrl: 'views/auth/sign-in.html'
+                            templateUrl: 'views/auth/sign-in.html',
+                            controller:controllers.LoginCtrl
                         },
                         'footer' : {
                             templateUrl: 'views/general/footer-min.html'
@@ -27,7 +27,6 @@ define(['angular', './controllers'], function(angular, controllers) {
                 .state('logout', {
                     url: '/logout',
                     templateUrl: 'views/auth/login.html',
-                    controller: controllers.LogoutCtrl,
                     data: {
                         authorizedRoles: [USER_ROLES.editor]
                     }
