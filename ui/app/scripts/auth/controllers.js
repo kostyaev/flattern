@@ -51,7 +51,7 @@ define(['angular'], function(angular) {
 
         // FOR DEV ONLY
         var testLogin = {username: "daunnc@gmail.com", password: "12345678"};
-        authServices.login(fakeLogin);
+        authServices.login(testLogin);
 
         $scope.login = function () {
             console.log($scope.form);
