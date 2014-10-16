@@ -11,7 +11,7 @@
                              ng-show="dropSupported" translate>Drop files here</div>
                         <div ng-file-drop-available="dropSupported=true"
                              ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
-                        <button class="btn btn-default" ng-file-select="onFileSelect($files)" data-multiple="true" translate>Browse Images</button>
+                        <div class="btn btn-default fileinput-upload-button" ng-file-select="onFileSelect($files)" data-multiple="true">{{'Browse Images' | translate}}</div>
                         <button class="btn btn-default" ng-click="upload.abort()" translate>Cancel upload</button>
                     </div>
                 </div>
