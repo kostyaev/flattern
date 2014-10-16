@@ -47,7 +47,12 @@
     "General info hint": "Заполните необходимое поля и укажите местоположение жилья на карте",
     "General info hint description": "Здесь должна быть подсказка",
 
-    "Browse Images" : "Выбрать фото"
+    "Browse Images" : "Выбрать фотографии",
+    "Cancel upload" : "Отменить загрузку",
+
+    "Upload hint" : "Загрузка фотографий",
+    "Upload hint description": "Перетащите изображения для загрузки",
+    "Drop files here" : "Перетащите изображения в область"
 
 
 
