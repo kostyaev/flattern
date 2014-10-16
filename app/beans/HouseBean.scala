@@ -33,9 +33,13 @@ object HouseBean extends PrimitiveTypeMode {
     houseDAO.findAll()
   }
 
-  def savePhoto(picture: MultipartFormData.FilePart[TemporaryFile])  = {
-    val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + 666 + ".jpg")
-    val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + 666 + ".jpg")
+  def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile])  = {
+
+    val housePhoto = HousePhoto(id = 0, houseId = houseId)
+    val model = HousePhotoDao.save(housePhoto)
+
+    val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + model.id + ".jpg")
+    val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + model.id + ".jpg")
     Image(picture.ref.file)
       .cover(300, 200, ScaleMethod.FastScale)
       .writer(Format.JPEG)

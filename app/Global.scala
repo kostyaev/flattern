@@ -5,8 +5,8 @@ import play.api.db.DB
 import play.api.{Application, GlobalSettings, Logger}
 import service.Database
 import service.SquerylEntryPoint._
-import models.{Account, PasswordCredentialSet}
-import service.dao.AccountDao
+import models.{House, Account, PasswordCredentialSet}
+import service.dao.{HouseDao, AccountDao}
 
 object Global extends GlobalSettings {
 
@@ -27,6 +27,7 @@ object Global extends GlobalSettings {
 
   def insertTestData() {
     createTestUser()
+    createTestHouse()
   }
 
   def createTestUser() {
@@ -53,6 +54,11 @@ object Global extends GlobalSettings {
     AccountDao.insert(a)
     PasswordCredentialSet.insert(pcs)
 
+  }
+
+  def createTestHouse() {
+    val house = House(id = 0, accountId = 1, title = Some("Квартира в центре"), description = Some("Сдаю недорого"), houseType = Some("APT"), rentType=Some("ENTIRE_HOUSE"))
+    HouseDao.create(house)
   }
 
   override def onStart(app: Application) {

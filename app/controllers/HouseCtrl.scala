@@ -51,9 +51,10 @@ object HouseCtrl extends BaseCtrl with Json4s {
     Ok(Extraction.decompose(HouseBean.getHouses)).as("application/json")
   }
 
-  def uploadPhoto() = DBAction(parse.multipartFormData) { implicit request =>
+  def uploadPhoto(houseId: Long) = DBAction(parse.multipartFormData) { implicit request =>
+      Logger.info("saving photo")
       request.body.files.map { picture =>
-        HouseBean.savePhoto(picture)
+        HouseBean.savePhoto(houseId, picture)
       }
     Ok("Image saved")
   }

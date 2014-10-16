@@ -22,7 +22,7 @@ POST        /house                         controllers.HouseCtrl.saveHouse
 
 GET         /my-properties                 controllers.HouseCtrl.getProperties
 
-POST        /upload                        controllers.HouseCtrl.uploadPhoto
+POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id: Long)
 
 
 
