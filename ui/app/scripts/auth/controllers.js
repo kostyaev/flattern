@@ -55,7 +55,7 @@ define(['angular'], function(angular) {
             authServices.login($scope.form)
                 .success(function (response) {
                     authService.loginConfirmed();
-                    $state.go('index-advanced-horizontal-search');
+                    $state.go('homepage');
                 })
                 .error(function (response) {
                     authService.loginCancelled();
@@ -135,7 +135,7 @@ define(['angular'], function(angular) {
         $scope.change = function () {
             authServices.change($scope.form)
                 .success(function () {
-                    $state.go('registered.home.houses');
+                    $state.go('homepage');
                 })
                 .error(function (response) {
                     $scope.form.errors = response;
