@@ -16,3 +16,4 @@ dist
 npm-debug.log
 sbt
 play
+.DS_Store
