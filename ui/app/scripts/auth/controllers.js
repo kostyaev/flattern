@@ -49,6 +49,9 @@ define(['angular'], function(angular) {
         $scope.form = $scope.form || {};
         $scope.$parent.form = $scope.$parent.form || {};
 
+        // FOR PRODUCTION ONLY
+        var testLogin = {username: "daunnc@gmail.com", password: "12345678"};
+        authServices.login(fakeLogin);
 
         $scope.login = function () {
             console.log($scope.form);

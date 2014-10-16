@@ -8,8 +8,7 @@ import dto.house._
 import models.House
 import org.json4s.ext.{EnumNameSerializer, JodaTimeSerializers}
 import play.api.Logger
-import play.api.mvc.{Action, Controller}
-import securesocial.core.SecureSocial
+import play.api.mvc.Action
 
 import scala.util.{Failure, Success, Try}
 

@@ -2,7 +2,7 @@ package service
 
 import models._
 import org.squeryl.PrimitiveTypeMode
-import play.api.{Application, Logger}
+import play.api.Application
 import securesocial.core.providers.Token
 import securesocial.core.{Identity, IdentityId, UserServicePlugin}
 import service.dao._
