@@ -5,6 +5,7 @@ import play.api.mvc._
 import securesocial.core._
 import play.api.libs.json.Json
 import service.dao.AccountDao
+import controllers.routes
 
 
 object Application extends BaseCtrl {
@@ -21,7 +22,8 @@ object Application extends BaseCtrl {
         routes.javascript.HouseCtrl.saveHouse,
         routes.javascript.HouseCtrl.getConstants,
         routes.javascript.HouseCtrl.getProperties,
-        routes.javascript.LandingCtrl.send
+        routes.javascript.LandingCtrl.send,
+        routes.javascript.UserCtrl.getAccountUser
         // TODO Add your routes here
       )
     ).as(JAVASCRIPT)

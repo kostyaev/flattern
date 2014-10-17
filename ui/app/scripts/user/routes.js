@@ -16,8 +16,9 @@ define(['angular', './controllers', 'common'], function(angular, controllers) {
                 
                 .state('agent-detail', {
                     parent: 'user',
-                    url: '/agent-detail',
-                    templateUrl: 'views/user/agent-detail.html'
+                    url: '/agent-detail/:id/detail',
+                    templateUrl: 'views/user/agent-detail.html',
+                    controller: controllers.UserDetailsCtrl
                 })
                 .state('agents-listing', {
                     parent: 'user',

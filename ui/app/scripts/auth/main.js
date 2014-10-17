@@ -33,6 +33,7 @@ define(['angular', './routes', './controllers', './services', '../common/service
         $rootScope.$on('$stateChangeStart', function (event, next) {
             console.log($state);
             history.push(next);
+            console.log(history);
             var authorizedRoles = next.data.authorizedRoles;
             if (!authServices.isAuthorized(authorizedRoles)) {
                 if (authServices.isAuthenticated()) {
@@ -49,6 +50,7 @@ define(['angular', './routes', './controllers', './services', '../common/service
                         authServices.checkAuth()
                             .success(function(response) {
                                 Session.create(response.id, response.fullName, USER_ROLES.editor, response.avatarUrl);
+                                console.log(history);
                                 var nextState = history.pop().name || 'homepage';
                                 $state.go(nextState);
                             }).error(function(response) {
@@ -61,6 +63,8 @@ define(['angular', './routes', './controllers', './services', '../common/service
                     }
                 }
             }
+
+            console.log(history);
         });
 
         $rootScope.$on('$stateChangeSuccess', function () {

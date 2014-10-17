@@ -8,9 +8,9 @@ define(['angular', 'common'], function (angular) {
     mod.factory('userService', ['$http', 'playRoutes', '$state', function ($http, playRoutes, $state) {
 
         return {
-            getProperties: function () {
-                console.log('userService.getProperties');
-                return playRoutes.controllers.HouseCtrl.getProperties().get();
+            getAccountUser: function (id) {
+                console.log('userService.getAccountUser');
+                return playRoutes.controllers.UserCtrl.getAccountUser(id).get();
             },
 
             saveGeneral: function (general) {

@@ -7,9 +7,6 @@ import org.squeryl.dsl._
 import securesocial.core.{AuthenticationMethod}
 import securesocial.core.{OAuth1Info, OAuth2Info, PasswordInfo}
 import org.squeryl.annotations._
-import securesocial.core.OAuth2Info
-import securesocial.core.OAuth1Info
-import securesocial.core.PasswordInfo
 import scala.Some
 
 case class Account( id: Long,
@@ -36,8 +33,10 @@ case class Account( id: Long,
     Database.accountToOAuth2Info.left(this)
   lazy val passwordCredentialSets: OneToMany[PasswordCredentialSet] =
     Database.accountToPasswordInfo.left(this)
- /* lazy val userSets: OneToMany[User] =
-    Database.accountToUser.left(this)*/
+  lazy val users: OneToMany[User] =
+    Database.accountToUser.left(this)
+  lazy val houses: OneToMany[House] =
+    Database.accountToHouse.left(this)
 
   /*
    * SecureSocial Identity trait implementation

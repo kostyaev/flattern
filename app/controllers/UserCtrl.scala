@@ -1,153 +1,221 @@
-/*
+
 package controllers
 
-import service.dao.AccountDao
-import service.filters.HouseFilter
-import securesocial.core._
-import models._
-import play.api._
-import mvc._
+import beans.UserBean
+import com.github.tototoshi.play2.json4s.jackson._
 import dto.user._
-import dto.UserThumbnail
-import dto.house.HouseEnums._
-import dto.user.UserEnums._
-import beans.{HouseBean, UserBean}
-import scala.language.reflectiveCalls
-import play.api.Logger
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import service.WithDefaultSession
-import utils.EnumUtils
+import models.{Account, User}
+import org.json4s.ext.{EnumNameSerializer, JodaTimeSerializers}
+import scala.util.{Failure, Success, Try}
 
-object UserCtrl extends Controller with SecureSocial with WithDefaultSession {
+object UserCtrl extends BaseCtrl with Json4s {
 
-  // enums
-  implicit val sexTypeFormat = EnumUtils.enumFormat(SexType)
-  implicit val privacyFormat = EnumUtils.enumFormat(Privacy)
-  implicit val houseTypeFormat = EnumUtils.enumFormat(HouseType)
-  implicit val rentTypeFormat = EnumUtils.enumFormat(RentType)
-  implicit val amenityFormat = EnumUtils.enumFormat(Amenity)
+  import org.json4s._
 
-  // case classes
-  implicit val userConstantsFormat = Json.format[UserConstants]
-  implicit val userGeneralFormat = Json.format[UserGeneral]
-  implicit val userAboutFormat = Json.format[UserAbout]
-  implicit val hosesFormat = Json.format[House]
-  implicit val userThumbnailFormat = Json.format[UserThumbnail]
+  implicit val formats = DefaultFormats + FieldSerializer[Account]() + FieldSerializer[User]() +
+    FieldSerializer[AccountDto]() + FieldSerializer[AccountUser]() ++ JodaTimeSerializers.all
 
-  implicit def pageFormat[T : Format]: Format[Page[T]] = (
-    (__ \ "items").format[List[T]] ~
-      (__ \ "page").format[Int] ~
-      (__ \ "pageSize").format[Int] ~
-      (__ \ "total").format[Int]
-    )(Page.apply, unlift(Page.unapply))
-
-  def getConstants = SecuredAction(ajaxCall = true) {
-    Ok(Json.toJson(UserConstants()))
+  def getAccountUser(id: Long) = DBAction {
+    Ok(Extraction.decompose(UserBean.getAccountUser(id))).as("application/json")
   }
 
-  def getGeneral = SecuredAction(ajaxCall = true) { implicit request =>
-    withTransaction{ implicit session =>
-      Logger.info("user.general")
-      val account = AccountDao.findByIdentityId
-      val user = UserBean.findUser(account)
+  /*implicit val formats = DefaultFormats + FieldSerializer[User]() ++ JodaTimeSerializers.all +
+    new EnumNameSerializer(HouseType) + new EnumNameSerializer(RentType) + new EnumNameSerializer(Amenity)
 
-      Ok(Json.toJson(UserGeneral.fill(account, user)))
+  def getConstants = Action {
+    Ok(Extraction.decompose(HouseConstants())).as("application/json")
+  }
+
+  def getHouse(id: Long) = DBAction {
+    HouseBean.getHouse(id) match {
+      case Some(house) =>
+        Logger.info("got house from db: " + house.toString)
+        //val rentType = house.rentType.get
+        //val houseType = house.houseType.get
+        Ok(Extraction.decompose(house)).as("application/json")
+      case None => BadRequest("NOT FOUND")
     }
   }
 
-  def saveGeneral = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
-    val user = AccountDao.findByIdentityId
-    Logger.info(request.body.toString())
-    request.body.validate[UserGeneral].fold(
-      errors => {
-        Logger.info(JsError.toFlatJson(errors).toString())
-        BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
-      },
-      userGeneral => {
-        Logger.info(userGeneral.toString)
-        UserBean.userUpdate(user, userGeneral)
-        Ok(Json.toJson("Данные успешно сохранены"))
-      }
-    )
-  }
-
-  def getAbout = SecuredAction(ajaxCall = true) { implicit request =>
-    withTransaction { implicit session =>
-      Logger.info("user.general")
-      val account = AccountDao.findByIdentityId
-      val user = UserBean.findUser(account)
-
-      Ok(Json.toJson(UserAbout.fill(account, user)))
+  def saveHouse = DBAction(json) { implicit request =>
+    Logger.info("saving house")
+    Logger.info(request.body.toString)
+    Try {
+      request.body.extract[House]
+    } match {
+      case Success(house) =>
+        Logger.info(house.toString)
+        Ok(HouseBean.saveHouse(house).id.toString)
+      case Failure(msg) => BadRequest(msg.getMessage)
     }
   }
 
-  def saveAbout = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
-    val user = AccountDao.findByIdentityId
-    Logger.info(request.body.toString())
-    request.body.validate[UserAbout].fold(
-      errors => {
-        Logger.info(JsError.toFlatJson(errors).toString())
-        BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
-      },
-      userAbout => {
-        Logger.info(userAbout.toString)
-        UserBean.userUpdate(user, userAbout)
-        Ok(Json.toJson("Данные успешно сохранены"))
-      }
-    )
+  def getProperties = DBAction {
+    Ok(Extraction.decompose(HouseBean.getHouses)).as("application/json")
   }
 
-  def getHouses = SecuredAction(ajaxCall = true) { implicit request =>
-    val user = AccountDao.findByIdentityId
-    val houseList = HouseBean.getHousesByFilter(HouseFilter(None, user.uid), 100, 0)
-
-    Ok(Json.toJson(houseList))
-  }
-
-  def getUserById(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
-    AccountDao.findById(id) match {
-      case Some(u) => {
-        val houseList = HouseBean.getHousesByFilter(HouseFilter(None, Some(id)), 100, 0)
-        val pUser = UserBean.findUser(u)
-
-        val userAbout = UserAbout.fill(u, pUser)
-        val userGeneral = UserGeneral.fill(u, pUser)
-
-        Ok(Json.obj(
-          "success"     -> "true",
-          "userAbout"   -> userAbout,
-          "userGeneral" -> userGeneral,
-          "houses"      -> houseList
-        ))
-
-      }
-      case None => {
-        BadRequest(
-          Json.obj(
-            "success" -> "false",
-            "error"   -> "user.not.exists"
-          )
-        )
-      }
+  def uploadPhoto(houseId: Long) = DBAction(parse.multipartFormData) { implicit request =>
+    Logger.info("saving photo")
+    request.body.files.map { picture =>
+      HouseBean.savePhoto(houseId, picture)
     }
-  }
+    Ok("Image saved")
+  }*/
 
-  def getUsers(page: Int) = SecuredAction(ajaxCall = true) { implicit request =>
-    withTransaction { implicit session =>
-      val usersPage = UserBean.getUserPage(pageSize = Page.DEFAULT_PAGE_SIZE, page = 1)
-      Ok(Json.toJson(usersPage))
-    }
-  }
 
-  def picUpload = SecuredAction(parse.multipartFormData) { implicit request =>
-    val user = AccountDao.findByIdentityId
-    request.body.file("user-pic").map { picture =>
-      val src: String = UserBean.avatarUpdate(user, picture).avatarUrl.getOrElse("")
-      val json = Json.obj("src" -> src)
-      Thread.sleep(1500)
-      Ok(json)
-    }.getOrElse { BadRequest("Failed") }
-  }
+  //  def createHouse = SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      val userId = UserBean.getAccount(request.user).get.uid.get
+  //      val address = HouseBean.saveAddress(Address())
+  //      val house = HouseBean.saveHouse(House(userId = userId, addressId = address.id))
+  //      Ok(Json.toJson(house.id.get))
+  //    }
+  //  }
+  //
+  //  def getGeneral(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction{ implicit session =>
+  //      Logger.info("general")
+  //      val userId = UserBean.getAccount(request.user).get.uid.get
+  //      HouseBean.getHouse(id, userId) match {
+  //        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseGeneral(house)))
+  //        case None => BadRequest(Json.toJson(Empty()))
+  //      }
+  //    }
+  //  }
+  //
+  //  def saveGeneral(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request => {
+  //    withTransaction { implicit session =>
+  //      Logger.info(request.body.toString())
+  //      request.body.validate[HouseGeneral].fold(
+  //        errors => {
+  //          Logger.info(JsError.toFlatJson(errors).toString())
+  //          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+  //        },
+  //        houseGeneral => {
+  //          Logger.info(houseGeneral.toString)
+  //          val userId = UserBean.getAccount(request.user).get.uid.get
+  //          HouseBean.getHouse(id, userId) match {
+  //            case Some(house) =>
+  //              HouseBean.updateHouseInfo(houseGeneral, house)
+  //              Ok(Json.toJson("Данные успешно сохранены"))
+  //            case None => BadRequest(Json.toJson(Empty()))
+  //          }
+  //        }
+  //      )
+  //    }
+  //  }
+  //  }
+  //
+  //
+  //  def getAddress(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      HouseBean.getAddressByHouseId(id) match {
+  //        case Some(address) =>
+  //          Ok(Json.toJson(HouseHelper.getHouseAddress(address)))
+  //        case None => Ok(Json.toJson(Empty()))
+  //      }
+  //    }
+  //  }
+  //
+  //  def saveAddress(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      request.body.validate[HouseAddress].fold(
+  //        errors => {
+  //          Logger.info(JsError.toFlatJson(errors).toString())
+  //          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+  //        },
+  //        address => {
+  //          Logger.info("saving address " + address.toString)
+  //          val userId = UserBean.getAccount(request.user).get.uid.get
+  //          HouseBean.getHouse(id, userId) match {
+  //            case Some(house) =>
+  //              HouseBean.updateHouseInfo(address, house)
+  //              Ok(Json.toJson("Данные успешно сохранены"))
+  //            case None =>
+  //              BadRequest(Json.toJson(Empty()))
+  //          }
+  //        }
+  //      )
+  //    }
+  //  }
+  //
+  //  def getDesc(id: Long) =  SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      Logger.info("get desc")
+  //      val userId = UserBean.getAccount(request.user).get.uid.get
+  //      HouseBean.getHouse(id, userId) match {
+  //        case Some(house) => Ok(Json.toJson(HouseHelper.getHouseDesc(house)))
+  //        case None => BadRequest(Json.toJson(Empty()))
+  //      }
+  //    }
+  //  }
+  //
+  //
+  //  def saveDesc(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      Logger.info("save desc")
+  //      request.body.validate[HouseDesc].fold(
+  //        errors => {
+  //          Logger.info(JsError.toFlatJson(errors).toString())
+  //          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+  //        },
+  //        desc => {
+  //          Logger.info("saving desc " + desc.toString)
+  //          val userId = UserBean.getAccount(request.user).get.uid.get
+  //          HouseBean.getHouse(id, userId) match {
+  //            case Some(house) =>
+  //              HouseBean.updateHouseInfo(desc, house)
+  //              Ok(Json.toJson("Данные успешно сохранены"))
+  //            case None =>
+  //              BadRequest(Json.toJson(Empty()))
+  //          }
+  //        }
+  //      )
+  //    }
+  //  }
+  //
+  //  def getAmenities(id: Long) = SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      val userId = UserBean.getAccount(request.user).get.uid.get
+  //      HouseBean.getHouse(id, userId) match {
+  //        case Some(house) => Ok(Json.toJson(HouseAmenities(house.amenities)))
+  //        case None => BadRequest(Json.toJson(Empty()))
+  //      }
+  //    }
+  //  }
+  //
+  //
+  //  def saveAmenities(id: Long) = SecuredAction(ajaxCall = true)(parse.json) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      Logger.info(request.body.toString())
+  //      request.body.validate[HouseAmenities].fold(
+  //        errors => {
+  //          Logger.info(JsError.toFlatJson(errors).toString())
+  //          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toFlatJson(errors)))
+  //        },
+  //        amenities => {
+  //          val userId = UserBean.getAccount(request.user).get.uid.get
+  //          Logger.info(amenities.toString)
+  //          HouseBean.getHouse(id, userId) match {
+  //            case Some(house) =>
+  //              HouseBean.updateHouseInfo(amenities, house)
+  //              Ok(Json.toJson("Данные успешно сохранены"))
+  //            case None =>
+  //              BadRequest(Json.toJson(Empty()))
+  //          }
+  //        }
+  //      )
+  //    }
+  //  }
+  //
+
+  //
+  //  def getHouses = SecuredAction(ajaxCall = true) { implicit request =>
+  //    withTransaction { implicit session =>
+  //      val housesPage = HouseBean.getHousePage(pageSize = Page.DEFAULT_PAGE_SIZE, page = 1)
+  //      Ok(Json.toJson(housesPage))
+  //    }
+  //  }
+
+
 }
-*/

@@ -1,55 +1,57 @@
-/*
+
 package beans
 
 import java.io.File
 
-import com.sksamuel.scrimage.{Format, Image, ScaleMethod}
-import dto.UserThumbnail
+import com.sksamuel.scrimage.{Format, ScaleMethod, Image}
 import global.Paths
-import models.{Account, Page, User}
+import models._
+import org.squeryl.PrimitiveTypeMode
 import play.api.libs.Files.TemporaryFile
 import play.api.mvc.MultipartFormData
-import dto.user.{UserGeneral, UserAbout}
-import securesocial.core.{Identity, Registry}
-import service.WithDefaultSession
 import service.dao._
-import service.filters.UserFilter
-import utils.DgDriver.simple._
+import dto.user._
 
 import scala.language.reflectiveCalls
 
-object UserBean extends WithDefaultSession {
+object UserBean extends PrimitiveTypeMode {
 
-  type FlatternSession = scala.slick.driver.PostgresDriver.simple.Session
+  val houseDAO = HouseDao
+  val housePhotoDAO = HousePhotoDao
+  val countryDAO = CountryDao
+  val cityDAO = CityDao
+  val addressDao = AddressDao
 
-  def getAccount(user: Identity)(implicit session: FlatternSession): Option[Account] = {
-    AccountDao.findByIdentityId(user.identityId)
+  def getAccountUser(id: Long): AccountUser = {
+    val account = AccountDao.get(id)
+    AccountUser(
+      account = AccountDto(account),
+      user    = account.flatMap(_.users.headOption),
+      houses  = account.map(_.houses.page(0,3).toList)
+    )
   }
 
-  def getUserPage(page: Int, pageSize: Int): Page[UserThumbnail] = withTransaction { implicit session =>
-    UserDao.getUserThumbnails(UserFilter(), page, pageSize)
+  def saveHouse(house: House): House = {
+      houseDAO.save(house)
   }
 
-  def findUser(id: Long) = withTransaction { implicit session =>
-    UserDao.findByAccountId(id).firstOption.getOrElse(User())
+  def getHouse(houseId: Long): Option[House] = {
+    houseDAO.get(houseId)
   }
 
-  def findUser(account: Account) = withTransaction { implicit session =>
-    UserDao.findByAccount(account).firstOption.getOrElse(User())
+  def getHouses: List[House] = {
+    houseDAO.findAll()
   }
 
-  def findUser(filter: UserFilter) = withTransaction { implicit session =>
-    UserDao.findByFilter(filter).list
-  }
+  def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile])  = {
 
-  def avatarUpdate(account: Account, picture: MultipartFormData.FilePart[TemporaryFile]) = withTransaction { implicit session =>
-    val uid: Long = account.uid.getOrElse(0: Long)
-    val thumbnail = new File(Paths.USER_THUMBNAIL_DIR + Paths.THUMBNAIL_PREFIX + uid.toString + ".jpg")
-    val photo = new File(Paths.USER_PHOTO_DIR + Paths.PHOTO_PREFIX + uid.toString + ".jpg")
-    val a = account.copy(avatarUrl = Option(uid.toString + ".jpg"))
+    val housePhoto = HousePhoto(id = 0, houseId = houseId)
+    val model = HousePhotoDao.save(housePhoto)
 
+    val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + model.id + ".jpg")
+    val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + model.id + ".jpg")
     Image(picture.ref.file)
-      .cover(200, 300, ScaleMethod.FastScale)
+      .cover(300, 200, ScaleMethod.FastScale)
       .writer(Format.JPEG)
       .write(thumbnail)
 
@@ -58,51 +60,111 @@ object UserBean extends WithDefaultSession {
       .writer(Format.JPEG)
       .write(photo)
 
-    AccountDao.save(a)
-
-    a
   }
 
-  def userUpdate(account: Account, userGeneral: UserGeneral) = withTransaction { implicit session =>
-    val pwd = userGeneral.password1.getOrElse("")
-    val passwordInfo = if(pwd.length > 0) Some(Registry.hashers.currentHasher.hash(pwd)) else account.passwordInfo
-    val a = account.copy(
-      firstName    = userGeneral.firstName,
-      lastName     = userGeneral.lastName,
-      fullName     = userGeneral.getFullName,
-      email        = userGeneral.getEmail,
-      passwordInfo = passwordInfo
-    )
-    val u = findUserByAccount(account).copy(
-      accountId = a.uid,
-      sex       = userGeneral.sex,
-      birthday  = userGeneral.birthDate,
-      timezone  = userGeneral.getTimeZone
-    )
-    AccountDao.save(a)
-    UserDao.save(u)
-
-    (a, u)
-  }
-
-  def userUpdate(account: Account, userAbout: UserAbout) = withTransaction { implicit session =>
-    val u = findUserByAccount(account).copy(
-      accountId = account.uid,
-      wishes    = userAbout.wishes,
-      wsex      = userAbout.wsex,
-      wage      = userAbout.wage,
-      wprice    = userAbout.wprice,
-      wcountry  = userAbout.wcountry,
-      wdistrict = userAbout.wdistrict,
-      privacy   = userAbout.privacy
-    )
-    u.update
-
-    (account, u)
-  }
-
-  def findUserByAccount(account: Account)(implicit session: Session): User =
-    UserDao.findByAccount(account).firstOption.getOrElse(User())
+//  def updateHouseInfo(houseInfo: HouseInfo, house: House): House = {
+//    val updatedModel = houseInfo match {
+//      case dto: HouseGeneral => house.copy(
+//        houseType = dto.houseType,
+//        rentType = dto.rentType,
+//        price = dto.price
+//      )
+//
+//      case dto: HouseAddress => house.copy(
+//        addressId = HouseBean.saveAddress(dto.getModel).id
+//      )
+//
+//      case dto: HouseDesc => house.copy(
+//        title = dto.title,
+//        description = dto.desc
+//      )
+//
+//      case dto: HouseAmenities => house.copy(
+//        amenities = dto.selectedAmenities
+//      )
+//    }
+//    houseDAO.save(updatedModel)
+//  }
+//
+//
+//  def saveHouseInfo(houseInfo: HouseInfo, userId: Long)
+//               (implicit session: FlatternSession): House = {
+//    updateHouseInfo(houseInfo, House(userId = userId))
+//  }
+//
+//  def saveHouse(house: House)(implicit  session: FlatternSession): House = {
+//    houseDAO.save(house)
+//  }
+//
+//  def getHousePage(page: Int, pageSize: Int)
+//                  (implicit  session: FlatternSession): Page[HouseThumbnail] = {
+//    val result = houseDAO.getHouseThumbnails(HouseFilter(), page, pageSize)
+//    Logger.info(result.toString)
+//    result
+//  }
+//
+//  def saveAddress(address: Address)
+//                 (implicit session: FlatternSession) =  {
+//    addressDao.save(address)
+//  }
+//
+//
+//  def getHousesByFilter(filter: HouseFilter, limit: Int, offset: Int) = withTransaction { implicit session =>
+//    houseDAO.findByFilterWithLimit(filter, limit, offset).list
+//  }
+//
+//  def getHouse(id: Long, userId: Long): Option[House] = withTransaction { implicit session =>
+//    houseDAO.findByFilter(HouseFilter(id = Option(id), userId = Option(userId))).firstOption
+//  }
+//
+//  def savePhoto(houseId: Long, picture: MultipartFormData.FilePart[TemporaryFile])
+//               (implicit session: FlatternSession): HousePhoto = {
+//      val housePhoto = housePhotoDAO.save(HousePhoto(houseId = houseId))
+//      val thumbnail = new File(Paths.HOUSE_THUMBNAILS + Paths.THUMBNAIL_PREFIX + housePhoto.id.get + ".jpg")
+//      val photo = new File(Paths.HOUSE_PHOTOS + Paths.PHOTO_PREFIX + housePhoto.id.get + ".jpg")
+//      Image(picture.ref.file)
+//        .cover(300, 200, ScaleMethod.FastScale)
+//        .writer(Format.JPEG)
+//        .write(thumbnail)
+//
+//      Image(picture.ref.file)
+//        .bound(2000, 1500)
+//        .writer(Format.JPEG)
+//        .write(photo)
+//
+//     housePhoto
+//  }
+//
+//  def getPhotos(houseId: Long): List[HousePhoto] = withTransaction { implicit session =>
+//    housePhotoDAO.getPhotosByHouse(houseId)
+//  }
+//
+//  def getPhoto(houseId: Long): Option[HousePhoto] = withTransaction { implicit session =>
+//    housePhotoDAO.getPhotoByHouse(houseId)
+//  }
+//
+//  def getAddress(addressId: Long) = withTransaction { implicit session =>
+//    addressDao.findOptionById(addressId)
+//  }
+//
+//  def getAddressByHouseId(houseId: Long)
+//                       (implicit  session: FlatternSession): Option[Address] = {
+//    houseDAO.findOptionById(houseId) match {
+//      case Some(house) => house.addressId.flatMap(id => addressDao.findOptionById(id))
+//      case None => None
+//    }
+//  }
+//
+//  def getAddress(addressId: Option[Long]) = withTransaction { implicit session =>
+//    addressId match {
+//      case Some(id) => addressDao.findOptionById(id)
+//      case _ => None
+//    }
+//
+//  }
+//
+//  def getPhotosAccount(account: Account) = withTransaction { implicit session =>
+//    housePhotoDAO.getPhotosByAccountId(account.uid.getOrElse(0)).list
+//  }
 
 }
-*/

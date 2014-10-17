@@ -14,7 +14,7 @@ case class UserThumbnail( id          : Long,
 object UserThumbnail {
   def fill(account: Account, user: User): UserThumbnail =
     UserThumbnail(
-      id = user.accountId.getOrElse(0),
+      id = user.accountId,
       fullName = account.fullName,
       sex = user.sex.getOrElse(0).toString,
       avatarUrl = account.avatarUrl.getOrElse(""),

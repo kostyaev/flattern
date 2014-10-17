@@ -7,27 +7,36 @@ define(['angular'], function(angular) {
     var UserCtrl = function ($scope, userService, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('user');
         $translate.refresh();
+
+
     };
 
-    var PropertiesCtrl = function ($scope, userService) {
-        userService.getProperties()
+    var UserDetailsCtrl = function ($scope, userService, $stateParams) {
+        console.log("here");
+        console.log($stateParams.id);
+        userService.getAccountUser($stateParams.id)
             .success(function(response) {
-                $scope.properties = response;
+                console.log('getAccountUser');
+                console.log(response);
+                $scope.account = response.account;
+                $scope.user    = response.user;
+                $scope.houses  = response.houses;
+
             })
             .error(function (response) {
-                console.log("can't get properties");
+                console.log('error:getAccountUser');
                 console.log(response);
             });
     };
 
     UserCtrl.$inject = ['$scope', 'userService', '$translate', '$translatePartialLoader'];
 
-    PropertiesCtrl.$inject = ['$scope', 'userService'];
+    UserDetailsCtrl.$inject = ['$scope', 'userService', '$stateParams'];
 
 
     return {
         UserCtrl: UserCtrl,
-        PropertiesCtrl: PropertiesCtrl
+        UserDetailsCtrl: UserDetailsCtrl
     };
 
 });

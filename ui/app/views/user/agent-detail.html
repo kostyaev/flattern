@@ -16,44 +16,37 @@
 <!-- Agent Detail -->
 <div class="col-md-9 col-sm-9">
 <section id="agent-detail">
-<header><h1>Robert Farley</h1></header>
+<header><h1>{{ account.fullName }}</h1></header>
 <section id="agent-info">`
     <div class="row">
         <div class="col-md-3 col-sm-3">
-            <figure class="agent-image"><img alt="" src="/images/agent-01.jpg"></figure>
+            <figure class="agent-image"><img alt="" src="{{ account.avatarUrl }}"></figure>
         </div>
         <!-- /.col-md-3 -->
         <div class="col-md-5 col-sm-5">
             <h3>Contact Info</h3>
             <dl>
-                <dt>Phone:</dt>
-                <dd>(123) 456 789</dd>
-                <dt>Mobile:</dt>
-                <dd>888 123 456 789</dd>
-                <dt>Email:</dt>
-                <dd><a href="mailto:#">john.doe@example.com</a></dd>
-                <dt>Skype:</dt>
-                <dd>john.doe</dd>
+                <dt ng-show="user.phone">Phone:</dt>
+                <dd ng-show="user.phone">{{ user.phone }}</dd>
+                <dt ng-show="account.email">Email:</dt>
+                <dd ng-show="account.email"><a href="mailto:#">{{ account.email }}</a></dd>
             </dl>
         </div>
         <!-- /.col-md-5 -->
-        <div class="col-md-4 col-sm-4">
+        <div ng-show="user.about" class="col-md-4 col-sm-4">
             <h3>Shortly About Me</h3>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et dui vestibulum,
-                bibendum purus sit amet, vulputate mauris. Ut adipiscing gravida tincidunt.
-                Duis euismod placerat rhoncus. Phasellus mollis imperdiet placerat.
-            </p>
+            <p>{{ user.about }}</p>
         </div>
         <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-offset-3 col-md-5 col-sm-offset-3 col-sm-5">
             <h3>Agency</h3>
             <a href="agency-detail.html" class="agency-logo"><img alt="" src="/images/agency-logo-01.png"></a>
         </div>
-        <!-- /.col-md-5 -->
+        &lt;!&ndash; /.col-md-5 &ndash;&gt;
         <div class="col-md-4 col-sm-4">
             <h3>My Social Profiles</h3>
 
@@ -63,8 +56,8 @@
                 <a href="#" class="fa fa-linkedin btn btn-grey-dark"></a>
             </div>
         </div>
-        <!-- /.col-md-4 -->
-    </div>
+        &lt;!&ndash; /.col-md-4 &ndash;&gt;
+    </div>-->
     <!-- /.row -->
 </section>
 <!-- /#agent-info -->

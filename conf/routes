@@ -54,7 +54,7 @@ POST        /house/:id/upload              controllers.HouseCtrl.uploadPhoto(id:
 
 # GET         /user/edit/houses              controllers.UserCtrl.getHouses
 
-# GET         /user/:id                      controllers.UserCtrl.getUserById(id: Long)
+GET         /user/:id                      controllers.UserCtrl.getAccountUser(id: Long)
 
 # JavaScript routes object
 GET         /jsRoutes.js                   controllers.Application.jsRoutes()

@@ -8,12 +8,14 @@ import org.squeryl.annotations._
 
 case class User( id         : String,
                  @Column("account_id")
-                 accountId : Option[Long]          = None,
+                 accountId  : Long,
                  //privacy    : Option[List[Privacy]] = None,
+                 phone      : Option[String]        = None,
                  birthday   : Option[DateTime]      = None,
                  timezone   : Option[Int]           = None,
                  sex        : Option[SexType]       = None,
                  wishes     : Option[String]        = None,
+                 about      : Option[String]        = None,
                  wsex       : Option[SexType]       = None,
                  wage       : Option[Int]           = None,
                  wprice     : Option[Double]        = None,

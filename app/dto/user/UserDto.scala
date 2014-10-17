@@ -2,8 +2,35 @@ package dto.user
 
 import UserEnums.Privacy.Privacy
 import UserEnums.SexType.SexType
-import models.{Account, User}
+import models.{Account, User, House}
 import org.joda.time.LocalDate
+
+case class AccountDto(id: Long,
+                      userId: String,
+                      avatarUrl: Option[String],
+                      firstName: String,
+                      lastName: String,
+                      fullName: String,
+                      email: Option[String]
+)
+
+object AccountDto {
+  def apply(account: Option[Account]) = {
+    account.map(account =>
+      new AccountDto(
+        id          = account.id,
+        userId      = account.userId,
+        avatarUrl   = account.avatarUrl,
+        firstName   = account.firstName,
+        lastName    = account.lastName,
+        fullName    = account.fullName,
+        email       = account.email
+      )
+    )
+  }
+}
+
+case class AccountUser(account: Option[AccountDto] = None, user: Option[User] = None, houses: Option[List[House]] = None)
 
 trait UserInfo
 
